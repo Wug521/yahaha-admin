@@ -47,17 +47,17 @@
 		      <generatedKey column="ID" sqlStatement="SELECT DEPT_SEQ.CURRVAL FROM DUAL" identity="true" />
 	   </table>-->
 	   <!-- yahaha -->
-	   <table schema="" tableName="GAME_INFO" delimitAllColumns="true"/>
+	   <!-- <table schema="" tableName="GAME_INFO" delimitAllColumns="true"/>
 	   <table schema="" tableName="category" delimitAllColumns="true"/>
 	   <table schema="" tableName="game" delimitAllColumns="true"/>
 	   <table schema="" tableName="game_file" delimitAllColumns="true"/>
 	   <table schema="" tableName="grade" delimitAllColumns="true"/>
 	   <table schema="" tableName="grade_file" delimitAllColumns="true"/>
 	   <table schema="" tableName="material_node" delimitAllColumns="true"/>
-	   <table schema="" tableName="material_node_file" delimitAllColumns="true"/>
 	   <table schema="" tableName="member" delimitAllColumns="true"/>
 	   <table schema="" tableName="news" delimitAllColumns="true"/>
-	   <table schema="" tableName="news_file" delimitAllColumns="true"/>
+	   <table schema="" tableName="news_file" delimitAllColumns="true"/> -->
+	   <table schema="" tableName="material_node_file" delimitAllColumns="true"/>
 
 	</context>
 </generatorConfiguration>
