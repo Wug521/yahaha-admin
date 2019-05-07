@@ -1,7 +1,7 @@
 /**
  * Copyright(C) 2006-2016 安普利科技
  * All rights reserved
- * 2019-05-06 17:19:22 Created
+ * 2019-05-07 10:17:43 Created
  * 
  */
 package com.example.yahaha.entity;
@@ -14,7 +14,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 public class MaterialNodeFile implements Serializable {
-	
     /**
      * 主键ID
      */
@@ -41,6 +40,11 @@ public class MaterialNodeFile implements Serializable {
      * 系统文件表文件名
      */
     private String fileName;
+
+    /**
+     * 文件路径
+     */
+    private String fileUrl;
 
     /**
      * 状态(数据)
@@ -197,6 +201,31 @@ public class MaterialNodeFile implements Serializable {
      */
     public void setFileName(String fileName) {
         this.fileName = fileName == null ? null : fileName.trim();
+    }
+
+    /**
+     * <pre>
+     * 获取：文件路径
+     * 表字段：material_node_file.file_url
+     * </pre>
+     *
+     * @return material_node_file.file_url：文件路径
+     */
+    public String getFileUrl() {
+        return fileUrl;
+    }
+
+    /**
+     * <pre>
+     * 设置：文件路径
+     * 表字段：material_node_file.file_url
+     * </pre>
+     *
+     * @param fileUrl
+     *            material_node_file.file_url：文件路径
+     */
+    public void setFileUrl(String fileUrl) {
+        this.fileUrl = fileUrl == null ? null : fileUrl.trim();
     }
 
     /**
@@ -370,6 +399,7 @@ public class MaterialNodeFile implements Serializable {
             && (this.getNodeName() == null ? other.getNodeName() == null : this.getNodeName().equals(other.getNodeName()))
             && (this.getFid() == null ? other.getFid() == null : this.getFid().equals(other.getFid()))
             && (this.getFileName() == null ? other.getFileName() == null : this.getFileName().equals(other.getFileName()))
+            && (this.getFileUrl() == null ? other.getFileUrl() == null : this.getFileUrl().equals(other.getFileUrl()))
             && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
             && (this.getOrgCode() == null ? other.getOrgCode() == null : this.getOrgCode().equals(other.getOrgCode()))
             && (this.getCreateUser() == null ? other.getCreateUser() == null : this.getCreateUser().equals(other.getCreateUser()))
@@ -390,6 +420,7 @@ public class MaterialNodeFile implements Serializable {
         result = prime * result + ((getNodeName() == null) ? 0 : getNodeName().hashCode());
         result = prime * result + ((getFid() == null) ? 0 : getFid().hashCode());
         result = prime * result + ((getFileName() == null) ? 0 : getFileName().hashCode());
+        result = prime * result + ((getFileUrl() == null) ? 0 : getFileUrl().hashCode());
         result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         result = prime * result + ((getOrgCode() == null) ? 0 : getOrgCode().hashCode());
         result = prime * result + ((getCreateUser() == null) ? 0 : getCreateUser().hashCode());
@@ -413,6 +444,7 @@ public class MaterialNodeFile implements Serializable {
         sb.append(", nodeName=").append(nodeName);
         sb.append(", fid=").append(fid);
         sb.append(", fileName=").append(fileName);
+        sb.append(", fileUrl=").append(fileUrl);
         sb.append(", status=").append(status);
         sb.append(", orgCode=").append(orgCode);
         sb.append(", createUser=").append(createUser);
