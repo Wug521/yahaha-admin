@@ -15,7 +15,7 @@ public interface IMaterialNodeService {
 	 * @param sysUser
 	 * @return
 	 */
-	public ResultEx add(MaterialNodeQueryVo queryVo, SysUser sysUser);
+	public ResultEx add(MaterialNodeVo queryVo, SysUser sysUser);
 	
 	/**
 	 * 修改素材节点
@@ -23,7 +23,7 @@ public interface IMaterialNodeService {
 	 * @param sysUser
 	 * @return
 	 */
-	public ResultEx update(MaterialNodeQueryVo queryVo, SysUser sysUser);
+	public ResultEx update(MaterialNodeVo queryVo, SysUser sysUser);
 	
 	/**
 	 * 删除素材节点(伪删除)

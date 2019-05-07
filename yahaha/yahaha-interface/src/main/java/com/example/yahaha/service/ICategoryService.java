@@ -15,7 +15,7 @@ public interface ICategoryService {
 	 * @param sysUser
 	 * @return
 	 */
-	public ResultEx add(CategoryQueryVo queryVo, SysUser sysUser);
+	public ResultEx add(CategoryVo vo, SysUser sysUser);
 	
 	/**
 	 * 修改标签/分类
@@ -23,7 +23,7 @@ public interface ICategoryService {
 	 * @param sysUser
 	 * @return
 	 */
-	public ResultEx update(CategoryQueryVo queryVo, SysUser sysUser);
+	public ResultEx update(CategoryVo vo, SysUser sysUser);
 	
 	/**
 	 * 删除标签/分类(伪删除)
