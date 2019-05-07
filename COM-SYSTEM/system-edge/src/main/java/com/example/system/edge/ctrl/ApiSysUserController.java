@@ -95,7 +95,6 @@ public class ApiSysUserController extends BaseController{
 	@RequestMapping("/updateCurrentPassword")
 	@ResponseBody
 	public ResultEx updateCurrentPassword(@Validated ShowSysUserVo param){
-//		String result = sysUserService.updateCurrentPassword(param, getSysUser());
 		return sysUserService.updateCurrentPassword(param, getSysUser());
 	}
 }

@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.system.base.BaseController;
-import com.example.system.edge.service.SysResourceService;
+import com.example.system.edge.service.IResourceService;
 import com.example.system.entity.SysResource;
-import com.example.system.vo.SysResourceVo;
+import com.example.system.vo.MenuVo;
+import com.example.system.vo.SysResourceQueryVo;
 import com.zjapl.common.result.ObjectResultEx;
 import com.zjapl.common.result.ResultEx;
-import com.zjapl.common.vo.TreeMenuVo;
 
 /**
  * 
@@ -28,19 +28,15 @@ import com.zjapl.common.vo.TreeMenuVo;
  */
 @Controller
 @RequestMapping("/api/sysResource")
-public class ApiSysResourceController extends BaseController{
-
+public class ResourceController extends BaseController{
 	@Resource
-	private SysResourceService sysResourceService;
-	/**
-	 * 获取授权的菜单列表
-	 * @param sysUser
-	 * @return
-	 */
+	private IResourceService sysResourceService;
+
+	@SuppressWarnings("rawtypes")
 	@RequestMapping("/getAuthMenuList")
 	@ResponseBody
-	public ObjectResultEx<List<TreeMenuVo>> getAuthMenuList() {
-		ObjectResultEx<List<TreeMenuVo>> resultEx = new ObjectResultEx<List<TreeMenuVo>>();
+	public ObjectResultEx<List<MenuVo>> getAuthMenuList() {
+		ObjectResultEx<List<MenuVo>> resultEx = new ObjectResultEx<List<MenuVo>>();
 		return resultEx.makeSuccessResult(getMenuList());
 	}
 	
@@ -49,17 +45,17 @@ public class ApiSysResourceController extends BaseController{
 	 */
 	@RequestMapping("/queryResourceTree")
 	@ResponseBody
-	public ResultEx queryResourceTree(){
-		return sysResourceService.getResourcesMenuByUserId(getSysUser().getId());
+	public ResultEx queryResourceTree(Short flag){
+		return sysResourceService.queryAllTree(flag, isSystemUser() ? null : getUserIdForUser());
 	}
 	
 	/**
-	 * 获取左侧资源树
+	 * 获取资源树
 	 */
-	@RequestMapping("/getLeftResources")
+	@RequestMapping("/queryRootResourceTree")
 	@ResponseBody
-	public ResultEx getLeftResources(){
-		return sysResourceService.getLeftResources();
+	public ResultEx queryRootResourceTree(){
+		return sysResourceService.queryRootTree();
 	}
 	
 	/**
@@ -68,18 +64,19 @@ public class ApiSysResourceController extends BaseController{
 	 */
 	@ResponseBody
 	@RequestMapping("/listResource")
-	public ResultEx listResource(@Validated SysResource sysResource){
-		return sysResourceService.queryResourceList(sysResource);
+	public ResultEx listResource(SysResourceQueryVo page){
+		return sysResourceService.queryResourceListForId(page);
 	}
 	
 	/**
-	 * 资源管理查询
+	 * 资源管理新增或修改
 	 * @return
 	 */
 	@ResponseBody
 	@RequestMapping("/addOrEdit")
+	@ValidPermission(permission = {"SYS_RESOURCE_ADD", "SYS_RESOURCE_EDIT"})
 	public ResultEx addOrEditResource(@Validated SysResource sysResource){
-		return sysResourceService.addOrEditResource(sysResource, getSysUser());
+		return sysResourceService.saveOrEdit(sysResource, getUserIdForUser());
 	}
 	
 	/**
@@ -88,8 +85,9 @@ public class ApiSysResourceController extends BaseController{
 	 */
 	@ResponseBody
 	@RequestMapping(value="/dellistResource")
-	public ResultEx dellistResource(@Validated SysResourceVo param){
-		return sysResourceService.delResource(param , getSysUser());
+	@ValidPermission(permission = "SYS_RESOURCE_DEL")
+	public ResultEx delResource(String ids, Short status){
+		return sysResourceService.editStatus(ids, status, getUserIdForUser());
 	}
 	
 	/**
@@ -100,7 +98,7 @@ public class ApiSysResourceController extends BaseController{
 	@ResponseBody
 	@RequestMapping(value="/getResourcesByUserId")
 	public ResultEx getResourcesByUserId(@RequestParam("userId") Long id){
-		return sysResourceService.getResourcesByUserId(id);
+		return sysResourceService.getResourcePermsByUserId(id);
 	}
 	
 	/**
@@ -111,7 +109,6 @@ public class ApiSysResourceController extends BaseController{
 	@ResponseBody
 	@RequestMapping(value="/queryResourceListByRoleId")
 	public ResultEx queryResourceListByRoleId(@RequestParam("roleId") Long id){
-		return sysResourceService.queryResourceListByRoleId(id);
+		return null;
 	}
-	
 }

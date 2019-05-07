@@ -1,7 +1,7 @@
 /**
  * Copyright(C) 2006-2016 安普利科技
  * All rights reserved
- * 2017-03-06 16:16:23 Created
+ * 2019-05-07 13:31:24 Created
  * 
  */
 package com.example.system.entity;
@@ -13,8 +13,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-
 public class SysFile implements Serializable {
+
     /**
      * ID
      */
@@ -22,43 +22,43 @@ public class SysFile implements Serializable {
 	@Id
     private Long id;
 
-	/**
-     * 名称
+    /**
+     * 系统文件名称
      */
     private String fileName;
 
     /**
-     * 文件类型
+     * 文件类型(文档/图片/视频)
      */
-    private String fileType;
+    private Short fileType;
 
     /**
-     * 所属单位名称
+     * 文件后缀
      */
-    private String orgCode;
+    private String suffix;
 
     /**
-     * 存放路径
+     * 文件保存路径
      */
     private String filePath;
 
     /**
-     * 展示路径
+     * 文件访问路劲
      */
     private String showsPath;
 
     /**
-     * 创建时间
+     * 上传人ID
      */
-    private Date createDate;
+    private Long userId;
 
     /**
-     * 人员ID
+     * 上传人名称
      */
-    private String userId;
+    private String userName;
 
     /**
-     * 任务ID(对应资源需要上传文件的模块产生的ID号，方便查找)
+     * 任务ID
      */
     private Long taskId;
 
@@ -67,15 +67,45 @@ public class SysFile implements Serializable {
      */
     private String originalName;
 
+    /**
+     * 状态(数据)
+     */
+    private Short status;
+
+    /**
+     * 机构编码
+     */
+    private String orgCode;
+
+    /**
+     * 创建人
+     */
+    private Long createUser;
+
+    /**
+     * 创建时间
+     */
+    private Date createDate;
+
+    /**
+     * 修改人
+     */
+    private Long updateUser;
+
+    /**
+     * 修改时间
+     */
+    private Date updateDate;
+
     private static final long serialVersionUID = 1L;
 
     /**
      * <pre>
-     * 获取：ID
-     * 表字段：APLCCP.SYS_FILE.ID
+     * 获取：主键ID
+     * 表字段：sys_file.id
      * </pre>
      *
-     * @return APLCCP.SYS_FILE.ID：ID
+     * @return sys_file.id：主键ID
      */
     public Long getId() {
         return id;
@@ -83,12 +113,12 @@ public class SysFile implements Serializable {
 
     /**
      * <pre>
-     * 设置：ID
-     * 表字段：APLCCP.SYS_FILE.ID
+     * 设置：主键ID
+     * 表字段：sys_file.id
      * </pre>
      *
      * @param id
-     *            APLCCP.SYS_FILE.ID：ID
+     *            sys_file.id：主键ID
      */
     public void setId(Long id) {
         this.id = id;
@@ -96,11 +126,11 @@ public class SysFile implements Serializable {
 
     /**
      * <pre>
-     * 获取：名称
-     * 表字段：APLCCP.SYS_FILE.FILE_NAME
+     * 获取：系统文件名称
+     * 表字段：sys_file.file_name
      * </pre>
      *
-     * @return APLCCP.SYS_FILE.FILE_NAME：名称
+     * @return sys_file.file_name：系统文件名称
      */
     public String getFileName() {
         return fileName;
@@ -108,12 +138,12 @@ public class SysFile implements Serializable {
 
     /**
      * <pre>
-     * 设置：名称
-     * 表字段：APLCCP.SYS_FILE.FILE_NAME
+     * 设置：系统文件名称
+     * 表字段：sys_file.file_name
      * </pre>
      *
      * @param fileName
-     *            APLCCP.SYS_FILE.FILE_NAME：名称
+     *            sys_file.file_name：系统文件名称
      */
     public void setFileName(String fileName) {
         this.fileName = fileName == null ? null : fileName.trim();
@@ -121,61 +151,61 @@ public class SysFile implements Serializable {
 
     /**
      * <pre>
-     * 获取：文件类型
-     * 表字段：APLCCP.SYS_FILE.FILE_TYPE
+     * 获取：文件类型(文档/图片/视频)
+     * 表字段：sys_file.file_type
      * </pre>
      *
-     * @return APLCCP.SYS_FILE.FILE_TYPE：文件类型
+     * @return sys_file.file_type：文件类型(文档/图片/视频)
      */
-    public String getFileType() {
+    public Short getFileType() {
         return fileType;
     }
 
     /**
      * <pre>
-     * 设置：文件类型
-     * 表字段：APLCCP.SYS_FILE.FILE_TYPE
+     * 设置：文件类型(文档/图片/视频)
+     * 表字段：sys_file.file_type
      * </pre>
      *
      * @param fileType
-     *            APLCCP.SYS_FILE.FILE_TYPE：文件类型
+     *            sys_file.file_type：文件类型(文档/图片/视频)
      */
-    public void setFileType(String fileType) {
-        this.fileType = fileType == null ? null : fileType.trim();
+    public void setFileType(Short fileType) {
+        this.fileType = fileType;
     }
 
     /**
      * <pre>
-     * 获取：所属单位名称
-     * 表字段：APLCCP.SYS_FILE.ORG_CODE
+     * 获取：文件后缀
+     * 表字段：sys_file.suffix
      * </pre>
      *
-     * @return APLCCP.SYS_FILE.ORG_CODE：所属单位名称
+     * @return sys_file.suffix：文件后缀
      */
-    public String getOrgCode() {
-        return orgCode;
+    public String getSuffix() {
+        return suffix;
     }
 
     /**
      * <pre>
-     * 设置：所属单位名称
-     * 表字段：APLCCP.SYS_FILE.ORG_CODE
+     * 设置：文件后缀
+     * 表字段：sys_file.suffix
      * </pre>
      *
-     * @param orgCode
-     *            APLCCP.SYS_FILE.ORG_CODE：所属单位名称
+     * @param suffix
+     *            sys_file.suffix：文件后缀
      */
-    public void setOrgCode(String orgCode) {
-        this.orgCode = orgCode == null ? null : orgCode.trim();
+    public void setSuffix(String suffix) {
+        this.suffix = suffix == null ? null : suffix.trim();
     }
 
     /**
      * <pre>
-     * 获取：存放路径
-     * 表字段：APLCCP.SYS_FILE.FILE_PATH
+     * 获取：文件保存路径
+     * 表字段：sys_file.file_path
      * </pre>
      *
-     * @return APLCCP.SYS_FILE.FILE_PATH：存放路径
+     * @return sys_file.file_path：文件保存路径
      */
     public String getFilePath() {
         return filePath;
@@ -183,12 +213,12 @@ public class SysFile implements Serializable {
 
     /**
      * <pre>
-     * 设置：存放路径
-     * 表字段：APLCCP.SYS_FILE.FILE_PATH
+     * 设置：文件保存路径
+     * 表字段：sys_file.file_path
      * </pre>
      *
      * @param filePath
-     *            APLCCP.SYS_FILE.FILE_PATH：存放路径
+     *            sys_file.file_path：文件保存路径
      */
     public void setFilePath(String filePath) {
         this.filePath = filePath == null ? null : filePath.trim();
@@ -196,11 +226,11 @@ public class SysFile implements Serializable {
 
     /**
      * <pre>
-     * 获取：展示路径
-     * 表字段：APLCCP.SYS_FILE.SHOWS_PATH
+     * 获取：文件访问路劲
+     * 表字段：sys_file.shows_path
      * </pre>
      *
-     * @return APLCCP.SYS_FILE.SHOWS_PATH：展示路径
+     * @return sys_file.shows_path：文件访问路劲
      */
     public String getShowsPath() {
         return showsPath;
@@ -208,12 +238,12 @@ public class SysFile implements Serializable {
 
     /**
      * <pre>
-     * 设置：展示路径
-     * 表字段：APLCCP.SYS_FILE.SHOWS_PATH
+     * 设置：文件访问路劲
+     * 表字段：sys_file.shows_path
      * </pre>
      *
      * @param showsPath
-     *            APLCCP.SYS_FILE.SHOWS_PATH：展示路径
+     *            sys_file.shows_path：文件访问路劲
      */
     public void setShowsPath(String showsPath) {
         this.showsPath = showsPath == null ? null : showsPath.trim();
@@ -221,61 +251,61 @@ public class SysFile implements Serializable {
 
     /**
      * <pre>
-     * 获取：创建时间
-     * 表字段：APLCCP.SYS_FILE.CREATE_DATE
+     * 获取：上传人ID
+     * 表字段：sys_file.user_id
      * </pre>
      *
-     * @return APLCCP.SYS_FILE.CREATE_DATE：创建时间
+     * @return sys_file.user_id：上传人ID
      */
-    public Date getCreateDate() {
-        return createDate;
-    }
-
-    /**
-     * <pre>
-     * 设置：创建时间
-     * 表字段：APLCCP.SYS_FILE.CREATE_DATE
-     * </pre>
-     *
-     * @param createDate
-     *            APLCCP.SYS_FILE.CREATE_DATE：创建时间
-     */
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
-    }
-
-    /**
-     * <pre>
-     * 获取：人员ID
-     * 表字段：APLCCP.SYS_FILE.USER_ID
-     * </pre>
-     *
-     * @return APLCCP.SYS_FILE.USER_ID：人员ID
-     */
-    public String getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
     /**
      * <pre>
-     * 设置：人员ID
-     * 表字段：APLCCP.SYS_FILE.USER_ID
+     * 设置：上传人ID
+     * 表字段：sys_file.user_id
      * </pre>
      *
      * @param userId
-     *            APLCCP.SYS_FILE.USER_ID：人员ID
+     *            sys_file.user_id：上传人ID
      */
-    public void setUserId(String userId) {
-        this.userId = userId == null ? null : userId.trim();
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     /**
      * <pre>
-     * 获取：任务ID(对应资源需要上传文件的模块产生的ID号，方便查找)
-     * 表字段：APLCCP.SYS_FILE.TASK_ID
+     * 获取：上传人名称
+     * 表字段：sys_file.user_name
      * </pre>
      *
-     * @return APLCCP.SYS_FILE.TASK_ID：任务ID(对应资源需要上传文件的模块产生的ID号，方便查找)
+     * @return sys_file.user_name：上传人名称
+     */
+    public String getUserName() {
+        return userName;
+    }
+
+    /**
+     * <pre>
+     * 设置：上传人名称
+     * 表字段：sys_file.user_name
+     * </pre>
+     *
+     * @param userName
+     *            sys_file.user_name：上传人名称
+     */
+    public void setUserName(String userName) {
+        this.userName = userName == null ? null : userName.trim();
+    }
+
+    /**
+     * <pre>
+     * 获取：任务ID
+     * 表字段：sys_file.task_id
+     * </pre>
+     *
+     * @return sys_file.task_id：任务ID
      */
     public Long getTaskId() {
         return taskId;
@@ -283,12 +313,12 @@ public class SysFile implements Serializable {
 
     /**
      * <pre>
-     * 设置：任务ID(对应资源需要上传文件的模块产生的ID号，方便查找)
-     * 表字段：APLCCP.SYS_FILE.TASK_ID
+     * 设置：任务ID
+     * 表字段：sys_file.task_id
      * </pre>
      *
      * @param taskId
-     *            APLCCP.SYS_FILE.TASK_ID：任务ID(对应资源需要上传文件的模块产生的ID号，方便查找)
+     *            sys_file.task_id：任务ID
      */
     public void setTaskId(Long taskId) {
         this.taskId = taskId;
@@ -297,10 +327,10 @@ public class SysFile implements Serializable {
     /**
      * <pre>
      * 获取：原文件名称
-     * 表字段：APLCCP.SYS_FILE.ORIGINAL_NAME
+     * 表字段：sys_file.original_name
      * </pre>
      *
-     * @return APLCCP.SYS_FILE.ORIGINAL_NAME：原文件名称
+     * @return sys_file.original_name：原文件名称
      */
     public String getOriginalName() {
         return originalName;
@@ -309,14 +339,164 @@ public class SysFile implements Serializable {
     /**
      * <pre>
      * 设置：原文件名称
-     * 表字段：APLCCP.SYS_FILE.ORIGINAL_NAME
+     * 表字段：sys_file.original_name
      * </pre>
      *
      * @param originalName
-     *            APLCCP.SYS_FILE.ORIGINAL_NAME：原文件名称
+     *            sys_file.original_name：原文件名称
      */
     public void setOriginalName(String originalName) {
         this.originalName = originalName == null ? null : originalName.trim();
+    }
+
+    /**
+     * <pre>
+     * 获取：状态(数据)
+     * 表字段：sys_file.status
+     * </pre>
+     *
+     * @return sys_file.status：状态(数据)
+     */
+    public Short getStatus() {
+        return status;
+    }
+
+    /**
+     * <pre>
+     * 设置：状态(数据)
+     * 表字段：sys_file.status
+     * </pre>
+     *
+     * @param status
+     *            sys_file.status：状态(数据)
+     */
+    public void setStatus(Short status) {
+        this.status = status;
+    }
+
+    /**
+     * <pre>
+     * 获取：机构编码
+     * 表字段：sys_file.org_code
+     * </pre>
+     *
+     * @return sys_file.org_code：机构编码
+     */
+    public String getOrgCode() {
+        return orgCode;
+    }
+
+    /**
+     * <pre>
+     * 设置：机构编码
+     * 表字段：sys_file.org_code
+     * </pre>
+     *
+     * @param orgCode
+     *            sys_file.org_code：机构编码
+     */
+    public void setOrgCode(String orgCode) {
+        this.orgCode = orgCode == null ? null : orgCode.trim();
+    }
+
+    /**
+     * <pre>
+     * 获取：创建人
+     * 表字段：sys_file.create_user
+     * </pre>
+     *
+     * @return sys_file.create_user：创建人
+     */
+    public Long getCreateUser() {
+        return createUser;
+    }
+
+    /**
+     * <pre>
+     * 设置：创建人
+     * 表字段：sys_file.create_user
+     * </pre>
+     *
+     * @param createUser
+     *            sys_file.create_user：创建人
+     */
+    public void setCreateUser(Long createUser) {
+        this.createUser = createUser;
+    }
+
+    /**
+     * <pre>
+     * 获取：创建时间
+     * 表字段：sys_file.create_date
+     * </pre>
+     *
+     * @return sys_file.create_date：创建时间
+     */
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    /**
+     * <pre>
+     * 设置：创建时间
+     * 表字段：sys_file.create_date
+     * </pre>
+     *
+     * @param createDate
+     *            sys_file.create_date：创建时间
+     */
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    /**
+     * <pre>
+     * 获取：修改人
+     * 表字段：sys_file.update_user
+     * </pre>
+     *
+     * @return sys_file.update_user：修改人
+     */
+    public Long getUpdateUser() {
+        return updateUser;
+    }
+
+    /**
+     * <pre>
+     * 设置：修改人
+     * 表字段：sys_file.update_user
+     * </pre>
+     *
+     * @param updateUser
+     *            sys_file.update_user：修改人
+     */
+    public void setUpdateUser(Long updateUser) {
+        this.updateUser = updateUser;
+    }
+
+    /**
+     * <pre>
+     * 获取：修改时间
+     * 表字段：sys_file.update_date
+     * </pre>
+     *
+     * @return sys_file.update_date：修改时间
+     */
+    public Date getUpdateDate() {
+        return updateDate;
+    }
+
+    /**
+     * <pre>
+     * 设置：修改时间
+     * 表字段：sys_file.update_date
+     * </pre>
+     *
+     * @param updateDate
+     *            sys_file.update_date：修改时间
+     */
+    public void setUpdateDate(Date updateDate) {
+        this.updateDate = updateDate;
     }
 
     /**
@@ -338,13 +518,19 @@ public class SysFile implements Serializable {
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getFileName() == null ? other.getFileName() == null : this.getFileName().equals(other.getFileName()))
             && (this.getFileType() == null ? other.getFileType() == null : this.getFileType().equals(other.getFileType()))
-            && (this.getOrgCode() == null ? other.getOrgCode() == null : this.getOrgCode().equals(other.getOrgCode()))
+            && (this.getSuffix() == null ? other.getSuffix() == null : this.getSuffix().equals(other.getSuffix()))
             && (this.getFilePath() == null ? other.getFilePath() == null : this.getFilePath().equals(other.getFilePath()))
             && (this.getShowsPath() == null ? other.getShowsPath() == null : this.getShowsPath().equals(other.getShowsPath()))
-            && (this.getCreateDate() == null ? other.getCreateDate() == null : this.getCreateDate().equals(other.getCreateDate()))
             && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
+            && (this.getUserName() == null ? other.getUserName() == null : this.getUserName().equals(other.getUserName()))
             && (this.getTaskId() == null ? other.getTaskId() == null : this.getTaskId().equals(other.getTaskId()))
-            && (this.getOriginalName() == null ? other.getOriginalName() == null : this.getOriginalName().equals(other.getOriginalName()));
+            && (this.getOriginalName() == null ? other.getOriginalName() == null : this.getOriginalName().equals(other.getOriginalName()))
+            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
+            && (this.getOrgCode() == null ? other.getOrgCode() == null : this.getOrgCode().equals(other.getOrgCode()))
+            && (this.getCreateUser() == null ? other.getCreateUser() == null : this.getCreateUser().equals(other.getCreateUser()))
+            && (this.getCreateDate() == null ? other.getCreateDate() == null : this.getCreateDate().equals(other.getCreateDate()))
+            && (this.getUpdateUser() == null ? other.getUpdateUser() == null : this.getUpdateUser().equals(other.getUpdateUser()))
+            && (this.getUpdateDate() == null ? other.getUpdateDate() == null : this.getUpdateDate().equals(other.getUpdateDate()));
     }
 
     /**
@@ -357,13 +543,19 @@ public class SysFile implements Serializable {
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getFileName() == null) ? 0 : getFileName().hashCode());
         result = prime * result + ((getFileType() == null) ? 0 : getFileType().hashCode());
-        result = prime * result + ((getOrgCode() == null) ? 0 : getOrgCode().hashCode());
+        result = prime * result + ((getSuffix() == null) ? 0 : getSuffix().hashCode());
         result = prime * result + ((getFilePath() == null) ? 0 : getFilePath().hashCode());
         result = prime * result + ((getShowsPath() == null) ? 0 : getShowsPath().hashCode());
-        result = prime * result + ((getCreateDate() == null) ? 0 : getCreateDate().hashCode());
         result = prime * result + ((getUserId() == null) ? 0 : getUserId().hashCode());
+        result = prime * result + ((getUserName() == null) ? 0 : getUserName().hashCode());
         result = prime * result + ((getTaskId() == null) ? 0 : getTaskId().hashCode());
         result = prime * result + ((getOriginalName() == null) ? 0 : getOriginalName().hashCode());
+        result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
+        result = prime * result + ((getOrgCode() == null) ? 0 : getOrgCode().hashCode());
+        result = prime * result + ((getCreateUser() == null) ? 0 : getCreateUser().hashCode());
+        result = prime * result + ((getCreateDate() == null) ? 0 : getCreateDate().hashCode());
+        result = prime * result + ((getUpdateUser() == null) ? 0 : getUpdateUser().hashCode());
+        result = prime * result + ((getUpdateDate() == null) ? 0 : getUpdateDate().hashCode());
         return result;
     }
 
@@ -379,13 +571,19 @@ public class SysFile implements Serializable {
         sb.append(", id=").append(id);
         sb.append(", fileName=").append(fileName);
         sb.append(", fileType=").append(fileType);
-        sb.append(", orgCode=").append(orgCode);
+        sb.append(", suffix=").append(suffix);
         sb.append(", filePath=").append(filePath);
         sb.append(", showsPath=").append(showsPath);
-        sb.append(", createDate=").append(createDate);
         sb.append(", userId=").append(userId);
+        sb.append(", userName=").append(userName);
         sb.append(", taskId=").append(taskId);
         sb.append(", originalName=").append(originalName);
+        sb.append(", status=").append(status);
+        sb.append(", orgCode=").append(orgCode);
+        sb.append(", createUser=").append(createUser);
+        sb.append(", createDate=").append(createDate);
+        sb.append(", updateUser=").append(updateUser);
+        sb.append(", updateDate=").append(updateDate);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

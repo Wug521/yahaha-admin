@@ -1,3 +1,9 @@
+/**
+ * Copyright(C) 2006-2016 安普利科技
+ * All rights reserved
+ * 2019-05-07 13:05:15 Created
+ * 
+ */
 package com.example.system.entity;
 
 import java.io.Serializable;
@@ -8,10 +14,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 public class SysUserRole implements Serializable {
+	
     /**
      * ID
      */
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
     private Long id;
 
@@ -26,9 +33,19 @@ public class SysUserRole implements Serializable {
     private Long roleId;
 
     /**
-     * 创建用户
+     * 状态(数据)
      */
-    private Long createUserId;
+    private Short status;
+
+    /**
+     * 机构编码
+     */
+    private String orgCode;
+
+    /**
+     * 创建人
+     */
+    private Long createUser;
 
     /**
      * 创建时间
@@ -36,9 +53,9 @@ public class SysUserRole implements Serializable {
     private Date createDate;
 
     /**
-     * 修改用户
+     * 修改人
      */
-    private Long updateUserId;
+    private Long updateUser;
 
     /**
      * 修改时间
@@ -49,11 +66,11 @@ public class SysUserRole implements Serializable {
 
     /**
      * <pre>
-     * 获取：ID
-     * 表字段：MEETING.SYS_USER_ROLE.ID
+     * 获取：主键ID
+     * 表字段：sys_user_role.id
      * </pre>
      *
-     * @return MEETING.SYS_USER_ROLE.ID：ID
+     * @return sys_user_role.id：主键ID
      */
     public Long getId() {
         return id;
@@ -61,12 +78,12 @@ public class SysUserRole implements Serializable {
 
     /**
      * <pre>
-     * 设置：ID
-     * 表字段：MEETING.SYS_USER_ROLE.ID
+     * 设置：主键ID
+     * 表字段：sys_user_role.id
      * </pre>
      *
      * @param id
-     *            MEETING.SYS_USER_ROLE.ID：ID
+     *            sys_user_role.id：主键ID
      */
     public void setId(Long id) {
         this.id = id;
@@ -75,10 +92,10 @@ public class SysUserRole implements Serializable {
     /**
      * <pre>
      * 获取：用户ID
-     * 表字段：MEETING.SYS_USER_ROLE.USER_ID
+     * 表字段：sys_user_role.user_id
      * </pre>
      *
-     * @return MEETING.SYS_USER_ROLE.USER_ID：用户ID
+     * @return sys_user_role.user_id：用户ID
      */
     public Long getUserId() {
         return userId;
@@ -87,11 +104,11 @@ public class SysUserRole implements Serializable {
     /**
      * <pre>
      * 设置：用户ID
-     * 表字段：MEETING.SYS_USER_ROLE.USER_ID
+     * 表字段：sys_user_role.user_id
      * </pre>
      *
      * @param userId
-     *            MEETING.SYS_USER_ROLE.USER_ID：用户ID
+     *            sys_user_role.user_id：用户ID
      */
     public void setUserId(Long userId) {
         this.userId = userId;
@@ -100,10 +117,10 @@ public class SysUserRole implements Serializable {
     /**
      * <pre>
      * 获取：角色ID
-     * 表字段：MEETING.SYS_USER_ROLE.ROLE_ID
+     * 表字段：sys_user_role.role_id
      * </pre>
      *
-     * @return MEETING.SYS_USER_ROLE.ROLE_ID：角色ID
+     * @return sys_user_role.role_id：角色ID
      */
     public Long getRoleId() {
         return roleId;
@@ -112,11 +129,11 @@ public class SysUserRole implements Serializable {
     /**
      * <pre>
      * 设置：角色ID
-     * 表字段：MEETING.SYS_USER_ROLE.ROLE_ID
+     * 表字段：sys_user_role.role_id
      * </pre>
      *
      * @param roleId
-     *            MEETING.SYS_USER_ROLE.ROLE_ID：角色ID
+     *            sys_user_role.role_id：角色ID
      */
     public void setRoleId(Long roleId) {
         this.roleId = roleId;
@@ -124,36 +141,86 @@ public class SysUserRole implements Serializable {
 
     /**
      * <pre>
-     * 获取：创建用户
-     * 表字段：MEETING.SYS_USER_ROLE.CREATE_USER_ID
+     * 获取：状态(数据)
+     * 表字段：sys_user_role.status
      * </pre>
      *
-     * @return MEETING.SYS_USER_ROLE.CREATE_USER_ID：创建用户
+     * @return sys_user_role.status：状态(数据)
      */
-    public Long getCreateUserId() {
-        return createUserId;
+    public Short getStatus() {
+        return status;
     }
 
     /**
      * <pre>
-     * 设置：创建用户
-     * 表字段：MEETING.SYS_USER_ROLE.CREATE_USER_ID
+     * 设置：状态(数据)
+     * 表字段：sys_user_role.status
      * </pre>
      *
-     * @param createUserId
-     *            MEETING.SYS_USER_ROLE.CREATE_USER_ID：创建用户
+     * @param status
+     *            sys_user_role.status：状态(数据)
      */
-    public void setCreateUserId(Long createUserId) {
-        this.createUserId = createUserId;
+    public void setStatus(Short status) {
+        this.status = status;
+    }
+
+    /**
+     * <pre>
+     * 获取：机构编码
+     * 表字段：sys_user_role.org_code
+     * </pre>
+     *
+     * @return sys_user_role.org_code：机构编码
+     */
+    public String getOrgCode() {
+        return orgCode;
+    }
+
+    /**
+     * <pre>
+     * 设置：机构编码
+     * 表字段：sys_user_role.org_code
+     * </pre>
+     *
+     * @param orgCode
+     *            sys_user_role.org_code：机构编码
+     */
+    public void setOrgCode(String orgCode) {
+        this.orgCode = orgCode == null ? null : orgCode.trim();
+    }
+
+    /**
+     * <pre>
+     * 获取：创建人
+     * 表字段：sys_user_role.create_user
+     * </pre>
+     *
+     * @return sys_user_role.create_user：创建人
+     */
+    public Long getCreateUser() {
+        return createUser;
+    }
+
+    /**
+     * <pre>
+     * 设置：创建人
+     * 表字段：sys_user_role.create_user
+     * </pre>
+     *
+     * @param createUser
+     *            sys_user_role.create_user：创建人
+     */
+    public void setCreateUser(Long createUser) {
+        this.createUser = createUser;
     }
 
     /**
      * <pre>
      * 获取：创建时间
-     * 表字段：MEETING.SYS_USER_ROLE.CREATE_DATE
+     * 表字段：sys_user_role.create_date
      * </pre>
      *
-     * @return MEETING.SYS_USER_ROLE.CREATE_DATE：创建时间
+     * @return sys_user_role.create_date：创建时间
      */
     public Date getCreateDate() {
         return createDate;
@@ -162,11 +229,11 @@ public class SysUserRole implements Serializable {
     /**
      * <pre>
      * 设置：创建时间
-     * 表字段：MEETING.SYS_USER_ROLE.CREATE_DATE
+     * 表字段：sys_user_role.create_date
      * </pre>
      *
      * @param createDate
-     *            MEETING.SYS_USER_ROLE.CREATE_DATE：创建时间
+     *            sys_user_role.create_date：创建时间
      */
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
@@ -174,36 +241,36 @@ public class SysUserRole implements Serializable {
 
     /**
      * <pre>
-     * 获取：修改用户
-     * 表字段：MEETING.SYS_USER_ROLE.UPDATE_USER_ID
+     * 获取：修改人
+     * 表字段：sys_user_role.update_user
      * </pre>
      *
-     * @return MEETING.SYS_USER_ROLE.UPDATE_USER_ID：修改用户
+     * @return sys_user_role.update_user：修改人
      */
-    public Long getUpdateUserId() {
-        return updateUserId;
+    public Long getUpdateUser() {
+        return updateUser;
     }
 
     /**
      * <pre>
-     * 设置：修改用户
-     * 表字段：MEETING.SYS_USER_ROLE.UPDATE_USER_ID
+     * 设置：修改人
+     * 表字段：sys_user_role.update_user
      * </pre>
      *
-     * @param updateUserId
-     *            MEETING.SYS_USER_ROLE.UPDATE_USER_ID：修改用户
+     * @param updateUser
+     *            sys_user_role.update_user：修改人
      */
-    public void setUpdateUserId(Long updateUserId) {
-        this.updateUserId = updateUserId;
+    public void setUpdateUser(Long updateUser) {
+        this.updateUser = updateUser;
     }
 
     /**
      * <pre>
      * 获取：修改时间
-     * 表字段：MEETING.SYS_USER_ROLE.UPDATE_DATE
+     * 表字段：sys_user_role.update_date
      * </pre>
      *
-     * @return MEETING.SYS_USER_ROLE.UPDATE_DATE：修改时间
+     * @return sys_user_role.update_date：修改时间
      */
     public Date getUpdateDate() {
         return updateDate;
@@ -212,11 +279,11 @@ public class SysUserRole implements Serializable {
     /**
      * <pre>
      * 设置：修改时间
-     * 表字段：MEETING.SYS_USER_ROLE.UPDATE_DATE
+     * 表字段：sys_user_role.update_date
      * </pre>
      *
      * @param updateDate
-     *            MEETING.SYS_USER_ROLE.UPDATE_DATE：修改时间
+     *            sys_user_role.update_date：修改时间
      */
     public void setUpdateDate(Date updateDate) {
         this.updateDate = updateDate;
@@ -241,9 +308,11 @@ public class SysUserRole implements Serializable {
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
             && (this.getRoleId() == null ? other.getRoleId() == null : this.getRoleId().equals(other.getRoleId()))
-            && (this.getCreateUserId() == null ? other.getCreateUserId() == null : this.getCreateUserId().equals(other.getCreateUserId()))
+            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
+            && (this.getOrgCode() == null ? other.getOrgCode() == null : this.getOrgCode().equals(other.getOrgCode()))
+            && (this.getCreateUser() == null ? other.getCreateUser() == null : this.getCreateUser().equals(other.getCreateUser()))
             && (this.getCreateDate() == null ? other.getCreateDate() == null : this.getCreateDate().equals(other.getCreateDate()))
-            && (this.getUpdateUserId() == null ? other.getUpdateUserId() == null : this.getUpdateUserId().equals(other.getUpdateUserId()))
+            && (this.getUpdateUser() == null ? other.getUpdateUser() == null : this.getUpdateUser().equals(other.getUpdateUser()))
             && (this.getUpdateDate() == null ? other.getUpdateDate() == null : this.getUpdateDate().equals(other.getUpdateDate()));
     }
 
@@ -257,9 +326,11 @@ public class SysUserRole implements Serializable {
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getUserId() == null) ? 0 : getUserId().hashCode());
         result = prime * result + ((getRoleId() == null) ? 0 : getRoleId().hashCode());
-        result = prime * result + ((getCreateUserId() == null) ? 0 : getCreateUserId().hashCode());
+        result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
+        result = prime * result + ((getOrgCode() == null) ? 0 : getOrgCode().hashCode());
+        result = prime * result + ((getCreateUser() == null) ? 0 : getCreateUser().hashCode());
         result = prime * result + ((getCreateDate() == null) ? 0 : getCreateDate().hashCode());
-        result = prime * result + ((getUpdateUserId() == null) ? 0 : getUpdateUserId().hashCode());
+        result = prime * result + ((getUpdateUser() == null) ? 0 : getUpdateUser().hashCode());
         result = prime * result + ((getUpdateDate() == null) ? 0 : getUpdateDate().hashCode());
         return result;
     }
@@ -276,9 +347,11 @@ public class SysUserRole implements Serializable {
         sb.append(", id=").append(id);
         sb.append(", userId=").append(userId);
         sb.append(", roleId=").append(roleId);
-        sb.append(", createUserId=").append(createUserId);
+        sb.append(", status=").append(status);
+        sb.append(", orgCode=").append(orgCode);
+        sb.append(", createUser=").append(createUser);
         sb.append(", createDate=").append(createDate);
-        sb.append(", updateUserId=").append(updateUserId);
+        sb.append(", updateUser=").append(updateUser);
         sb.append(", updateDate=").append(updateDate);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");

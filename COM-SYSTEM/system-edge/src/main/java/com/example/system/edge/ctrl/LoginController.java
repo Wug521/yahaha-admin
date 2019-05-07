@@ -13,7 +13,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.alibaba.fastjson.JSON;
-import com.example.system.edge.service.SysUserService;
 import com.example.system.shiro.ShiroUtils;
 import com.example.system.utils.ServletRequestUtils;
 import com.zjapl.common.result.ResultEx;
@@ -30,9 +29,6 @@ import com.zjapl.common.result.ResultEx;
  */
 @Controller
 public class LoginController {
-
-	@Resource
-	private SysUserService sysUserService;
 
 	@RequestMapping("/login")
 	public String login(ModelMap model) {

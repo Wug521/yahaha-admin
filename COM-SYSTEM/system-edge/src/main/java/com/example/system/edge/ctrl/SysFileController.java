@@ -1,14 +1,14 @@
 package com.example.system.edge.ctrl;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.system.base.BaseController;
-import com.example.system.edge.service.SysFileService;
+import com.example.system.edge.service.IFileService;
 import com.zjapl.common.result.ResultEx;
 
 
@@ -24,13 +24,15 @@ import com.zjapl.common.result.ResultEx;
 @Controller
 @RequestMapping("/sysFile")
 public class SysFileController extends BaseController{
-	@Resource
-	private SysFileService sysFileService; 
+	
+	@Autowired
+	private IFileService fileService; 
+	
 	@RequestMapping("/uploadShowFile")
 	@ResponseBody
 	public ResultEx upload(HttpServletRequest request) {
 		try {
-			return sysFileService.uploadShowFile(request, getSysUser());
+			return fileService.uploadShowFile(request, getSysUser());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			return new ResultEx().makeInternalErrorResult();

@@ -48,15 +48,12 @@
 		      <generatedKey column="ID" sqlStatement="SELECT DEPT_SEQ.CURRVAL FROM DUAL" identity="true" />
 	   </table>-->
 	   <!-- 事项配置  数据库中schema为多个时，必须配置schema否则生成多次数据 -->
-<!-- 		<table schema="MEETING" tableName="SYS_DEPT" delimitAllColumns="true"/>
-		<table schema="MEETING" tableName="SYS_DICTIONARY" delimitAllColumns="true"/>
-		<table schema="MEETING" tableName="SYS_RESOURCE" delimitAllColumns="true"/>
-		<table schema="MEETING" tableName="SYS_ROLE" delimitAllColumns="true"/>
-		<table schema="MEETING" tableName="SYS_ROLE_RESOURCE" delimitAllColumns="true"/>
-		<table schema="MEETING" tableName="SYS_USER" delimitAllColumns="true"/>
-		<table schema="MEETING" tableName="SYS_USER_ROLE" delimitAllColumns="true"/>
-		<table schema="MEETING" tableName="SYS_USER_DEPT" delimitAllColumns="true"/> -->
-		<table schema="ASSESS" tableName="SYS_DEPT" delimitAllColumns="true"/>
+		<!-- <table schema="" tableName="sys_resource" delimitAllColumns="true"/>
+		<table schema="" tableName="sys_role" delimitAllColumns="true"/>
+		<table schema="" tableName="sys_role_resource" delimitAllColumns="true"/>
+		<table schema="" tableName="sys_user" delimitAllColumns="true"/>
+		<table schema="" tableName="sys_user_role" delimitAllColumns="true"/> -->
+		<table schema="" tableName="sys_file" delimitAllColumns="true"/>
 		</context>
 </generatorConfiguration>
 <!-- mybatis-generator:generate -->

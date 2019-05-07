@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.annotation.Resource;
-
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -23,36 +21,33 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.example.system.dic.CommonDictionary.EnableOrDisableCode;
-import com.example.system.edge.service.SysDeptService;
-import com.example.system.edge.service.SysResourceService;
-import com.example.system.edge.service.SysRoleService;
-import com.example.system.edge.service.SysUserService;
-import com.example.system.entity.SysDept;
+import com.example.system.edge.service.IResourceService;
+import com.example.system.edge.service.IRoleService;
+import com.example.system.edge.service.IUserService;
 import com.example.system.entity.SysRole;
 import com.example.system.entity.SysUser;
 import com.zjapl.common.vo.TreeMenuVo;
 
 /**
- * 
- * 文件名：ShiroUserRealm.java
- * 版本号：V 1.0
- * 日　期：2016年5月24日
- * 版　权：ZJAPL
- * 作　者：wuzy
- * 类说明：
+ * shiro
+ * @author Mr.Wug
+ *
  */
 public class ShiroUserRealm extends AuthorizingRealm {
+	
     Logger logger = LoggerFactory.getLogger(this.getClass());
-	@Resource
-	private SysUserService sysUserService;
-	@Resource
-	private SysDeptService sysDeptService;
-	@Resource
-	private SysRoleService sysRoleService;
-	@Resource
-	private SysResourceService sysResourceService;
+    
+	@Autowired
+	IUserService sysUserService;
+	
+	@Autowired
+	IRoleService sysRoleService;
+	
+	@Autowired
+	IResourceService sysResourceService;
 	
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principal) {
@@ -61,10 +56,8 @@ public class ShiroUserRealm extends AuthorizingRealm {
 		if(shiroPrincipal == null){
 			throw new NullPointerException("用户Principals找不到");
 		}
-		List<SysRole> roles = sysRoleService.getRolesByUserId(shiroPrincipal.getId());
-		List<TreeMenuVo> treeMenuVos = sysResourceService.getResourcesMenuByUserId(shiroPrincipal.getId()).getData();
+		List<SysRole> roles = sysRoleService.queryListByUserId(shiroPrincipal.getId()).getData();
 		addRoles(authorinfo, shiroPrincipal, roles);
-		addResources(authorinfo, shiroPrincipal, treeMenuVos);
 		return authorinfo;
 	}
 
@@ -72,8 +65,8 @@ public class ShiroUserRealm extends AuthorizingRealm {
 	protected AuthenticationInfo doGetAuthenticationInfo(
 			AuthenticationToken authenToken) throws AuthenticationException {
 		UsernamePasswordToken token = (UsernamePasswordToken) authenToken;
-		String username = token.getUsername();
-		SysUser sysUser =  sysUserService.getUserByUsername(username);
+		String phone = token.getUsername();
+		SysUser sysUser = (SysUser) sysUserService.queryByPhone(phone, null).getData();
 		if(sysUser != null){
 			 if (sysUser.getStatus() != EnableOrDisableCode.ENABLE) {  
 				throw new DisabledAccountException("账户不可用");  
@@ -81,8 +74,7 @@ public class ShiroUserRealm extends AuthorizingRealm {
 		} else {
 			throw new IncorrectCredentialsException();
 		}
-		List<SysDept> sysDepts = sysDeptService.getSysDeptByUserId(sysUser.getId());
-		return new SimpleAuthenticationInfo(new ShiroPrincipal(sysUser,sysDepts), sysUser.getPassword(), getName());
+		return new SimpleAuthenticationInfo(new ShiroPrincipal(sysUser), sysUser.getPassword(), getName());
 	}
     /**
      * 添加角色信息

@@ -2,35 +2,19 @@ package com.example.system.vo;
 
 import com.example.system.entity.SysResource;
 
-/**
- * 文件名：SysResourceVo.java
- * 日　期：2017年1月18日 下午4:03:44
- * 版　权：ZJAPL
- * 作　者：liss
- * 类说明：
- */
-public class SysResourceVo extends SysResource{
+public class SysResourceVo extends SysResource {
+	private static final long serialVersionUID = 1L;
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 4195880489641008897L;
-	
-	//父资源名称
-	private String pIdName;
+	private String pidName;
 	
 	private String statusName;
-	
-	private String leafName;
-	
-	private String ids;
 
-	public String getIds() {
-		return ids;
+	public String getPidName() {
+		return pidName;
 	}
 
-	public void setIds(String ids) {
-		this.ids = ids;
+	public void setPidName(String pidName) {
+		this.pidName = pidName;
 	}
 
 	public String getStatusName() {
@@ -40,23 +24,5 @@ public class SysResourceVo extends SysResource{
 	public void setStatusName(String statusName) {
 		this.statusName = statusName;
 	}
-
-	public String getLeafName() {
-		return leafName;
-	}
-
-	public void setLeafName(String leafName) {
-		this.leafName = leafName;
-	}
-
-	public String getpIdName() {
-		return pIdName;
-	}
-
-	public void setpIdName(String pIdName) {
-		this.pIdName = pIdName;
-	}
 	
-	
-
 }

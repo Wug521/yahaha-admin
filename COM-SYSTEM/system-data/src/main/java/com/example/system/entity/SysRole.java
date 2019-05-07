@@ -1,7 +1,7 @@
 /**
  * Copyright(C) 2006-2016 安普利科技
  * All rights reserved
- * 2017-03-06 16:16:23 Created
+ * 2019-05-07 13:05:15 Created
  * 
  */
 package com.example.system.entity;
@@ -14,12 +14,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 public class SysRole implements Serializable {
+	
     /**
-     * 角色流水号
+     * ID
      */
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
-	 private Long id;
+    private Long id;
 
     /**
      * 角色名称
@@ -32,49 +33,44 @@ public class SysRole implements Serializable {
     private String remark;
 
     /**
-     * 是否启用
+     * 状态(数据)
      */
     private Short status;
 
     /**
-     * 所属机构
+     * 机构编码
      */
     private String orgCode;
 
     /**
+     * 创建人
+     */
+    private Long createUser;
+
+    /**
      * 创建时间
      */
-    private Date crateDate;
+    private Date createDate;
 
     /**
-     * 创建用户
+     * 修改人
      */
-    private Long crateUserId;
-
-    /**
-     * 修改用户
-     */
-    private Long updateUserId;
+    private Long updateUser;
 
     /**
      * 修改时间
      */
     private Date updateDate;
 
-    /**
-     * 登录模式
-     */
-    private Short loginMode;
-
     private static final long serialVersionUID = 1L;
 
     /**
      * <pre>
-     * 获取：角色流水号
-     * 表字段：APLCCP.SYS_ROLE.ID
+     * 获取：
+     * 表字段：sys_role.id
      * </pre>
      *
-     * @return APLCCP.SYS_ROLE.ID：角色流水号
+     * @return sys_role.id：
      */
     public Long getId() {
         return id;
@@ -82,12 +78,12 @@ public class SysRole implements Serializable {
 
     /**
      * <pre>
-     * 设置：角色流水号
-     * 表字段：APLCCP.SYS_ROLE.ID
+     * 设置：
+     * 表字段：sys_role.id
      * </pre>
      *
      * @param id
-     *            APLCCP.SYS_ROLE.ID：角色流水号
+     *            sys_role.id：
      */
     public void setId(Long id) {
         this.id = id;
@@ -96,10 +92,10 @@ public class SysRole implements Serializable {
     /**
      * <pre>
      * 获取：角色名称
-     * 表字段：APLCCP.SYS_ROLE.NAME
+     * 表字段：sys_role.name
      * </pre>
      *
-     * @return APLCCP.SYS_ROLE.NAME：角色名称
+     * @return sys_role.name：角色名称
      */
     public String getName() {
         return name;
@@ -108,11 +104,11 @@ public class SysRole implements Serializable {
     /**
      * <pre>
      * 设置：角色名称
-     * 表字段：APLCCP.SYS_ROLE.NAME
+     * 表字段：sys_role.name
      * </pre>
      *
      * @param name
-     *            APLCCP.SYS_ROLE.NAME：角色名称
+     *            sys_role.name：角色名称
      */
     public void setName(String name) {
         this.name = name == null ? null : name.trim();
@@ -121,10 +117,10 @@ public class SysRole implements Serializable {
     /**
      * <pre>
      * 获取：备注
-     * 表字段：APLCCP.SYS_ROLE.REMARK
+     * 表字段：sys_role.remark
      * </pre>
      *
-     * @return APLCCP.SYS_ROLE.REMARK：备注
+     * @return sys_role.remark：备注
      */
     public String getRemark() {
         return remark;
@@ -133,11 +129,11 @@ public class SysRole implements Serializable {
     /**
      * <pre>
      * 设置：备注
-     * 表字段：APLCCP.SYS_ROLE.REMARK
+     * 表字段：sys_role.remark
      * </pre>
      *
      * @param remark
-     *            APLCCP.SYS_ROLE.REMARK：备注
+     *            sys_role.remark：备注
      */
     public void setRemark(String remark) {
         this.remark = remark == null ? null : remark.trim();
@@ -145,11 +141,11 @@ public class SysRole implements Serializable {
 
     /**
      * <pre>
-     * 获取：是否启用
-     * 表字段：APLCCP.SYS_ROLE.STATUS
+     * 获取：状态(数据)
+     * 表字段：sys_role.status
      * </pre>
      *
-     * @return APLCCP.SYS_ROLE.STATUS：是否启用
+     * @return sys_role.status：状态(数据)
      */
     public Short getStatus() {
         return status;
@@ -157,12 +153,12 @@ public class SysRole implements Serializable {
 
     /**
      * <pre>
-     * 设置：是否启用
-     * 表字段：APLCCP.SYS_ROLE.STATUS
+     * 设置：状态(数据)
+     * 表字段：sys_role.status
      * </pre>
      *
      * @param status
-     *            APLCCP.SYS_ROLE.STATUS：是否启用
+     *            sys_role.status：状态(数据)
      */
     public void setStatus(Short status) {
         this.status = status;
@@ -170,11 +166,11 @@ public class SysRole implements Serializable {
 
     /**
      * <pre>
-     * 获取：所属机构
-     * 表字段：APLCCP.SYS_ROLE.ORG_CODE
+     * 获取：机构编码
+     * 表字段：sys_role.org_code
      * </pre>
      *
-     * @return APLCCP.SYS_ROLE.ORG_CODE：所属机构
+     * @return sys_role.org_code：机构编码
      */
     public String getOrgCode() {
         return orgCode;
@@ -182,12 +178,12 @@ public class SysRole implements Serializable {
 
     /**
      * <pre>
-     * 设置：所属机构
-     * 表字段：APLCCP.SYS_ROLE.ORG_CODE
+     * 设置：机构编码
+     * 表字段：sys_role.org_code
      * </pre>
      *
      * @param orgCode
-     *            APLCCP.SYS_ROLE.ORG_CODE：所属机构
+     *            sys_role.org_code：机构编码
      */
     public void setOrgCode(String orgCode) {
         this.orgCode = orgCode == null ? null : orgCode.trim();
@@ -195,86 +191,86 @@ public class SysRole implements Serializable {
 
     /**
      * <pre>
-     * 获取：创建时间
-     * 表字段：APLCCP.SYS_ROLE.CRATE_DATE
+     * 获取：创建人
+     * 表字段：sys_role.create_user
      * </pre>
      *
-     * @return APLCCP.SYS_ROLE.CRATE_DATE：创建时间
+     * @return sys_role.create_user：创建人
      */
-    public Date getCrateDate() {
-        return crateDate;
+    public Long getCreateUser() {
+        return createUser;
+    }
+
+    /**
+     * <pre>
+     * 设置：创建人
+     * 表字段：sys_role.create_user
+     * </pre>
+     *
+     * @param createUser
+     *            sys_role.create_user：创建人
+     */
+    public void setCreateUser(Long createUser) {
+        this.createUser = createUser;
+    }
+
+    /**
+     * <pre>
+     * 获取：创建时间
+     * 表字段：sys_role.create_date
+     * </pre>
+     *
+     * @return sys_role.create_date：创建时间
+     */
+    public Date getCreateDate() {
+        return createDate;
     }
 
     /**
      * <pre>
      * 设置：创建时间
-     * 表字段：APLCCP.SYS_ROLE.CRATE_DATE
+     * 表字段：sys_role.create_date
      * </pre>
      *
-     * @param crateDate
-     *            APLCCP.SYS_ROLE.CRATE_DATE：创建时间
+     * @param createDate
+     *            sys_role.create_date：创建时间
      */
-    public void setCrateDate(Date crateDate) {
-        this.crateDate = crateDate;
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
     }
 
     /**
      * <pre>
-     * 获取：创建用户
-     * 表字段：APLCCP.SYS_ROLE.CRATE_USER_ID
+     * 获取：修改人
+     * 表字段：sys_role.update_user
      * </pre>
      *
-     * @return APLCCP.SYS_ROLE.CRATE_USER_ID：创建用户
+     * @return sys_role.update_user：修改人
      */
-    public Long getCrateUserId() {
-        return crateUserId;
+    public Long getUpdateUser() {
+        return updateUser;
     }
 
     /**
      * <pre>
-     * 设置：创建用户
-     * 表字段：APLCCP.SYS_ROLE.CRATE_USER_ID
+     * 设置：修改人
+     * 表字段：sys_role.update_user
      * </pre>
      *
-     * @param crateUserId
-     *            APLCCP.SYS_ROLE.CRATE_USER_ID：创建用户
+     * @param updateUser
+     *            sys_role.update_user：修改人
      */
-    public void setCrateUserId(Long crateUserId) {
-        this.crateUserId = crateUserId;
-    }
-
-    /**
-     * <pre>
-     * 获取：修改用户
-     * 表字段：APLCCP.SYS_ROLE.UPDATE_USER_ID
-     * </pre>
-     *
-     * @return APLCCP.SYS_ROLE.UPDATE_USER_ID：修改用户
-     */
-    public Long getUpdateUserId() {
-        return updateUserId;
-    }
-
-    /**
-     * <pre>
-     * 设置：修改用户
-     * 表字段：APLCCP.SYS_ROLE.UPDATE_USER_ID
-     * </pre>
-     *
-     * @param updateUserId
-     *            APLCCP.SYS_ROLE.UPDATE_USER_ID：修改用户
-     */
-    public void setUpdateUserId(Long updateUserId) {
-        this.updateUserId = updateUserId;
+    public void setUpdateUser(Long updateUser) {
+        this.updateUser = updateUser;
     }
 
     /**
      * <pre>
      * 获取：修改时间
-     * 表字段：APLCCP.SYS_ROLE.UPDATE_DATE
+     * 表字段：sys_role.update_date
      * </pre>
      *
-     * @return APLCCP.SYS_ROLE.UPDATE_DATE：修改时间
+     * @return sys_role.update_date：修改时间
      */
     public Date getUpdateDate() {
         return updateDate;
@@ -283,39 +279,14 @@ public class SysRole implements Serializable {
     /**
      * <pre>
      * 设置：修改时间
-     * 表字段：APLCCP.SYS_ROLE.UPDATE_DATE
+     * 表字段：sys_role.update_date
      * </pre>
      *
      * @param updateDate
-     *            APLCCP.SYS_ROLE.UPDATE_DATE：修改时间
+     *            sys_role.update_date：修改时间
      */
     public void setUpdateDate(Date updateDate) {
         this.updateDate = updateDate;
-    }
-
-    /**
-     * <pre>
-     * 获取：登录模式
-     * 表字段：APLCCP.SYS_ROLE.LOGIN_MODE
-     * </pre>
-     *
-     * @return APLCCP.SYS_ROLE.LOGIN_MODE：登录模式
-     */
-    public Short getLoginMode() {
-        return loginMode;
-    }
-
-    /**
-     * <pre>
-     * 设置：登录模式
-     * 表字段：APLCCP.SYS_ROLE.LOGIN_MODE
-     * </pre>
-     *
-     * @param loginMode
-     *            APLCCP.SYS_ROLE.LOGIN_MODE：登录模式
-     */
-    public void setLoginMode(Short loginMode) {
-        this.loginMode = loginMode;
     }
 
     /**
@@ -339,11 +310,10 @@ public class SysRole implements Serializable {
             && (this.getRemark() == null ? other.getRemark() == null : this.getRemark().equals(other.getRemark()))
             && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
             && (this.getOrgCode() == null ? other.getOrgCode() == null : this.getOrgCode().equals(other.getOrgCode()))
-            && (this.getCrateDate() == null ? other.getCrateDate() == null : this.getCrateDate().equals(other.getCrateDate()))
-            && (this.getCrateUserId() == null ? other.getCrateUserId() == null : this.getCrateUserId().equals(other.getCrateUserId()))
-            && (this.getUpdateUserId() == null ? other.getUpdateUserId() == null : this.getUpdateUserId().equals(other.getUpdateUserId()))
-            && (this.getUpdateDate() == null ? other.getUpdateDate() == null : this.getUpdateDate().equals(other.getUpdateDate()))
-            && (this.getLoginMode() == null ? other.getLoginMode() == null : this.getLoginMode().equals(other.getLoginMode()));
+            && (this.getCreateUser() == null ? other.getCreateUser() == null : this.getCreateUser().equals(other.getCreateUser()))
+            && (this.getCreateDate() == null ? other.getCreateDate() == null : this.getCreateDate().equals(other.getCreateDate()))
+            && (this.getUpdateUser() == null ? other.getUpdateUser() == null : this.getUpdateUser().equals(other.getUpdateUser()))
+            && (this.getUpdateDate() == null ? other.getUpdateDate() == null : this.getUpdateDate().equals(other.getUpdateDate()));
     }
 
     /**
@@ -358,11 +328,10 @@ public class SysRole implements Serializable {
         result = prime * result + ((getRemark() == null) ? 0 : getRemark().hashCode());
         result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         result = prime * result + ((getOrgCode() == null) ? 0 : getOrgCode().hashCode());
-        result = prime * result + ((getCrateDate() == null) ? 0 : getCrateDate().hashCode());
-        result = prime * result + ((getCrateUserId() == null) ? 0 : getCrateUserId().hashCode());
-        result = prime * result + ((getUpdateUserId() == null) ? 0 : getUpdateUserId().hashCode());
+        result = prime * result + ((getCreateUser() == null) ? 0 : getCreateUser().hashCode());
+        result = prime * result + ((getCreateDate() == null) ? 0 : getCreateDate().hashCode());
+        result = prime * result + ((getUpdateUser() == null) ? 0 : getUpdateUser().hashCode());
         result = prime * result + ((getUpdateDate() == null) ? 0 : getUpdateDate().hashCode());
-        result = prime * result + ((getLoginMode() == null) ? 0 : getLoginMode().hashCode());
         return result;
     }
 
@@ -380,11 +349,10 @@ public class SysRole implements Serializable {
         sb.append(", remark=").append(remark);
         sb.append(", status=").append(status);
         sb.append(", orgCode=").append(orgCode);
-        sb.append(", crateDate=").append(crateDate);
-        sb.append(", crateUserId=").append(crateUserId);
-        sb.append(", updateUserId=").append(updateUserId);
+        sb.append(", createUser=").append(createUser);
+        sb.append(", createDate=").append(createDate);
+        sb.append(", updateUser=").append(updateUser);
         sb.append(", updateDate=").append(updateDate);
-        sb.append(", loginMode=").append(loginMode);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

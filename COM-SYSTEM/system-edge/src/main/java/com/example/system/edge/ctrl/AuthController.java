@@ -26,7 +26,7 @@ import com.zjapl.common.util.StringUtil;
  */
 @Controller
 @RequestMapping("/auth")
-public class ApiAuthController extends BaseController{
+public class AuthController extends BaseController{
 
 	@RequestMapping("/login")
 	@ResponseBody

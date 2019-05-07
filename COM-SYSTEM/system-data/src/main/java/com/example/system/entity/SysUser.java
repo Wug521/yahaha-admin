@@ -1,7 +1,7 @@
 /**
  * Copyright(C) 2006-2016 安普利科技
  * All rights reserved
- * 2017-03-06 16:16:23 Created
+ * 2019-05-07 13:05:15 Created
  * 
  */
 package com.example.system.entity;
@@ -14,17 +14,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 public class SysUser implements Serializable {
+	
     /**
      * ID
      */
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
     private Long id;
-
-    /**
-     * 业务用户ID
-     */
-    private Long bUserId;
 
     /**
      * 真实姓名
@@ -37,7 +33,7 @@ public class SysUser implements Serializable {
     private Short sex;
 
     /**
-     * 用户名
+     * 用户昵称
      */
     private String username;
 
@@ -52,29 +48,39 @@ public class SysUser implements Serializable {
     private String email;
 
     /**
-     * 电话
+     * 手机号
      */
     private String phone;
 
     /**
-     * 手机
+     * 账号类型
      */
-    private String tel;
+    private Short accountType;
 
     /**
-     * 1正常；2用户锁定；3用户不可用
+     * 令牌
+     */
+    private String token;
+
+    /**
+     * 公众号openid
+     */
+    private String openid;
+
+    /**
+     * 身份证
+     */
+    private String idCard;
+
+    /**
+     * 人员头像
+     */
+    private String avatarUrl;
+
+    /**
+     * 状态(数据)
      */
     private Short status;
-
-    /**
-     * 修改时间
-     */
-    private Date updateDate;
-
-    /**
-     * 创建时间
-     */
-    private Date createDate;
 
     /**
      * 备注
@@ -82,74 +88,39 @@ public class SysUser implements Serializable {
     private String remark;
 
     /**
-     * 账户类型
-     */
-    private Short accountType;
-
-    /**
-     * 最后一次登录时间
-     */
-    private Date lastLoginTime;
-
-    /**
-     * 最后一次登录IP
-     */
-    private String lastLoginIp;
-
-    /**
-     * 登录次数
-     */
-    private Long loginCount;
-
-    /**
-     * 错误次数
-     */
-    private Integer errorCount;
-
-    /**
-     * 错误时间
-     */
-    private Date errorTime;
-
-    /**
-     * 移动端token
-     */
-    private String token;
-
-    /**
-     * 最近登录时间
-     */
-    private Date recentlyTime;
-
-    /**
-     * 身份证号/员工证件号
-     */
-    private String idCard;
-
-    /**
      * 机构编码
      */
     private String orgCode;
 
     /**
-     * 修改用户
+     * 创建人
      */
-    private Long updateUserId;
+    private Long createUser;
 
     /**
-     * 创建用户
+     * 创建时间
      */
-    private Long createUserId;
+    private Date createDate;
+
+    /**
+     * 修改人
+     */
+    private Long updateUser;
+
+    /**
+     * 修改时间
+     */
+    private Date updateDate;
 
     private static final long serialVersionUID = 1L;
 
     /**
      * <pre>
-     * 获取：ID
-     * 表字段：MEETING.SYS_USER.ID
+     * 获取：主键ID
+     * 表字段：sys_user.id
      * </pre>
      *
-     * @return MEETING.SYS_USER.ID：ID
+     * @return sys_user.id：主键ID
      */
     public Long getId() {
         return id;
@@ -157,12 +128,12 @@ public class SysUser implements Serializable {
 
     /**
      * <pre>
-     * 设置：ID
-     * 表字段：MEETING.SYS_USER.ID
+     * 设置：主键ID
+     * 表字段：sys_user.id
      * </pre>
      *
      * @param id
-     *            MEETING.SYS_USER.ID：ID
+     *            sys_user.id：主键ID
      */
     public void setId(Long id) {
         this.id = id;
@@ -170,36 +141,11 @@ public class SysUser implements Serializable {
 
     /**
      * <pre>
-     * 获取：业务用户ID
-     * 表字段：MEETING.SYS_USER.B_USER_ID
-     * </pre>
-     *
-     * @return MEETING.SYS_USER.B_USER_ID：业务用户ID
-     */
-    public Long getbUserId() {
-        return bUserId;
-    }
-
-    /**
-     * <pre>
-     * 设置：业务用户ID
-     * 表字段：MEETING.SYS_USER.B_USER_ID
-     * </pre>
-     *
-     * @param bUserId
-     *            MEETING.SYS_USER.B_USER_ID：业务用户ID
-     */
-    public void setbUserId(Long bUserId) {
-        this.bUserId = bUserId;
-    }
-
-    /**
-     * <pre>
      * 获取：真实姓名
-     * 表字段：MEETING.SYS_USER.REAL_NAME
+     * 表字段：sys_user.real_name
      * </pre>
      *
-     * @return MEETING.SYS_USER.REAL_NAME：真实姓名
+     * @return sys_user.real_name：真实姓名
      */
     public String getRealName() {
         return realName;
@@ -208,11 +154,11 @@ public class SysUser implements Serializable {
     /**
      * <pre>
      * 设置：真实姓名
-     * 表字段：MEETING.SYS_USER.REAL_NAME
+     * 表字段：sys_user.real_name
      * </pre>
      *
      * @param realName
-     *            MEETING.SYS_USER.REAL_NAME：真实姓名
+     *            sys_user.real_name：真实姓名
      */
     public void setRealName(String realName) {
         this.realName = realName == null ? null : realName.trim();
@@ -221,10 +167,10 @@ public class SysUser implements Serializable {
     /**
      * <pre>
      * 获取：性别
-     * 表字段：MEETING.SYS_USER.SEX
+     * 表字段：sys_user.sex
      * </pre>
      *
-     * @return MEETING.SYS_USER.SEX：性别
+     * @return sys_user.sex：性别
      */
     public Short getSex() {
         return sex;
@@ -233,11 +179,11 @@ public class SysUser implements Serializable {
     /**
      * <pre>
      * 设置：性别
-     * 表字段：MEETING.SYS_USER.SEX
+     * 表字段：sys_user.sex
      * </pre>
      *
      * @param sex
-     *            MEETING.SYS_USER.SEX：性别
+     *            sys_user.sex：性别
      */
     public void setSex(Short sex) {
         this.sex = sex;
@@ -245,11 +191,11 @@ public class SysUser implements Serializable {
 
     /**
      * <pre>
-     * 获取：用户名
-     * 表字段：MEETING.SYS_USER.USERNAME
+     * 获取：用户昵称
+     * 表字段：sys_user.username
      * </pre>
      *
-     * @return MEETING.SYS_USER.USERNAME：用户名
+     * @return sys_user.username：用户昵称
      */
     public String getUsername() {
         return username;
@@ -257,12 +203,12 @@ public class SysUser implements Serializable {
 
     /**
      * <pre>
-     * 设置：用户名
-     * 表字段：MEETING.SYS_USER.USERNAME
+     * 设置：用户昵称
+     * 表字段：sys_user.username
      * </pre>
      *
      * @param username
-     *            MEETING.SYS_USER.USERNAME：用户名
+     *            sys_user.username：用户昵称
      */
     public void setUsername(String username) {
         this.username = username == null ? null : username.trim();
@@ -271,10 +217,10 @@ public class SysUser implements Serializable {
     /**
      * <pre>
      * 获取：密码
-     * 表字段：MEETING.SYS_USER.PASSWORD
+     * 表字段：sys_user.password
      * </pre>
      *
-     * @return MEETING.SYS_USER.PASSWORD：密码
+     * @return sys_user.password：密码
      */
     public String getPassword() {
         return password;
@@ -283,11 +229,11 @@ public class SysUser implements Serializable {
     /**
      * <pre>
      * 设置：密码
-     * 表字段：MEETING.SYS_USER.PASSWORD
+     * 表字段：sys_user.password
      * </pre>
      *
      * @param password
-     *            MEETING.SYS_USER.PASSWORD：密码
+     *            sys_user.password：密码
      */
     public void setPassword(String password) {
         this.password = password == null ? null : password.trim();
@@ -296,10 +242,10 @@ public class SysUser implements Serializable {
     /**
      * <pre>
      * 获取：邮箱
-     * 表字段：MEETING.SYS_USER.EMAIL
+     * 表字段：sys_user.email
      * </pre>
      *
-     * @return MEETING.SYS_USER.EMAIL：邮箱
+     * @return sys_user.email：邮箱
      */
     public String getEmail() {
         return email;
@@ -308,11 +254,11 @@ public class SysUser implements Serializable {
     /**
      * <pre>
      * 设置：邮箱
-     * 表字段：MEETING.SYS_USER.EMAIL
+     * 表字段：sys_user.email
      * </pre>
      *
      * @param email
-     *            MEETING.SYS_USER.EMAIL：邮箱
+     *            sys_user.email：邮箱
      */
     public void setEmail(String email) {
         this.email = email == null ? null : email.trim();
@@ -320,11 +266,11 @@ public class SysUser implements Serializable {
 
     /**
      * <pre>
-     * 获取：电话
-     * 表字段：MEETING.SYS_USER.PHONE
+     * 获取：手机号
+     * 表字段：sys_user.phone
      * </pre>
      *
-     * @return MEETING.SYS_USER.PHONE：电话
+     * @return sys_user.phone：手机号
      */
     public String getPhone() {
         return phone;
@@ -332,12 +278,12 @@ public class SysUser implements Serializable {
 
     /**
      * <pre>
-     * 设置：电话
-     * 表字段：MEETING.SYS_USER.PHONE
+     * 设置：手机号
+     * 表字段：sys_user.phone
      * </pre>
      *
      * @param phone
-     *            MEETING.SYS_USER.PHONE：电话
+     *            sys_user.phone：手机号
      */
     public void setPhone(String phone) {
         this.phone = phone == null ? null : phone.trim();
@@ -345,36 +291,136 @@ public class SysUser implements Serializable {
 
     /**
      * <pre>
-     * 获取：手机
-     * 表字段：MEETING.SYS_USER.TEL
+     * 获取：账号类型
+     * 表字段：sys_user.account_type
      * </pre>
      *
-     * @return MEETING.SYS_USER.TEL：手机
+     * @return sys_user.account_type：账号类型
      */
-    public String getTel() {
-        return tel;
+    public Short getAccountType() {
+        return accountType;
     }
 
     /**
      * <pre>
-     * 设置：手机
-     * 表字段：MEETING.SYS_USER.TEL
+     * 设置：账号类型
+     * 表字段：sys_user.account_type
      * </pre>
      *
-     * @param tel
-     *            MEETING.SYS_USER.TEL：手机
+     * @param accountType
+     *            sys_user.account_type：账号类型
      */
-    public void setTel(String tel) {
-        this.tel = tel == null ? null : tel.trim();
+    public void setAccountType(Short accountType) {
+        this.accountType = accountType;
     }
 
     /**
      * <pre>
-     * 获取：1正常；2用户锁定；3用户不可用
-     * 表字段：MEETING.SYS_USER.STATUS
+     * 获取：令牌
+     * 表字段：sys_user.token
      * </pre>
      *
-     * @return MEETING.SYS_USER.STATUS：1正常；2用户锁定；3用户不可用
+     * @return sys_user.token：令牌
+     */
+    public String getToken() {
+        return token;
+    }
+
+    /**
+     * <pre>
+     * 设置：令牌
+     * 表字段：sys_user.token
+     * </pre>
+     *
+     * @param token
+     *            sys_user.token：令牌
+     */
+    public void setToken(String token) {
+        this.token = token == null ? null : token.trim();
+    }
+
+    /**
+     * <pre>
+     * 获取：公众号openid
+     * 表字段：sys_user.openid
+     * </pre>
+     *
+     * @return sys_user.openid：公众号openid
+     */
+    public String getOpenid() {
+        return openid;
+    }
+
+    /**
+     * <pre>
+     * 设置：公众号openid
+     * 表字段：sys_user.openid
+     * </pre>
+     *
+     * @param openid
+     *            sys_user.openid：公众号openid
+     */
+    public void setOpenid(String openid) {
+        this.openid = openid == null ? null : openid.trim();
+    }
+
+    /**
+     * <pre>
+     * 获取：身份证
+     * 表字段：sys_user.id_card
+     * </pre>
+     *
+     * @return sys_user.id_card：身份证
+     */
+    public String getIdCard() {
+        return idCard;
+    }
+
+    /**
+     * <pre>
+     * 设置：身份证
+     * 表字段：sys_user.id_card
+     * </pre>
+     *
+     * @param idCard
+     *            sys_user.id_card：身份证
+     */
+    public void setIdCard(String idCard) {
+        this.idCard = idCard == null ? null : idCard.trim();
+    }
+
+    /**
+     * <pre>
+     * 获取：人员头像
+     * 表字段：sys_user.avatar_url
+     * </pre>
+     *
+     * @return sys_user.avatar_url：人员头像
+     */
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    /**
+     * <pre>
+     * 设置：人员头像
+     * 表字段：sys_user.avatar_url
+     * </pre>
+     *
+     * @param avatarUrl
+     *            sys_user.avatar_url：人员头像
+     */
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl == null ? null : avatarUrl.trim();
+    }
+
+    /**
+     * <pre>
+     * 获取：状态(数据)
+     * 表字段：sys_user.status
+     * </pre>
+     *
+     * @return sys_user.status：状态(数据)
      */
     public Short getStatus() {
         return status;
@@ -382,12 +428,12 @@ public class SysUser implements Serializable {
 
     /**
      * <pre>
-     * 设置：1正常；2用户锁定；3用户不可用
-     * 表字段：MEETING.SYS_USER.STATUS
+     * 设置：状态(数据)
+     * 表字段：sys_user.status
      * </pre>
      *
      * @param status
-     *            MEETING.SYS_USER.STATUS：1正常；2用户锁定；3用户不可用
+     *            sys_user.status：状态(数据)
      */
     public void setStatus(Short status) {
         this.status = status;
@@ -395,61 +441,11 @@ public class SysUser implements Serializable {
 
     /**
      * <pre>
-     * 获取：修改时间
-     * 表字段：MEETING.SYS_USER.UPDATE_DATE
-     * </pre>
-     *
-     * @return MEETING.SYS_USER.UPDATE_DATE：修改时间
-     */
-    public Date getUpdateDate() {
-        return updateDate;
-    }
-
-    /**
-     * <pre>
-     * 设置：修改时间
-     * 表字段：MEETING.SYS_USER.UPDATE_DATE
-     * </pre>
-     *
-     * @param updateDate
-     *            MEETING.SYS_USER.UPDATE_DATE：修改时间
-     */
-    public void setUpdateDate(Date updateDate) {
-        this.updateDate = updateDate;
-    }
-
-    /**
-     * <pre>
-     * 获取：创建时间
-     * 表字段：MEETING.SYS_USER.CREATE_DATE
-     * </pre>
-     *
-     * @return MEETING.SYS_USER.CREATE_DATE：创建时间
-     */
-    public Date getCreateDate() {
-        return createDate;
-    }
-
-    /**
-     * <pre>
-     * 设置：创建时间
-     * 表字段：MEETING.SYS_USER.CREATE_DATE
-     * </pre>
-     *
-     * @param createDate
-     *            MEETING.SYS_USER.CREATE_DATE：创建时间
-     */
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
-    }
-
-    /**
-     * <pre>
      * 获取：备注
-     * 表字段：MEETING.SYS_USER.REMARK
+     * 表字段：sys_user.remark
      * </pre>
      *
-     * @return MEETING.SYS_USER.REMARK：备注
+     * @return sys_user.remark：备注
      */
     public String getRemark() {
         return remark;
@@ -458,11 +454,11 @@ public class SysUser implements Serializable {
     /**
      * <pre>
      * 设置：备注
-     * 表字段：MEETING.SYS_USER.REMARK
+     * 表字段：sys_user.remark
      * </pre>
      *
      * @param remark
-     *            MEETING.SYS_USER.REMARK：备注
+     *            sys_user.remark：备注
      */
     public void setRemark(String remark) {
         this.remark = remark == null ? null : remark.trim();
@@ -470,236 +466,11 @@ public class SysUser implements Serializable {
 
     /**
      * <pre>
-     * 获取：账户类型
-     * 表字段：MEETING.SYS_USER.ACCOUNT_TYPE
-     * </pre>
-     *
-     * @return MEETING.SYS_USER.ACCOUNT_TYPE：账户类型
-     */
-    public Short getAccountType() {
-        return accountType;
-    }
-
-    /**
-     * <pre>
-     * 设置：账户类型
-     * 表字段：MEETING.SYS_USER.ACCOUNT_TYPE
-     * </pre>
-     *
-     * @param accountType
-     *            MEETING.SYS_USER.ACCOUNT_TYPE：账户类型
-     */
-    public void setAccountType(Short accountType) {
-        this.accountType = accountType;
-    }
-
-    /**
-     * <pre>
-     * 获取：最后一次登录时间
-     * 表字段：MEETING.SYS_USER.LAST_LOGIN_TIME
-     * </pre>
-     *
-     * @return MEETING.SYS_USER.LAST_LOGIN_TIME：最后一次登录时间
-     */
-    public Date getLastLoginTime() {
-        return lastLoginTime;
-    }
-
-    /**
-     * <pre>
-     * 设置：最后一次登录时间
-     * 表字段：MEETING.SYS_USER.LAST_LOGIN_TIME
-     * </pre>
-     *
-     * @param lastLoginTime
-     *            MEETING.SYS_USER.LAST_LOGIN_TIME：最后一次登录时间
-     */
-    public void setLastLoginTime(Date lastLoginTime) {
-        this.lastLoginTime = lastLoginTime;
-    }
-
-    /**
-     * <pre>
-     * 获取：最后一次登录IP
-     * 表字段：MEETING.SYS_USER.LAST_LOGIN_IP
-     * </pre>
-     *
-     * @return MEETING.SYS_USER.LAST_LOGIN_IP：最后一次登录IP
-     */
-    public String getLastLoginIp() {
-        return lastLoginIp;
-    }
-
-    /**
-     * <pre>
-     * 设置：最后一次登录IP
-     * 表字段：MEETING.SYS_USER.LAST_LOGIN_IP
-     * </pre>
-     *
-     * @param lastLoginIp
-     *            MEETING.SYS_USER.LAST_LOGIN_IP：最后一次登录IP
-     */
-    public void setLastLoginIp(String lastLoginIp) {
-        this.lastLoginIp = lastLoginIp == null ? null : lastLoginIp.trim();
-    }
-
-    /**
-     * <pre>
-     * 获取：登录次数
-     * 表字段：MEETING.SYS_USER.LOGIN_COUNT
-     * </pre>
-     *
-     * @return MEETING.SYS_USER.LOGIN_COUNT：登录次数
-     */
-    public Long getLoginCount() {
-        return loginCount;
-    }
-
-    /**
-     * <pre>
-     * 设置：登录次数
-     * 表字段：MEETING.SYS_USER.LOGIN_COUNT
-     * </pre>
-     *
-     * @param loginCount
-     *            MEETING.SYS_USER.LOGIN_COUNT：登录次数
-     */
-    public void setLoginCount(Long loginCount) {
-        this.loginCount = loginCount;
-    }
-
-    /**
-     * <pre>
-     * 获取：错误次数
-     * 表字段：MEETING.SYS_USER.ERROR_COUNT
-     * </pre>
-     *
-     * @return MEETING.SYS_USER.ERROR_COUNT：错误次数
-     */
-    public Integer getErrorCount() {
-        return errorCount;
-    }
-
-    /**
-     * <pre>
-     * 设置：错误次数
-     * 表字段：MEETING.SYS_USER.ERROR_COUNT
-     * </pre>
-     *
-     * @param errorCount
-     *            MEETING.SYS_USER.ERROR_COUNT：错误次数
-     */
-    public void setErrorCount(Integer errorCount) {
-        this.errorCount = errorCount;
-    }
-
-    /**
-     * <pre>
-     * 获取：错误时间
-     * 表字段：MEETING.SYS_USER.ERROR_TIME
-     * </pre>
-     *
-     * @return MEETING.SYS_USER.ERROR_TIME：错误时间
-     */
-    public Date getErrorTime() {
-        return errorTime;
-    }
-
-    /**
-     * <pre>
-     * 设置：错误时间
-     * 表字段：MEETING.SYS_USER.ERROR_TIME
-     * </pre>
-     *
-     * @param errorTime
-     *            MEETING.SYS_USER.ERROR_TIME：错误时间
-     */
-    public void setErrorTime(Date errorTime) {
-        this.errorTime = errorTime;
-    }
-
-    /**
-     * <pre>
-     * 获取：移动端token
-     * 表字段：MEETING.SYS_USER.TOKEN
-     * </pre>
-     *
-     * @return MEETING.SYS_USER.TOKEN：移动端token
-     */
-    public String getToken() {
-        return token;
-    }
-
-    /**
-     * <pre>
-     * 设置：移动端token
-     * 表字段：MEETING.SYS_USER.TOKEN
-     * </pre>
-     *
-     * @param token
-     *            MEETING.SYS_USER.TOKEN：移动端token
-     */
-    public void setToken(String token) {
-        this.token = token == null ? null : token.trim();
-    }
-
-    /**
-     * <pre>
-     * 获取：最近登录时间
-     * 表字段：MEETING.SYS_USER.RECENTLY_TIME
-     * </pre>
-     *
-     * @return MEETING.SYS_USER.RECENTLY_TIME：最近登录时间
-     */
-    public Date getRecentlyTime() {
-        return recentlyTime;
-    }
-
-    /**
-     * <pre>
-     * 设置：最近登录时间
-     * 表字段：MEETING.SYS_USER.RECENTLY_TIME
-     * </pre>
-     *
-     * @param recentlyTime
-     *            MEETING.SYS_USER.RECENTLY_TIME：最近登录时间
-     */
-    public void setRecentlyTime(Date recentlyTime) {
-        this.recentlyTime = recentlyTime;
-    }
-
-    /**
-     * <pre>
-     * 获取：身份证号/员工证件号
-     * 表字段：MEETING.SYS_USER.ID_CARD
-     * </pre>
-     *
-     * @return MEETING.SYS_USER.ID_CARD：身份证号/员工证件号
-     */
-    public String getIdCard() {
-        return idCard;
-    }
-
-    /**
-     * <pre>
-     * 设置：身份证号/员工证件号
-     * 表字段：MEETING.SYS_USER.ID_CARD
-     * </pre>
-     *
-     * @param idCard
-     *            MEETING.SYS_USER.ID_CARD：身份证号/员工证件号
-     */
-    public void setIdCard(String idCard) {
-        this.idCard = idCard == null ? null : idCard.trim();
-    }
-
-    /**
-     * <pre>
      * 获取：机构编码
-     * 表字段：MEETING.SYS_USER.ORG_CODE
+     * 表字段：sys_user.org_code
      * </pre>
      *
-     * @return MEETING.SYS_USER.ORG_CODE：机构编码
+     * @return sys_user.org_code：机构编码
      */
     public String getOrgCode() {
         return orgCode;
@@ -708,11 +479,11 @@ public class SysUser implements Serializable {
     /**
      * <pre>
      * 设置：机构编码
-     * 表字段：MEETING.SYS_USER.ORG_CODE
+     * 表字段：sys_user.org_code
      * </pre>
      *
      * @param orgCode
-     *            MEETING.SYS_USER.ORG_CODE：机构编码
+     *            sys_user.org_code：机构编码
      */
     public void setOrgCode(String orgCode) {
         this.orgCode = orgCode == null ? null : orgCode.trim();
@@ -720,52 +491,102 @@ public class SysUser implements Serializable {
 
     /**
      * <pre>
-     * 获取：修改用户
-     * 表字段：MEETING.SYS_USER.UPDATE_USER_ID
+     * 获取：创建人
+     * 表字段：sys_user.create_user
      * </pre>
      *
-     * @return MEETING.SYS_USER.UPDATE_USER_ID：修改用户
+     * @return sys_user.create_user：创建人
      */
-    public Long getUpdateUserId() {
-        return updateUserId;
+    public Long getCreateUser() {
+        return createUser;
     }
 
     /**
      * <pre>
-     * 设置：修改用户
-     * 表字段：MEETING.SYS_USER.UPDATE_USER_ID
+     * 设置：创建人
+     * 表字段：sys_user.create_user
      * </pre>
      *
-     * @param updateUserId
-     *            MEETING.SYS_USER.UPDATE_USER_ID：修改用户
+     * @param createUser
+     *            sys_user.create_user：创建人
      */
-    public void setUpdateUserId(Long updateUserId) {
-        this.updateUserId = updateUserId;
+    public void setCreateUser(Long createUser) {
+        this.createUser = createUser;
     }
 
     /**
      * <pre>
-     * 获取：创建用户
-     * 表字段：MEETING.SYS_USER.CREATE_USER_ID
+     * 获取：创建时间
+     * 表字段：sys_user.create_date
      * </pre>
      *
-     * @return MEETING.SYS_USER.CREATE_USER_ID：创建用户
+     * @return sys_user.create_date：创建时间
      */
-    public Long getCreateUserId() {
-        return createUserId;
+    public Date getCreateDate() {
+        return createDate;
     }
 
     /**
      * <pre>
-     * 设置：创建用户
-     * 表字段：MEETING.SYS_USER.CREATE_USER_ID
+     * 设置：创建时间
+     * 表字段：sys_user.create_date
      * </pre>
      *
-     * @param createUserId
-     *            MEETING.SYS_USER.CREATE_USER_ID：创建用户
+     * @param createDate
+     *            sys_user.create_date：创建时间
      */
-    public void setCreateUserId(Long createUserId) {
-        this.createUserId = createUserId;
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    /**
+     * <pre>
+     * 获取：修改人
+     * 表字段：sys_user.update_user
+     * </pre>
+     *
+     * @return sys_user.update_user：修改人
+     */
+    public Long getUpdateUser() {
+        return updateUser;
+    }
+
+    /**
+     * <pre>
+     * 设置：修改人
+     * 表字段：sys_user.update_user
+     * </pre>
+     *
+     * @param updateUser
+     *            sys_user.update_user：修改人
+     */
+    public void setUpdateUser(Long updateUser) {
+        this.updateUser = updateUser;
+    }
+
+    /**
+     * <pre>
+     * 获取：修改时间
+     * 表字段：sys_user.update_date
+     * </pre>
+     *
+     * @return sys_user.update_date：修改时间
+     */
+    public Date getUpdateDate() {
+        return updateDate;
+    }
+
+    /**
+     * <pre>
+     * 设置：修改时间
+     * 表字段：sys_user.update_date
+     * </pre>
+     *
+     * @param updateDate
+     *            sys_user.update_date：修改时间
+     */
+    public void setUpdateDate(Date updateDate) {
+        this.updateDate = updateDate;
     }
 
     /**
@@ -785,30 +606,24 @@ public class SysUser implements Serializable {
         }
         SysUser other = (SysUser) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getbUserId() == null ? other.getbUserId() == null : this.getbUserId().equals(other.getbUserId()))
             && (this.getRealName() == null ? other.getRealName() == null : this.getRealName().equals(other.getRealName()))
             && (this.getSex() == null ? other.getSex() == null : this.getSex().equals(other.getSex()))
             && (this.getUsername() == null ? other.getUsername() == null : this.getUsername().equals(other.getUsername()))
             && (this.getPassword() == null ? other.getPassword() == null : this.getPassword().equals(other.getPassword()))
             && (this.getEmail() == null ? other.getEmail() == null : this.getEmail().equals(other.getEmail()))
             && (this.getPhone() == null ? other.getPhone() == null : this.getPhone().equals(other.getPhone()))
-            && (this.getTel() == null ? other.getTel() == null : this.getTel().equals(other.getTel()))
-            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
-            && (this.getUpdateDate() == null ? other.getUpdateDate() == null : this.getUpdateDate().equals(other.getUpdateDate()))
-            && (this.getCreateDate() == null ? other.getCreateDate() == null : this.getCreateDate().equals(other.getCreateDate()))
-            && (this.getRemark() == null ? other.getRemark() == null : this.getRemark().equals(other.getRemark()))
             && (this.getAccountType() == null ? other.getAccountType() == null : this.getAccountType().equals(other.getAccountType()))
-            && (this.getLastLoginTime() == null ? other.getLastLoginTime() == null : this.getLastLoginTime().equals(other.getLastLoginTime()))
-            && (this.getLastLoginIp() == null ? other.getLastLoginIp() == null : this.getLastLoginIp().equals(other.getLastLoginIp()))
-            && (this.getLoginCount() == null ? other.getLoginCount() == null : this.getLoginCount().equals(other.getLoginCount()))
-            && (this.getErrorCount() == null ? other.getErrorCount() == null : this.getErrorCount().equals(other.getErrorCount()))
-            && (this.getErrorTime() == null ? other.getErrorTime() == null : this.getErrorTime().equals(other.getErrorTime()))
             && (this.getToken() == null ? other.getToken() == null : this.getToken().equals(other.getToken()))
-            && (this.getRecentlyTime() == null ? other.getRecentlyTime() == null : this.getRecentlyTime().equals(other.getRecentlyTime()))
+            && (this.getOpenid() == null ? other.getOpenid() == null : this.getOpenid().equals(other.getOpenid()))
             && (this.getIdCard() == null ? other.getIdCard() == null : this.getIdCard().equals(other.getIdCard()))
+            && (this.getAvatarUrl() == null ? other.getAvatarUrl() == null : this.getAvatarUrl().equals(other.getAvatarUrl()))
+            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
+            && (this.getRemark() == null ? other.getRemark() == null : this.getRemark().equals(other.getRemark()))
             && (this.getOrgCode() == null ? other.getOrgCode() == null : this.getOrgCode().equals(other.getOrgCode()))
-            && (this.getUpdateUserId() == null ? other.getUpdateUserId() == null : this.getUpdateUserId().equals(other.getUpdateUserId()))
-            && (this.getCreateUserId() == null ? other.getCreateUserId() == null : this.getCreateUserId().equals(other.getCreateUserId()));
+            && (this.getCreateUser() == null ? other.getCreateUser() == null : this.getCreateUser().equals(other.getCreateUser()))
+            && (this.getCreateDate() == null ? other.getCreateDate() == null : this.getCreateDate().equals(other.getCreateDate()))
+            && (this.getUpdateUser() == null ? other.getUpdateUser() == null : this.getUpdateUser().equals(other.getUpdateUser()))
+            && (this.getUpdateDate() == null ? other.getUpdateDate() == null : this.getUpdateDate().equals(other.getUpdateDate()));
     }
 
     /**
@@ -819,30 +634,24 @@ public class SysUser implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        result = prime * result + ((getbUserId() == null) ? 0 : getbUserId().hashCode());
         result = prime * result + ((getRealName() == null) ? 0 : getRealName().hashCode());
         result = prime * result + ((getSex() == null) ? 0 : getSex().hashCode());
         result = prime * result + ((getUsername() == null) ? 0 : getUsername().hashCode());
         result = prime * result + ((getPassword() == null) ? 0 : getPassword().hashCode());
         result = prime * result + ((getEmail() == null) ? 0 : getEmail().hashCode());
         result = prime * result + ((getPhone() == null) ? 0 : getPhone().hashCode());
-        result = prime * result + ((getTel() == null) ? 0 : getTel().hashCode());
-        result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
-        result = prime * result + ((getUpdateDate() == null) ? 0 : getUpdateDate().hashCode());
-        result = prime * result + ((getCreateDate() == null) ? 0 : getCreateDate().hashCode());
-        result = prime * result + ((getRemark() == null) ? 0 : getRemark().hashCode());
         result = prime * result + ((getAccountType() == null) ? 0 : getAccountType().hashCode());
-        result = prime * result + ((getLastLoginTime() == null) ? 0 : getLastLoginTime().hashCode());
-        result = prime * result + ((getLastLoginIp() == null) ? 0 : getLastLoginIp().hashCode());
-        result = prime * result + ((getLoginCount() == null) ? 0 : getLoginCount().hashCode());
-        result = prime * result + ((getErrorCount() == null) ? 0 : getErrorCount().hashCode());
-        result = prime * result + ((getErrorTime() == null) ? 0 : getErrorTime().hashCode());
         result = prime * result + ((getToken() == null) ? 0 : getToken().hashCode());
-        result = prime * result + ((getRecentlyTime() == null) ? 0 : getRecentlyTime().hashCode());
+        result = prime * result + ((getOpenid() == null) ? 0 : getOpenid().hashCode());
         result = prime * result + ((getIdCard() == null) ? 0 : getIdCard().hashCode());
+        result = prime * result + ((getAvatarUrl() == null) ? 0 : getAvatarUrl().hashCode());
+        result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
+        result = prime * result + ((getRemark() == null) ? 0 : getRemark().hashCode());
         result = prime * result + ((getOrgCode() == null) ? 0 : getOrgCode().hashCode());
-        result = prime * result + ((getUpdateUserId() == null) ? 0 : getUpdateUserId().hashCode());
-        result = prime * result + ((getCreateUserId() == null) ? 0 : getCreateUserId().hashCode());
+        result = prime * result + ((getCreateUser() == null) ? 0 : getCreateUser().hashCode());
+        result = prime * result + ((getCreateDate() == null) ? 0 : getCreateDate().hashCode());
+        result = prime * result + ((getUpdateUser() == null) ? 0 : getUpdateUser().hashCode());
+        result = prime * result + ((getUpdateDate() == null) ? 0 : getUpdateDate().hashCode());
         return result;
     }
 
@@ -856,30 +665,24 @@ public class SysUser implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", bUserId=").append(bUserId);
         sb.append(", realName=").append(realName);
         sb.append(", sex=").append(sex);
         sb.append(", username=").append(username);
         sb.append(", password=").append(password);
         sb.append(", email=").append(email);
         sb.append(", phone=").append(phone);
-        sb.append(", tel=").append(tel);
-        sb.append(", status=").append(status);
-        sb.append(", updateDate=").append(updateDate);
-        sb.append(", createDate=").append(createDate);
-        sb.append(", remark=").append(remark);
         sb.append(", accountType=").append(accountType);
-        sb.append(", lastLoginTime=").append(lastLoginTime);
-        sb.append(", lastLoginIp=").append(lastLoginIp);
-        sb.append(", loginCount=").append(loginCount);
-        sb.append(", errorCount=").append(errorCount);
-        sb.append(", errorTime=").append(errorTime);
         sb.append(", token=").append(token);
-        sb.append(", recentlyTime=").append(recentlyTime);
+        sb.append(", openid=").append(openid);
         sb.append(", idCard=").append(idCard);
+        sb.append(", avatarUrl=").append(avatarUrl);
+        sb.append(", status=").append(status);
+        sb.append(", remark=").append(remark);
         sb.append(", orgCode=").append(orgCode);
-        sb.append(", updateUserId=").append(updateUserId);
-        sb.append(", createUserId=").append(createUserId);
+        sb.append(", createUser=").append(createUser);
+        sb.append(", createDate=").append(createDate);
+        sb.append(", updateUser=").append(updateUser);
+        sb.append(", updateDate=").append(updateDate);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
