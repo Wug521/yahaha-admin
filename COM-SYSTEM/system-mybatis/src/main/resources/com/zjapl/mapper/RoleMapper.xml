@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.system.dao.ISysRoleDao">
+	<!-- entity -->
+	<resultMap type="com.example.system.vo.SysRoleVo"
+		id="RoleMap">
+		<result property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="remark" column="remark" />
+		<result property="status" column="status" />
+		<result property="flag" column="flag" />
+		<result property="createUser" column="create_user"/>
+		<result property="createTime" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateTime" column="update_time" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<select id="selectListByUser" resultMap="RoleMap"
+		parameterType="com.example.system.vo.SysRoleVo">
+	   <![CDATA[
+	   		SELECT
+				t.*, CASE
+			WHEN c.ROLE_ID IS NULL THEN
+				FALSE
+			ELSE
+				TRUE
+			END flag
+			FROM
+				sys_role t
+			LEFT JOIN (
+				SELECT
+					b.ROLE_ID
+				FROM
+					sys_user_role b
+				WHERE
+					b.USER_ID = #{userId} GROUP BY b.ROLE_ID
+			) c ON t.ID = c.ROLE_ID
+			WHERE
+				t.ORG_CODE  = #{orgCode} AND t.STATUS <> #{status}
+		]]>
+	</select>
+
+
+</mapper> 

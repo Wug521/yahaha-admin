@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.system.dao.ISysResourceDao">
+	<!-- entity -->
+	<resultMap type="com.example.system.entity.SysResource"
+		id="ResourceMap">
+		<result property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="sort" column="sort" />
+		<result property="value" column="value" />
+		<result property="icon" column="icon" />
+		<result property="pid" column="pid" />
+		<result property="remark" column="remark" />
+		<result property="status" column="status" />
+		<result property="createUser" column="create_user" />
+		<result property="updateUser" column="update_user" />
+		<result property="createDate" column="create_Date"/>
+		<result property="updateDate" column="update_Date"/>
+	</resultMap>
+
+	<select id="selectTreeList" resultMap="ResourceMap">
+		SELECT
+			t.*
+		FROM
+			(
+				SELECT
+					f.RESOURCE_ID
+				FROM
+					(
+						SELECT
+							a.ROLE_ID
+						FROM
+							sys_user_role a
+						LEFT JOIN sys_role b ON a.ROLE_ID = b.ID
+						WHERE
+							a.USER_ID = #{userId}
+						AND b.STATUS = #{status}
+						AND b.ORG_CODE = #{orgCode}
+					) g
+				LEFT JOIN sys_role_resource f ON f.ROLE_ID = g.ROLE_ID AND g.ORG_CODE = #{orgCode}
+				GROUP BY
+					f.RESOURCE_ID
+			) w
+		LEFT JOIN sys_resource t ON w.RESOURCE_ID = t.ID AND t.ORG_CODE = #{orgCode}
+		WHERE
+			t. STATUS = #{status}
+		
+	</select>
+	
+	<select id="selectList" resultMap="ResourceMap">
+	   <![CDATA[
+		    SELECT
+				*
+			FROM
+				sys_resource
+			WHERE
+				(id = #{id} OR pid=#{id}) 
+			AND 
+				STATUS <> #{status}
+			AND 
+				ORG_CODE = #{orgCode}
+	   ]]>
+	</select>
+
+
+</mapper> 
