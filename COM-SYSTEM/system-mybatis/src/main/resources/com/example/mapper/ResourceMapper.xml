@@ -28,7 +28,7 @@
 				FROM
 					(
 						SELECT
-							a.ROLE_ID
+							a.ROLE_ID,a.ORG_CODE
 						FROM
 							sys_user_role a
 						LEFT JOIN sys_role b ON a.ROLE_ID = b.ID AND a.ORG_CODE = b.ORG_CODE
