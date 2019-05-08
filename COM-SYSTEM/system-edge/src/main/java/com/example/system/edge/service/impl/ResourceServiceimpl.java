@@ -19,6 +19,7 @@ import com.example.system.dic.CommonDictionary.EnableOrDisable;
 import com.example.system.dic.CommonDictionary.EnableOrDisableCode;
 import com.example.system.edge.service.IResourceService;
 import com.example.system.entity.SysResource;
+import com.example.system.entity.SysRoleResource;
 import com.example.system.utils.BeanUtils;
 import com.example.system.utils.CommonUtil;
 import com.example.system.utils.TreeMenuUtils;
@@ -233,6 +234,29 @@ public class ResourceServiceimpl implements IResourceService {
 			ids.addAll(getSysResourceAndSonsById(ids.toArray(new Long[ids.size()])));
 		}
 		return ids;
+	}
+
+	@Override
+	public ResultEx queryResourceByRoleId(Long roleId) {
+		ResultEx result = new ResultEx();
+		if (roleId == null) {
+			return result.makeFailedResult(ErrorCode.BAD_PARAMETER);
+		}
+		Example ex = new Example(SysRoleResource.class);
+		Criteria cri = ex.createCriteria();
+		cri.andEqualTo("roleId", roleId);
+		List<SysRoleResource> list = roleResourceDao.selectByExample(ex);
+		List<SysResourceVo> resList = new ArrayList<SysResourceVo>();
+		if(list !=null && list.size()>0 ){
+			for(SysRoleResource RoleResource : list){
+				SysResourceVo vo = new SysResourceVo();
+				vo.setId(RoleResource.getResourceId());
+				vo.setName(resourceDao.selectByPrimaryKey(RoleResource.getResourceId()).getName());
+				resList.add(vo);
+			}
+		}
+		result.setData(resList);
+		return result.makeSuccessResult();
 	}
 	
 

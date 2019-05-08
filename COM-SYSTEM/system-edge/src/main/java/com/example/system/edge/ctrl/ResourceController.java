@@ -18,16 +18,8 @@ import com.example.system.vo.SysResourceQueryVo;
 import com.zjapl.common.result.ObjectResultEx;
 import com.zjapl.common.result.ResultEx;
 
-/**
- * 
- * 文件名：SysResourceController.java
- * 日　期：2017年1月13日 上午9:44:51
- * 版　权：ZJAPL
- * 作　者：liss
- * 类说明：
- */
 @Controller
-@RequestMapping("/api/sysResource")
+@RequestMapping(value="/sysResource")
 public class ResourceController extends BaseController{
 	@Resource
 	private IResourceService sysResourceService;
@@ -41,16 +33,16 @@ public class ResourceController extends BaseController{
 	}
 	
 	/**
-	 * 获取资源树
+	 * 获取ALL资源树
 	 */
 	@RequestMapping("/queryResourceTree")
 	@ResponseBody
-	public ResultEx queryResourceTree(Short flag){
-		return sysResourceService.queryAllTree(flag, isSystemUser() ? null : getUserIdForUser());
+	public ResultEx queryResourceTree(Short fla){
+		return sysResourceService.queryAllTree();
 	}
 	
 	/**
-	 * 获取资源树
+	 * 获取父资源树
 	 */
 	@RequestMapping("/queryRootResourceTree")
 	@ResponseBody
@@ -59,11 +51,11 @@ public class ResourceController extends BaseController{
 	}
 	
 	/**
-	 * 资源管理查询
+	 * 分页查询资源List
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping("/listResource")
+	@RequestMapping("/list")
 	public ResultEx listResource(SysResourceQueryVo page){
 		return sysResourceService.queryResourceListForId(page);
 	}
@@ -74,7 +66,6 @@ public class ResourceController extends BaseController{
 	 */
 	@ResponseBody
 	@RequestMapping("/addOrEdit")
-	@ValidPermission(permission = {"SYS_RESOURCE_ADD", "SYS_RESOURCE_EDIT"})
 	public ResultEx addOrEditResource(@Validated SysResource sysResource){
 		return sysResourceService.saveOrEdit(sysResource, getUserIdForUser());
 	}
@@ -84,21 +75,9 @@ public class ResourceController extends BaseController{
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value="/dellistResource")
-	@ValidPermission(permission = "SYS_RESOURCE_DEL")
+	@RequestMapping(value="/delResource")
 	public ResultEx delResource(String ids, Short status){
 		return sysResourceService.editStatus(ids, status, getUserIdForUser());
-	}
-	
-	/**
-	 * 根据用户id获取资源信息列表
-	 * @param sysUserId
-	 * @return
-	 */
-	@ResponseBody
-	@RequestMapping(value="/getResourcesByUserId")
-	public ResultEx getResourcesByUserId(@RequestParam("userId") Long id){
-		return sysResourceService.getResourcePermsByUserId(id);
 	}
 	
 	/**
@@ -107,8 +86,8 @@ public class ResourceController extends BaseController{
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value="/queryResourceListByRoleId")
-	public ResultEx queryResourceListByRoleId(@RequestParam("roleId") Long id){
-		return null;
+	@RequestMapping(value="/getResourceListByRoleId")
+	public ResultEx getResourceListByRoleId(@RequestParam("roleId") Long roleId){
+		return sysResourceService.queryResourceByRoleId(roleId);
 	}
 }

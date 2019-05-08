@@ -1,4 +1,4 @@
-package com.project.system.vo;
+package com.example.system.vo;
 
 import com.github.pagehelper.PageInfo;
 

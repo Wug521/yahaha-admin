@@ -36,7 +36,6 @@ public interface IRoleService {
 	 */
 	public ResultEx editStatus(String ids,Short status, Long userId);
 	
-	
 	/**
 	 * 查询用户角色列表
 	 * @param sysUser

@@ -69,4 +69,11 @@ public interface IResourceService {
 	 */
 	public ObjectResultEx<PageInfo<SysResourceVo>> queryResourceListForId(SysResourceQueryVo page);
 	
+	/**
+	 * 根据角色ID查询其含有资源
+	 * @param roleId
+	 * @return
+	 */
+	public ResultEx queryResourceByRoleId(Long roleId);
+	
 }

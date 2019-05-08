@@ -15,18 +15,20 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.system.edge.service.SysFileService;
+import com.example.system.edge.service.IFileService;
 import com.example.ueditor.define.AppInfo;
 import com.example.ueditor.define.BaseState;
 import com.example.ueditor.define.State;
 
 @Service
 public class StorageManager {
+	
 	public static final int BUFFER_SIZE = 8192;
+	
 	public static Logger logger = LoggerFactory.getLogger(StorageManager.class);
 	
 	@Resource 
-	private SysFileService fileService;
+	private IFileService fileService;
 
 	public static State saveBinaryFile(byte[] data, String path) {
 		File file = new File(path);

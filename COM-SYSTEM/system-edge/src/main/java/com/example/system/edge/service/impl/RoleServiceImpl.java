@@ -51,7 +51,7 @@ public class RoleServiceImpl implements IRoleService {
 	ISysResourceDao resourceDao;
 	
 	@Autowired
-	ISysRoleResourceDao RoleResourceDao;
+	ISysRoleResourceDao roleResourceDao;
 
 	/**
 	 * 添加修改角色
@@ -80,16 +80,13 @@ public class RoleServiceImpl implements IRoleService {
 			role.setOrgCode(orgCode);
 			roleDao.insertSelective(role);
 		}else{
-			/*if(Role.getCreateUser().longValue() != userId.longValue()){
-				return result.makeFailedResult(ErrorCode.NOT_SUPPORTED,"无权限修改");
-			}*/
 			roleDao.updateByPrimaryKeySelective(role);
 		}
 		/*
-		 * 配置角色资源、权限
+		 * 配置角色资源
 		 */
 		if(resourceList != null){
-			setResourceAndPermissionForRole(role, resourceList);
+			setResourceForRole(role, resourceList);
 		}
 		return result.makeSuccessResult();
 	}
@@ -99,18 +96,18 @@ public class RoleServiceImpl implements IRoleService {
 	 * @param Role
 	 * @param resourceList
 	 */
-	private void setResourceAndPermissionForRole(SysRoleVo Role, List<SysResourceVo> resourceList) {
+	public void setResourceForRole(SysRoleVo Role, List<SysResourceVo> resourceList) {
 		SysRoleResource record = new SysRoleResource();
 		record.setRoleId(Role.getId());
-		RoleResourceDao.delete(record);
+		roleResourceDao.delete(record);
 		for(SysResourceVo resource : resourceList){
-			SysRoleResource _RoleResource = new SysRoleResource();
-			_RoleResource.setRoleId(Role.getId());
-			_RoleResource.setOrgCode(Role.getOrgCode());
-			_RoleResource.setResourceId(resource.getId());
-			_RoleResource.setCreateDate(new Date());
-			_RoleResource.setUpdateDate(new Date());
-			RoleResourceDao.insertSelective(_RoleResource);
+			SysRoleResource roleResource = new SysRoleResource();
+			roleResource.setRoleId(Role.getId());
+			roleResource.setOrgCode(Role.getOrgCode());
+			roleResource.setResourceId(resource.getId());
+			roleResource.setCreateDate(new Date());
+			roleResource.setUpdateDate(new Date());
+			roleResourceDao.insertSelective(roleResource);
 		}
 	}
 
@@ -133,14 +130,14 @@ public class RoleServiceImpl implements IRoleService {
 		List<SysRole> sysRoleList = roleDao.select(sysRole);
 		PageInfo pageInfo = new PageInfo(sysRoleList);
 		List<SysRoleVo> sysRoleListVo = new ArrayList<SysRoleVo>();
-		for(SysRole Role : sysRoleList){
-			SysRoleVo RoleVo = new SysRoleVo();
-			BeanUtils.copyProperties(Role, RoleVo);
+		for(SysRole role : sysRoleList){
+			SysRoleVo roleVo = new SysRoleVo();
+			BeanUtils.copyProperties(role, roleVo);
 			//有效标记
-			if(Role.getStatus()!=null){
-				RoleVo.setStatusName(EnableOrDisable.parseCode(Role.getStatus()).getLocalizedName());
+			if(role.getStatus()!=null){
+				roleVo.setStatusName(EnableOrDisable.parseCode(role.getStatus()).getLocalizedName());
 			}
-			sysRoleListVo.add(RoleVo);
+			sysRoleListVo.add(roleVo);
 		}
 		pageInfo.setList(sysRoleListVo);
 		return new ObjectResultEx<PageInfo<SysRoleVo>>().makeSuccessResult(pageInfo);
@@ -163,11 +160,11 @@ public class RoleServiceImpl implements IRoleService {
 		List<Long> idList = CommonUtil.idsToList(ids);
 		Example ex = new Example(SysRole.class);
 		ex.createCriteria().andIn("id", idList);
-		SysRole Role = new SysRole();
-		Role.setStatus(status);
-		Role.setUpdateUser(userId);
-		Role.setUpdateDate(new Date());
-		roleDao.updateByExampleSelective(Role, ex);
+		SysRole role = new SysRole();
+		role.setStatus(status);
+		role.setUpdateUser(userId);
+		role.setUpdateDate(new Date());
+		roleDao.updateByExampleSelective(role, ex);
 		return result.makeSuccessResult();
 	}
 
