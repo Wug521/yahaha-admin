@@ -7,7 +7,6 @@ import java.util.List;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -31,7 +30,6 @@ import com.example.system.dic.CommonDictionary.EnableOrDisableCode;
 import com.example.system.edge.service.IResourceService;
 import com.example.system.edge.service.IUserService;
 import com.example.system.entity.SysUser;
-import com.example.system.utils.ServletRequestUtils;
 import com.example.system.vo.MenuVo;
 import com.zjapl.common.exception.CaptchaException;
 import com.zjapl.common.result.ResultEx;
@@ -78,7 +76,7 @@ public class LoginAuthenticationFilter extends FormAuthenticationFilter {
 		String failureUrl = httpRequest.getParameter(FAILURE_URL);
 		failureUrl = "/login";
 		ShiroUtils.getOrCreateSession();
-		SysUser sysUser = (SysUser) sysUserService.queryByPhone(phone.substring(0, phone.lastIndexOf("@")), null).getData();
+		SysUser sysUser = (SysUser) sysUserService.queryByPhone(phone, null).getData();
 		if(sysUser == null){
 			return onLoginFailure(true,token, new UnknownAccountException("用户不存在"), request, response);
 		}else{

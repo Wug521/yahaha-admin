@@ -28,6 +28,7 @@ import com.example.system.vo.SysResourceQueryVo;
 import com.example.system.vo.SysResourceVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.zjapl.common.Constants;
 import com.zjapl.common.result.ObjectResultEx;
 import com.zjapl.common.result.ResultEx;
 import com.zjapl.common.result.XResult.ErrorCode;
@@ -79,9 +80,11 @@ public class ResourceServiceimpl implements IResourceService {
 			logger.error("ResourceService.queryTreeByUser error, userId is null");
 			return new ObjectResultEx<List<MenuVo>>().makeFailedResult(ErrorCode.BAD_PARAMETER);
 		}
-		List<SysResource> rosourceList = null;
-		rosourceList = resourceDao.selectTreeList(userId,EnableOrDisableCode.ENABLE,orgCode);
-		List<MenuVo> menuVo = sortResource(rosourceList, true);
+		List<SysResource> rosourceList = resourceDao.selectTreeList(userId,EnableOrDisableCode.ENABLE,orgCode);
+		List<MenuVo> menuVo = new ArrayList<MenuVo>();
+		if(rosourceList != null && rosourceList.size() > Constants.ZERO.intValue()){
+			menuVo = sortResource(rosourceList, true);
+		}
 		return new ObjectResultEx<List<MenuVo>>().makeSuccessResult(menuVo);
 	}
 
@@ -132,8 +135,11 @@ public class ResourceServiceimpl implements IResourceService {
 		Example ex = new Example(SysResource.class);
 		ex.createCriteria().andNotEqualTo("status", EnableOrDisableCode.DELETED);
 		List<SysResource> rosourceList = resourceDao.selectByExample(ex);
-		List<MenuVo> list = sortResource(rosourceList, true);
-		return new ObjectResultEx<List<MenuVo>>().makeSuccessResult(list);
+		List<MenuVo> menuVo = new ArrayList<MenuVo>();
+		if(rosourceList != null && rosourceList.size() > Constants.ZERO.intValue()){
+			menuVo = sortResource(rosourceList, true);
+		}
+		return new ObjectResultEx<List<MenuVo>>().makeSuccessResult(menuVo);
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -142,8 +148,11 @@ public class ResourceServiceimpl implements IResourceService {
 		Example ex = new Example(SysResource.class);
 		ex.createCriteria().andNotEqualTo("status", EnableOrDisableCode.DELETED).andEqualTo("pid", 0);
 		List<SysResource> rosourceList = resourceDao.selectByExample(ex);
-		List<MenuVo> list = sortResource(rosourceList, true);
-		return new ObjectResultEx<List<MenuVo>>().makeSuccessResult(list);
+		List<MenuVo> menuVo = new ArrayList<MenuVo>();
+		if(rosourceList != null && rosourceList.size() > Constants.ZERO.intValue()){
+			menuVo = sortResource(rosourceList, true);
+		}
+		return new ObjectResultEx<List<MenuVo>>().makeSuccessResult(menuVo);
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
