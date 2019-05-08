@@ -31,17 +31,17 @@
 							a.ROLE_ID
 						FROM
 							sys_user_role a
-						LEFT JOIN sys_role b ON a.ROLE_ID = b.ID
+						LEFT JOIN sys_role b ON a.ROLE_ID = b.ID AND a.ORG_CODE = b.ORG_CODE
 						WHERE
 							a.USER_ID = #{userId}
 						AND b.STATUS = #{status}
 						AND b.ORG_CODE = #{orgCode}
 					) g
-				LEFT JOIN sys_role_resource f ON f.ROLE_ID = g.ROLE_ID AND g.ORG_CODE = #{orgCode}
+				LEFT JOIN sys_role_resource f ON f.ROLE_ID = g.ROLE_ID and f.org_code = g.ORG_CODE
 				GROUP BY
 					f.RESOURCE_ID
 			) w
-		LEFT JOIN sys_resource t ON w.RESOURCE_ID = t.ID AND t.ORG_CODE = #{orgCode}
+		LEFT JOIN sys_resource t ON w.RESOURCE_ID = t.ID
 		WHERE
 			t. STATUS = #{status}
 		
