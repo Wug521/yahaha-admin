@@ -37,7 +37,7 @@ public class ResourceController extends BaseController{
 	 */
 	@RequestMapping("/queryResourceTree")
 	@ResponseBody
-	public ResultEx queryResourceTree(Short fla){
+	public ResultEx queryResourceTree(){
 		return sysResourceService.queryAllTree();
 	}
 	

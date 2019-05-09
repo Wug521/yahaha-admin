@@ -37,7 +37,7 @@
 						AND b.STATUS = #{status}
 						AND b.ORG_CODE = #{orgCode}
 					) g
-				LEFT JOIN sys_role_resource f ON f.ROLE_ID = g.ROLE_ID and f.org_code = g.ORG_CODE
+				LEFT JOIN sys_role_resource f ON f.ROLE_ID = g.ROLE_ID and f.ORG_CODE = g.ORG_CODE
 				GROUP BY
 					f.RESOURCE_ID
 			) w
