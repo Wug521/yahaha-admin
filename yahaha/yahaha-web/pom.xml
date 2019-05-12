@@ -49,7 +49,7 @@
 		</profile>
 	</profiles>
 	<build>
-		<finalName>yahaha-web</finalName>
+		<finalName>yhh-web</finalName>
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
