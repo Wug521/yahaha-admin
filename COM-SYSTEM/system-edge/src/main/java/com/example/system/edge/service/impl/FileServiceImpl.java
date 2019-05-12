@@ -24,16 +24,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.aliyun.oss.ClientConfiguration;
 import com.example.system.base.BaseFileParams;
 import com.example.system.dao.ISysFileDao;
 import com.example.system.dao.ISysUserDao;
-import com.example.system.dic.OSSConfig;
 import com.example.system.edge.service.IFileService;
 import com.example.system.entity.SysFile;
 import com.example.system.entity.SysUser;
@@ -60,9 +57,6 @@ public class FileServiceImpl extends BaseFileParams implements IFileService{
 	
 	@Resource
 	ISysUserDao sysUserDao;
-	
-	@Autowired
-	OSSConfig ossConfig;
 	
 	private boolean isFtpParamAvailable(){
 		if (StringUtil.isEmpty(preAppName) || StringUtil.isEmpty(preWebAccessName) || StringUtil.isEmpty(preUrlPath)){
