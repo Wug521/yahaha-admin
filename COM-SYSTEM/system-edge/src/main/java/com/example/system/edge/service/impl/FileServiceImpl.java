@@ -70,6 +70,7 @@ public class FileServiceImpl extends BaseFileParams implements IFileService{
 		preUrlPath = FileUtil.addPathTailSeparate(preUrlPath);
 		return true;
 	}
+	
 	/**
 	 * 文件上传
 	 * @param multipartFile
@@ -124,6 +125,7 @@ public class FileServiceImpl extends BaseFileParams implements IFileService{
 		}
 		return sysFile;
 	}
+	
 	/**
 	 * 保存系统文件信息
 	 * @param sysFile
@@ -138,6 +140,7 @@ public class FileServiceImpl extends BaseFileParams implements IFileService{
 		sysFileDao.insertSelective(sysFile);
 		return true;
 	}
+	
 	/**
 	 * 生成文件名称
 	 * @param fileName
@@ -189,6 +192,7 @@ public class FileServiceImpl extends BaseFileParams implements IFileService{
 		}  
 		return result;
 	}
+	
 	/**
 	 * 字符串list转成逗号分隔的字符串
 	 * @param list
@@ -204,6 +208,7 @@ public class FileServiceImpl extends BaseFileParams implements IFileService{
 		}
 		return result.substring(0, result.length() - 1);
 	}
+	
 	/**
 	 * 获取文件
 	 * @param ids
