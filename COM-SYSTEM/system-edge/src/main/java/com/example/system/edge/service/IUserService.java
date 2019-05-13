@@ -69,7 +69,7 @@ public interface IUserService {
      * @param user
      * @return
      */
-    public ResultEx saveUserRole(SysUserRoleVo param, Long userId);
+    public ResultEx saveUserRole(SysUserRoleVo param, Long userId, String orgCode);
 
     /**
      * 重置密码

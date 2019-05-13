@@ -4,6 +4,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -82,13 +83,13 @@ public class UserController extends BaseController {
 
     @ResponseBody
     @RequestMapping("/saveRole")
-    public ResultEx saveUserRole(SysUserRoleVo param) {
-        return userService.saveUserRole(param, getUserIdForUser());
+    public ResultEx saveUserRole(@RequestBody SysUserRoleVo param) {
+        return userService.saveUserRole(param, getUserIdForUser(), getOrgCodeForUser());
     }
 
     @ResponseBody
     @RequestMapping("/uploadUserPicture")
-    public ResultEx uploadUserPicture(SysUserVo param) {
+    public ResultEx uploadUserPicture(@RequestBody SysUserVo param) {
         return userService.uploadUserPicture(param, getUserIdForUser());
     }
 

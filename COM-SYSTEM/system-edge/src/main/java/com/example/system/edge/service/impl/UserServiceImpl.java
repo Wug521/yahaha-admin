@@ -185,7 +185,7 @@ public class UserServiceImpl implements IUserService {
      * @return
      */
     @Override
-    public ResultEx saveUserRole(SysUserRoleVo param, Long userId) {
+    public ResultEx saveUserRole(SysUserRoleVo param, Long userId, String orgCode) {
         if (StringUtil.isEmpty(param) || StringUtil.isEmpty(userId)) {
             logger.error("UserService.saveUserRole error. param is empty");
             return new ResultEx().makeInvalidParameterResult();
@@ -195,10 +195,10 @@ public class UserServiceImpl implements IUserService {
          */
         Long user_id = param.getUserId();
         List<Long> roleIds = CommonUtil.idsToList(param.getIds());
-        if (roleIds == null || roleIds.size() == 0) {
+        /*if (roleIds == null || roleIds.size() == 0) {
             logger.error("UserService.saveUserRole error. RoleIds is empty");
             return new ResultEx().makeInvalidParameterResult();
-        }
+        }*/
         /*
          * 将用户之前的角色信息清空
          */
@@ -213,6 +213,8 @@ public class UserServiceImpl implements IUserService {
             Date date = new Date();
             userRole.setRoleId(roleId);
             userRole.setUserId(user_id);
+            userRole.setStatus(EnableOrDisableCode.ENABLE);
+            userRole.setOrgCode(orgCode);
             userRole.setCreateDate(date);
             userRole.setUpdateDate(date);
             userRole.setCreateUser(userId);

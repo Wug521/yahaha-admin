@@ -1,6 +1,9 @@
 package com.example.yahaha.service;
 
+import java.util.List;
+
 import com.example.system.entity.SysUser;
+import com.example.system.vo.MenuVo;
 import com.example.yahaha.entity.vo.MaterialNodeQueryVo;
 import com.example.yahaha.entity.vo.MaterialNodeVo;
 import com.github.pagehelper.PageInfo;
@@ -40,5 +43,14 @@ public interface IMaterialNodeService {
 	 * @return
 	 */
 	public ObjectResultEx<PageInfo<MaterialNodeVo>> queryMaterialNodeList(MaterialNodeQueryVo queryVo,SysUser sysUser);
+	
+	/**
+	 * 获取素材节点列表树
+	 * @param sysUser
+	 * @param roleType
+	 * @return
+	 */
+//	@SuppressWarnings("rawtypes")
+//	public ObjectResultEx<List<MenuVo>> getNodeTree(String orgCode);
 
 }

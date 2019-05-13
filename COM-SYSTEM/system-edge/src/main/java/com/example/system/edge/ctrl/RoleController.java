@@ -4,6 +4,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -34,13 +35,13 @@ public class RoleController extends BaseController{
 	
 	/**
 	 * 添加、修改
-	 * @param RoleVo
+	 * @param roleVo
 	 * @return
 	 */
 	@RequestMapping("/addOrEdit")
 	@ResponseBody
-	public ResultEx addOrEditSysRole(@Validated SysRoleVo RoleVo){
-		return roleService.saveOrEdit(RoleVo,getUserIdForUser(),getOrgCodeForUser());
+	public ResultEx addOrEditSysRole(@RequestBody SysRoleVo roleVo){
+		return roleService.saveOrEdit(roleVo,getUserIdForUser(),getOrgCodeForUser());
 	}
 	
 	/**
