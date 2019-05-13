@@ -3,6 +3,7 @@ package com.example.yahaha.ctrl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,7 +26,7 @@ public class MaterialNodeController extends BaseController{
 	 * @return
 	 */
 	@PostMapping("/add")
-	public ResultEx addOrEditResource(MaterialNodeVo vo){
+	public ResultEx addOrEditResource(@RequestBody MaterialNodeVo vo){
 		return materialNodeService.add(vo, getSysUser());
 	}
 	
@@ -34,7 +35,7 @@ public class MaterialNodeController extends BaseController{
 	 * @return
 	 */
 	@PostMapping("/update")
-	public ResultEx update(MaterialNodeVo vo){
+	public ResultEx update(@RequestBody MaterialNodeVo vo){
 		return materialNodeService.update(vo, getSysUser());
 	}
 	
@@ -54,6 +55,15 @@ public class MaterialNodeController extends BaseController{
 	@PostMapping("/list")
 	public ResultEx list(MaterialNodeQueryVo query){
 		return materialNodeService.queryMaterialNodeList(query, getSysUser());
+	}
+	
+	/**
+	 * 获取素材节点树
+	 * @return
+	 */
+	@GetMapping("/tree")
+	public ResultEx tree(){
+		return materialNodeService.getNodeTree(getOrgCodeForUser());
 	}
 	
 }

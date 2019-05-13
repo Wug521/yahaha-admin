@@ -11,8 +11,11 @@ import org.springframework.stereotype.Service;
 
 import com.example.system.dic.CommonDictionary;
 import com.example.system.dic.CommonDictionary.EnableOrDisableCode;
+import com.example.system.entity.SysResource;
 import com.example.system.entity.SysUser;
 import com.example.system.utils.BeanUtils;
+import com.example.system.utils.TreeMenuUtils;
+import com.example.system.vo.MenuVo;
 import com.example.yahaha.dao.IMaterialNodeDao;
 import com.example.yahaha.entity.MaterialNode;
 import com.example.yahaha.entity.vo.MaterialNodeQueryVo;
@@ -20,6 +23,7 @@ import com.example.yahaha.entity.vo.MaterialNodeVo;
 import com.example.yahaha.service.IMaterialNodeService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.zjapl.common.Constants;
 import com.zjapl.common.result.ObjectResultEx;
 import com.zjapl.common.result.ResultEx;
 import com.zjapl.common.result.XResult.ErrorCode;
@@ -130,6 +134,28 @@ public class MaterialNodeServiceImpl implements IMaterialNodeService {
 			return new ObjectResultEx<PageInfo<MaterialNodeVo>>().makeInternalErrorResult();
 		}
 	}
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@Override
+	public ObjectResultEx<List<MenuVo>> getNodeTree(String orgCode) {
+		Example ex = new Example(MaterialNode.class);
+		ex.createCriteria().andNotEqualTo("status", EnableOrDisableCode.DELETED).andEqualTo("orgCode", orgCode);
+		List<MaterialNode> list = materialNodeDao.selectByExample(ex);
+		List<MenuVo> treeNodes = new ArrayList<MenuVo>();
+		if(list != null && list.size() > Constants.ZERO.intValue()){
+			List<MenuVo> menuVo = new ArrayList<MenuVo>();
+			for (MaterialNode tmp : list) {
+				MenuVo menu = new MenuVo();
+				menu.setId(tmp.getId());
+				menu.setpId(tmp.getFatherNodeId());
+				menu.setText(tmp.getNodeName());
+				menu.setSort(tmp.getNodeNumber().shortValue());
+				menuVo.add(menu);
+			}
+			treeNodes = TreeMenuUtils.getSortTreeMenuNodes(menuVo);
+		}
+		return new ObjectResultEx<List<MenuVo>>().makeSuccessResult(treeNodes);
+	}
 	
 	private String checkParams(MaterialNodeVo param) {
 		if(StringUtil.isEmpty(param)){return "数据为空";}
@@ -137,5 +163,6 @@ public class MaterialNodeServiceImpl implements IMaterialNodeService {
 		if(StringUtil.isEmpty(param.getNodeTpye())){return "节点类型为空";}
 		return CommonDictionary.SUCCESS;
 	}
+
 
 }

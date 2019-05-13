@@ -131,6 +131,38 @@ public class CategoryServiceImpl implements ICategoryService {
 		}
 	}
 	
+	@Override
+	public ObjectResultEx<List<CategoryVo>> getCategoryList(CategoryVo query, SysUser sysUser) {
+		if(StringUtil.isEmpty(query)){
+			logger.error("CategoryServiceImpl.queryCategoryList error. query is empty");
+			return new ObjectResultEx<List<CategoryVo>>().makeInvalidParameterResult();
+		}
+		try {
+			Example example = new Example(MaterialNode.class);
+			Criteria criteria = example.createCriteria();
+			//查询条件
+			if(StringUtil.noEmpty(query.getName())){//节点名称
+				criteria.andLike("name", "%" + query.getName() + "%");
+			}
+			if(StringUtil.noEmpty(query.getType())){//节点类型
+				criteria.andEqualTo("tpye", query.getType());
+			}
+			criteria.andEqualTo("status", EnableOrDisableCode.ENABLE).andEqualTo("orgCode", sysUser.getOrgCode());
+			example.orderBy("createDate").desc();//创建时间倒序
+			List<Category> list = categoryDao.selectByExample(example);//查询
+			List<CategoryVo> result = new ArrayList<CategoryVo>();
+			for (Category opsAccept : list) {//查询结果解析,bean => vo
+				CategoryVo CategoryVo = new CategoryVo();
+				BeanUtils.copyPropertiesIgnoreNullValue(opsAccept, CategoryVo);//copy
+				result.add(CategoryVo);
+			}
+			return new ObjectResultEx<List<CategoryVo>>().makeSuccessResult(result);
+		} catch (Exception e) {
+			logger.error("CategoryServiceImpl.queryCategoryList error.",e);
+			return new ObjectResultEx<List<CategoryVo>>().makeInternalErrorResult();
+		}
+	}
+	
 	
 	private String checkParams(CategoryVo param) {
 		if(StringUtil.isEmpty(param)){return "数据为空";}

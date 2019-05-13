@@ -50,7 +50,7 @@ public interface IMaterialNodeService {
 	 * @param roleType
 	 * @return
 	 */
-//	@SuppressWarnings("rawtypes")
-//	public ObjectResultEx<List<MenuVo>> getNodeTree(String orgCode);
+	@SuppressWarnings("rawtypes")
+	public ObjectResultEx<List<MenuVo>> getNodeTree(String orgCode);
 
 }
