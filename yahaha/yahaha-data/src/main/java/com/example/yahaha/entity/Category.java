@@ -1,7 +1,7 @@
 /**
  * Copyright(C) 2006-2016 安普利科技
  * All rights reserved
- * 2019-05-06 17:19:22 Created
+ * 2019-05-15 17:27:32 Created
  * 
  */
 package com.example.yahaha.entity;
@@ -14,7 +14,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 public class Category implements Serializable {
-	
     /**
      * 主键ID
      */
@@ -31,6 +30,11 @@ public class Category implements Serializable {
      * 类型(1:类别 2:标签)
      */
     private String type;
+
+    /**
+     * 1-新闻 2-游戏
+     */
+    private Short scope;
 
     /**
      * 状态(数据)
@@ -137,6 +141,31 @@ public class Category implements Serializable {
      */
     public void setType(String type) {
         this.type = type == null ? null : type.trim();
+    }
+
+    /**
+     * <pre>
+     * 获取：1-新闻 2-游戏
+     * 表字段：category.scope
+     * </pre>
+     *
+     * @return category.scope：1-新闻 2-游戏
+     */
+    public Short getScope() {
+        return scope;
+    }
+
+    /**
+     * <pre>
+     * 设置：1-新闻 2-游戏
+     * 表字段：category.scope
+     * </pre>
+     *
+     * @param scope
+     *            category.scope：1-新闻 2-游戏
+     */
+    public void setScope(Short scope) {
+        this.scope = scope;
     }
 
     /**
@@ -308,6 +337,7 @@ public class Category implements Serializable {
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
             && (this.getType() == null ? other.getType() == null : this.getType().equals(other.getType()))
+            && (this.getScope() == null ? other.getScope() == null : this.getScope().equals(other.getScope()))
             && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
             && (this.getOrgCode() == null ? other.getOrgCode() == null : this.getOrgCode().equals(other.getOrgCode()))
             && (this.getCreateUser() == null ? other.getCreateUser() == null : this.getCreateUser().equals(other.getCreateUser()))
@@ -326,6 +356,7 @@ public class Category implements Serializable {
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
         result = prime * result + ((getType() == null) ? 0 : getType().hashCode());
+        result = prime * result + ((getScope() == null) ? 0 : getScope().hashCode());
         result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         result = prime * result + ((getOrgCode() == null) ? 0 : getOrgCode().hashCode());
         result = prime * result + ((getCreateUser() == null) ? 0 : getCreateUser().hashCode());
@@ -347,6 +378,7 @@ public class Category implements Serializable {
         sb.append(", id=").append(id);
         sb.append(", name=").append(name);
         sb.append(", type=").append(type);
+        sb.append(", scope=").append(scope);
         sb.append(", status=").append(status);
         sb.append(", orgCode=").append(orgCode);
         sb.append(", createUser=").append(createUser);

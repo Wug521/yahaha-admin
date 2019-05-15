@@ -226,7 +226,7 @@ public class LoginAuthenticationFilter extends FormAuthenticationFilter {
 		ShiroUtils.getSession().setAttribute(LOGIN_ERROR_COUNT, count);
 		ShiroUtils.getSession().setAttribute(LOGIN_ERROR_TIME, System.currentTimeMillis());
 		try {
-			response.setContentType("text/html;charset=uft-8");
+			response.setContentType("text/html;charset=utf-8");
 			response.setCharacterEncoding("UTF-8");
 			PrintWriter out = response.getWriter();
 			String message = getFailureMessage(ae);
