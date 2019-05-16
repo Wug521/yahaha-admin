@@ -20,7 +20,6 @@ import com.aliyun.oss.model.PutObjectResult;
  * @author Mr.Wug
  *
  */
-@Service
 public class OSSUtils {
 	
 	private static Logger logger = LoggerFactory.getLogger(OSSUtils.class);

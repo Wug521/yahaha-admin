@@ -30,12 +30,12 @@ public interface IFileService {
 	public ObjectResultEx<List<SysFile>> queryList(String ids);
 	
 	/**
-	 * FTP上传文件
+	 * OSS上传文件
 	 * @param in
 	 * @param remoteDir
 	 * @throws Exception
 	 */
-	public void ftpUploadFile(InputStream in,String remoteDir) throws Exception;
+	public void ossUploadFile(InputStream in,String fileName) throws Exception;
 	
 	/**
 	 * FTP下载文件

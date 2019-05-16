@@ -73,7 +73,7 @@ public class ActionEnter {
 			case ActionMap.UPLOAD_VIDEO:
 			case ActionMap.UPLOAD_FILE:
 				conf = configManager.getConfig( actionCode , rootPath);
-			    conf.put("useFtpUpload",this.configManager.getAllConfig().getBoolean("useFtpUpload"));  
+			    conf.put("useOSSUpload",this.configManager.getAllConfig().getBoolean("useOSSUpload"));  
 				state = uploader.doExec(request, conf);
 				break;
 				

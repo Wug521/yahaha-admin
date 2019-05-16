@@ -24,17 +24,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.example.system.base.BaseFileParams;
+import com.example.system.config.OSSConfig;
 import com.example.system.dao.ISysFileDao;
 import com.example.system.dao.ISysUserDao;
 import com.example.system.edge.service.IFileService;
 import com.example.system.entity.SysFile;
 import com.example.system.entity.SysUser;
 import com.example.system.utils.CommonUtil;
+import com.example.system.utils.OSSUtils;
 import com.example.system.vo.SysFileQueryVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -48,7 +50,7 @@ import com.zjapl.common.util.StringUtil;
 import tk.mybatis.mapper.entity.Example;
 
 @Service
-public class FileServiceImpl extends BaseFileParams implements IFileService{
+public class FileServiceImpl implements IFileService{
 
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	
@@ -58,16 +60,18 @@ public class FileServiceImpl extends BaseFileParams implements IFileService{
 	@Resource
 	ISysUserDao sysUserDao;
 	
-	private boolean isFtpParamAvailable(){
-		if (StringUtil.isEmpty(preAppName) || StringUtil.isEmpty(preWebAccessName) || StringUtil.isEmpty(preUrlPath)){
-			logger.error("preAppName or preWebAccessName or preUrlPath is null.");
+	@Autowired
+	OSSConfig ossConfig;
+	
+	private boolean isOSSParamAvailable(){
+		if (StringUtil.isEmpty(ossConfig.getAccessKeyId()) || StringUtil.isEmpty(ossConfig.getAccessKeySecret())){
+			logger.error("accessKeyId or accessKeySecret is null.");
 			return false;
 		}
-		if (StringUtil.isEmpty(ftpIp)){
-			logger.error("ftpIp is null.");
+		if (StringUtil.isEmpty(ossConfig.getEndpoint())){
+			logger.error("endpoint is null.");
 			return false;
 		}
-		preUrlPath = FileUtil.addPathTailSeparate(preUrlPath);
 		return true;
 	}
 	
@@ -79,7 +83,7 @@ public class FileServiceImpl extends BaseFileParams implements IFileService{
 	 * @throws Exception
 	 */
 	public SysFile uploadFile(MultipartFile multipartFile, SysFile sysFile) throws Exception{
-		if (!isFtpParamAvailable()){
+		if (!isOSSParamAvailable()){
 			logger.error("FtpParam is not avaliable.");
 			throw new Exception("FtpParam is not avaliable.");
 		}
@@ -93,7 +97,7 @@ public class FileServiceImpl extends BaseFileParams implements IFileService{
 		sysFile.setFileName(fileName);
 		String suffix = fileName.substring(fileName.indexOf(".") + 1, fileName.length()).toLowerCase(); // 获得文件的后缀名
 		sysFile.setSuffix(suffix);
-		DateFormat format = new SimpleDateFormat("yyyyMMdd");
+		/*DateFormat format = new SimpleDateFormat("yyyyMMdd");
 		String monthPath = format.format(new Date());
 		String path = monthPath + File.separator + suffix + File.separator;
 		//针对不同角色，对文件存放的地址归类（主要针对移动应用场景)
@@ -101,20 +105,19 @@ public class FileServiceImpl extends BaseFileParams implements IFileService{
 			path = sysFile.getOrgCode() + File.separator + path;
 		} else{
 			path = "common" + File.separator + path;
-		}
+		}*/
 		InputStream inputStream = null;
 		try {
 			inputStream = multipartFile.getInputStream();
-			String savePath = preWebAccessName + File.separator + preAppName + File.separator + path;
+			String savePath = ossConfig.getBucketName() + "." + ossConfig.getEndpoint() + File.separator + fileName;
 			savePath = FileUtil.convertToLinuxDirectory(savePath);
-			String ftpPath = "ftp://" + ftpIp + ":" + ftpPort + "/" + savePath;
-			sysFile.setFilePath(ftpPath);
-			String urlPath = preUrlPath + savePath;
-			sysFile.setShowsPath(FileUtil.convertToLinuxDirectory(urlPath));
-			String remoteFile = savePath + fileName;
-			logger.debug("文件[{}]存入FTP", remoteFile);
-			//文件上传到FTP
-			FTPUtil.uploadLocalFile(inputStream, remoteFile, ftpIp, ftpPort, ftpUserName, ftpPassword);
+			sysFile.setFilePath(savePath);
+			sysFile.setShowsPath(savePath);
+			logger.debug("文件[{}]存入OSS", savePath);
+			//文件上传到OSS
+			OSSUtils.uploadFile(ossConfig.getBucketName(), fileName, ossConfig.getEndpoint(),
+					ossConfig.getAccessKeyId(), ossConfig.getAccessKeySecret(), ossConfig.getClientConf(), inputStream);
+//			FTPUtil.uploadLocalFile(inputStream, remoteFile, ftpIp, ftpPort, ftpUserName, ftpPassword);
 			saveSysFileInfo(sysFile);
 		} catch (Exception e) {
 			throw e;
@@ -284,8 +287,11 @@ public class FileServiceImpl extends BaseFileParams implements IFileService{
 	 * @return
 	 * @throws Exception 
 	 */
-	public void ftpUploadFile(InputStream in,String remoteDir) throws Exception{
-		FTPUtil.uploadLocalFile(in, remoteDir, ftpIp, ftpPort, ftpUserName, ftpPassword);
+	public void ossUploadFile(InputStream in,String fileName) throws Exception{
+//		FTPUtil.uploadLocalFile(in, remoteDir, ftpIp, ftpPort, ftpUserName, ftpPassword);
+		//文件上传到OSS
+		OSSUtils.uploadFile(ossConfig.getBucketName(), fileName, ossConfig.getEndpoint(),
+				ossConfig.getAccessKeyId(), ossConfig.getAccessKeySecret(), ossConfig.getClientConf(), in);
 	}
 	
 

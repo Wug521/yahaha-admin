@@ -163,7 +163,7 @@ public class StorageManager {
 	   * @return
 	 * @throws IOException 
 	   */
-	  public State saveFtpFileByInputStream(MultipartFile multipartFile, String path,long maxSize) throws IOException{
+	  public State saveOSSFileByInputStream(MultipartFile multipartFile, String fileName,long maxSize) throws IOException{
 	    State state = null;
 	    InputStream in = null;;
 		try {
@@ -173,7 +173,7 @@ public class StorageManager {
 				logger.error("saveFileByInputStream is error,MAX_SIZE,size[{}];",size);
 			    return new BaseState(false, AppInfo.MAX_SIZE);
 			}
-			fileService.ftpUploadFile(in, path);
+			fileService.ossUploadFile(in, fileName);
 			state = new BaseState(true);
 			state.putInfo("size", size);
 			state.putInfo("title", multipartFile.getOriginalFilename());

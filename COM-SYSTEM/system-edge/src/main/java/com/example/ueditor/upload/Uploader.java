@@ -24,7 +24,7 @@ public class Uploader {
 		if ("true".equals(conf.get("isBase64"))) {
 			state = Base64Uploader.save(request.getParameter(filedName),conf);
 		}else {
-			if((boolean) conf.get("useFtpUpload")){
+			if((boolean) conf.get("useOSSUpload")){
 				state = ftpUploader.save(request, conf);
 			}else{
 				state = BinaryUploader.save(request, conf);

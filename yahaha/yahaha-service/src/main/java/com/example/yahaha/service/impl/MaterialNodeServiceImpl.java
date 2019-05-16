@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import com.example.system.dic.CommonDictionary;
 import com.example.system.dic.CommonDictionary.EnableOrDisableCode;
-import com.example.system.entity.SysResource;
 import com.example.system.entity.SysUser;
 import com.example.system.utils.BeanUtils;
 import com.example.system.utils.TreeMenuUtils;

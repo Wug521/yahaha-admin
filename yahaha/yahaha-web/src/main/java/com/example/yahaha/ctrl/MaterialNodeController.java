@@ -20,13 +20,12 @@ public class MaterialNodeController extends BaseController{
 	@Autowired
 	IMaterialNodeService materialNodeService;
 	
-	
 	/**
 	 * 素材节点新增
 	 * @return
 	 */
 	@PostMapping("/add")
-	public ResultEx addOrEditResource(@RequestBody MaterialNodeVo vo){
+	public ResultEx add(@RequestBody MaterialNodeVo vo){
 		return materialNodeService.add(vo, getSysUser());
 	}
 	
