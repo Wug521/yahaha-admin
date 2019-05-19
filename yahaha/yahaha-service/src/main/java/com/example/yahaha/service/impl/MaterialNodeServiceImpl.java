@@ -1,8 +1,11 @@
 package com.example.yahaha.service.impl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +29,7 @@ import com.zjapl.common.Constants;
 import com.zjapl.common.result.ObjectResultEx;
 import com.zjapl.common.result.ResultEx;
 import com.zjapl.common.result.XResult.ErrorCode;
+import com.zjapl.common.util.JSONUtil;
 import com.zjapl.common.util.StringUtil;
 
 import tk.mybatis.mapper.entity.Example;
@@ -53,6 +57,7 @@ public class MaterialNodeServiceImpl implements IMaterialNodeService {
         }
 		MaterialNode info = new MaterialNode();
 		BeanUtils.copyPropertiesIgnoreNullValue(vo, info);//copy
+		info.setFatherNodeId(StringUtil.isEmpty(vo.getFatherNodeId()) ? "0" : vo.getFatherNodeId());
 		info.setCreateDate(new Date());
 		info.setCreateUser(sysUser.getId());
 		info.setUpdateDate(info.getCreateDate());
@@ -110,11 +115,9 @@ public class MaterialNodeServiceImpl implements IMaterialNodeService {
 			Example example = new Example(MaterialNode.class);
 			Criteria criteria = example.createCriteria();
 			//查询条件
-			if(StringUtil.noEmpty(query.getNodeName())){//节点名称
-				criteria.andLike("nodeName", "%" + query.getNodeName() + "%");
-			}
-			if(StringUtil.noEmpty(query.getNodeTpye())){//节点类型
-				criteria.andEqualTo("nodeTpye", query.getNodeTpye());
+			if(StringUtil.noEmpty(query.getId())){//节点名称
+				Set<Long> nodeIds = getMaterialNodeAndSonsById(query.getId());
+				criteria.andIn("id", nodeIds);
 			}
 			criteria.andEqualTo("status", EnableOrDisableCode.ENABLE).andEqualTo("orgCode", sysUser.getOrgCode());
 			PageHelper.startPage(query.getPageNum(),query.getPageSize(),"CREATE_DATE DESC");//创建时间倒序
@@ -138,27 +141,57 @@ public class MaterialNodeServiceImpl implements IMaterialNodeService {
 	@Override
 	public ObjectResultEx<List<MenuVo>> getNodeTree(String orgCode) {
 		Example ex = new Example(MaterialNode.class);
-		ex.createCriteria().andNotEqualTo("status", EnableOrDisableCode.DELETED).andEqualTo("orgCode", orgCode);
+		ex.createCriteria().andEqualTo("status", EnableOrDisableCode.ENABLE).andEqualTo("orgCode", orgCode);
 		List<MaterialNode> list = materialNodeDao.selectByExample(ex);
 		List<MenuVo> treeNodes = new ArrayList<MenuVo>();
 		if(list != null && list.size() > Constants.ZERO.intValue()){
 			List<MenuVo> menuVo = new ArrayList<MenuVo>();
 			for (MaterialNode tmp : list) {
 				MenuVo menu = new MenuVo();
-				menu.setId(tmp.getId());
+				menu.setId(tmp.getId().toString());
 				menu.setpId(tmp.getFatherNodeId());
-				menu.setText(tmp.getNodeName());
+				menu.setText(tmp.getName());
 				menu.setSort(tmp.getNodeNumber().shortValue());
 				menuVo.add(menu);
 			}
+			System.out.println(JSONUtil.object2String(menuVo));
 			treeNodes = TreeMenuUtils.getSortTreeMenuNodes(menuVo);
 		}
 		return new ObjectResultEx<List<MenuVo>>().makeSuccessResult(treeNodes);
 	}
 	
+	/**
+	 * 根据素材节点查询全部子节点Id
+	 * @param mid
+	 * @return
+	 */
+	public Set<Long> getMaterialNodeAndSonsById(Long... mid){
+		if (mid == null || mid.length <= 0){
+			return null;
+		}
+		Example example = new Example(MaterialNode.class);
+		Set<Long> ids = new HashSet<>();
+		ids.remove(null);
+		ids.addAll(Arrays.asList(mid));
+		int idSize = ids.size();
+		example = new Example(MaterialNode.class);
+		example.createCriteria().andIn("fatherNodeId", ids);
+		List<MaterialNode> list = materialNodeDao.selectByExample(example);
+		if (list != null && list.size() > 0){
+			for(MaterialNode tmp : list){
+				ids.add(tmp.getId());
+			}
+		}
+		ids.remove(null);
+		if (ids.size() > idSize){
+			ids.addAll(getMaterialNodeAndSonsById(ids.toArray(new Long[ids.size()])));
+		}
+		return ids;
+	}
+	
 	private String checkParams(MaterialNodeVo param) {
 		if(StringUtil.isEmpty(param)){return "数据为空";}
-		if(StringUtil.isEmpty(param.getNodeName())){return "节点名称为空";}
+		if(StringUtil.isEmpty(param.getName())){return "节点名称为空";}
 		if(StringUtil.isEmpty(param.getNodeTpye())){return "节点类型为空";}
 		return CommonDictionary.SUCCESS;
 	}

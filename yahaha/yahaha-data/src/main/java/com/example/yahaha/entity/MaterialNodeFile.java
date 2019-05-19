@@ -1,7 +1,7 @@
 /**
  * Copyright(C) 2006-2016 安普利科技
  * All rights reserved
- * 2019-05-07 10:17:43 Created
+ * 2019-05-18 15:56:49 Created
  * 
  */
 package com.example.yahaha.entity;
@@ -29,7 +29,7 @@ public class MaterialNodeFile implements Serializable {
     /**
      * 素材节点表节点名称
      */
-    private String nodeName;
+    private String name;
 
     /**
      * 系统文件表id
@@ -40,6 +40,11 @@ public class MaterialNodeFile implements Serializable {
      * 系统文件表文件名
      */
     private String fileName;
+
+    /**
+     * 文件类型
+     */
+    private Short fileType;
 
     /**
      * 文件路径
@@ -131,26 +136,26 @@ public class MaterialNodeFile implements Serializable {
     /**
      * <pre>
      * 获取：素材节点表节点名称
-     * 表字段：material_node_file.node_name
+     * 表字段：material_node_file.name
      * </pre>
      *
-     * @return material_node_file.node_name：素材节点表节点名称
+     * @return material_node_file.name：素材节点表节点名称
      */
-    public String getNodeName() {
-        return nodeName;
+    public String getName() {
+        return name;
     }
 
     /**
      * <pre>
      * 设置：素材节点表节点名称
-     * 表字段：material_node_file.node_name
+     * 表字段：material_node_file.name
      * </pre>
      *
-     * @param nodeName
-     *            material_node_file.node_name：素材节点表节点名称
+     * @param name
+     *            material_node_file.name：素材节点表节点名称
      */
-    public void setNodeName(String nodeName) {
-        this.nodeName = nodeName == null ? null : nodeName.trim();
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
     }
 
     /**
@@ -201,6 +206,31 @@ public class MaterialNodeFile implements Serializable {
      */
     public void setFileName(String fileName) {
         this.fileName = fileName == null ? null : fileName.trim();
+    }
+
+    /**
+     * <pre>
+     * 获取：文件类型
+     * 表字段：material_node_file.file_type
+     * </pre>
+     *
+     * @return material_node_file.file_type：文件类型
+     */
+    public Short getFileType() {
+        return fileType;
+    }
+
+    /**
+     * <pre>
+     * 设置：文件类型
+     * 表字段：material_node_file.file_type
+     * </pre>
+     *
+     * @param fileType
+     *            material_node_file.file_type：文件类型
+     */
+    public void setFileType(Short fileType) {
+        this.fileType = fileType;
     }
 
     /**
@@ -396,9 +426,10 @@ public class MaterialNodeFile implements Serializable {
         MaterialNodeFile other = (MaterialNodeFile) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getMid() == null ? other.getMid() == null : this.getMid().equals(other.getMid()))
-            && (this.getNodeName() == null ? other.getNodeName() == null : this.getNodeName().equals(other.getNodeName()))
+            && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
             && (this.getFid() == null ? other.getFid() == null : this.getFid().equals(other.getFid()))
             && (this.getFileName() == null ? other.getFileName() == null : this.getFileName().equals(other.getFileName()))
+            && (this.getFileType() == null ? other.getFileType() == null : this.getFileType().equals(other.getFileType()))
             && (this.getFileUrl() == null ? other.getFileUrl() == null : this.getFileUrl().equals(other.getFileUrl()))
             && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
             && (this.getOrgCode() == null ? other.getOrgCode() == null : this.getOrgCode().equals(other.getOrgCode()))
@@ -417,9 +448,10 @@ public class MaterialNodeFile implements Serializable {
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getMid() == null) ? 0 : getMid().hashCode());
-        result = prime * result + ((getNodeName() == null) ? 0 : getNodeName().hashCode());
+        result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
         result = prime * result + ((getFid() == null) ? 0 : getFid().hashCode());
         result = prime * result + ((getFileName() == null) ? 0 : getFileName().hashCode());
+        result = prime * result + ((getFileType() == null) ? 0 : getFileType().hashCode());
         result = prime * result + ((getFileUrl() == null) ? 0 : getFileUrl().hashCode());
         result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         result = prime * result + ((getOrgCode() == null) ? 0 : getOrgCode().hashCode());
@@ -441,9 +473,10 @@ public class MaterialNodeFile implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", mid=").append(mid);
-        sb.append(", nodeName=").append(nodeName);
+        sb.append(", name=").append(name);
         sb.append(", fid=").append(fid);
         sb.append(", fileName=").append(fileName);
+        sb.append(", fileType=").append(fileType);
         sb.append(", fileUrl=").append(fileUrl);
         sb.append(", status=").append(status);
         sb.append(", orgCode=").append(orgCode);

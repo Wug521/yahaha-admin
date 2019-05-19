@@ -34,7 +34,7 @@ public class MaterialNode implements Serializable {
     /**
      * 节点名称
      */
-    private String nodeName;
+    private String name;
 
     /**
      * 父节点id
@@ -141,26 +141,26 @@ public class MaterialNode implements Serializable {
     /**
      * <pre>
      * 获取：节点名称
-     * 表字段：material_node.node_name
+     * 表字段：material_node.name
      * </pre>
      *
-     * @return material_node.node_name：节点名称
+     * @return material_node.name：节点名称
      */
-    public String getNodeName() {
-        return nodeName;
+    public String getName() {
+        return name;
     }
 
     /**
      * <pre>
      * 设置：节点名称
-     * 表字段：material_node.node_name
+     * 表字段：material_node.name
      * </pre>
      *
      * @param nodeName
-     *            material_node.node_name：节点名称
+     *            material_node.name：节点名称
      */
-    public void setNodeName(String nodeName) {
-        this.nodeName = nodeName == null ? null : nodeName.trim();
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
     }
 
     /**
@@ -431,7 +431,7 @@ public class MaterialNode implements Serializable {
         MaterialNode other = (MaterialNode) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getNodeId() == null ? other.getNodeId() == null : this.getNodeId().equals(other.getNodeId()))
-            && (this.getNodeName() == null ? other.getNodeName() == null : this.getNodeName().equals(other.getNodeName()))
+            && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
             && (this.getFatherNodeId() == null ? other.getFatherNodeId() == null : this.getFatherNodeId().equals(other.getFatherNodeId()))
             && (this.getParantName() == null ? other.getParantName() == null : this.getParantName().equals(other.getParantName()))
             && (this.getNodeNumber() == null ? other.getNodeNumber() == null : this.getNodeNumber().equals(other.getNodeNumber()))
@@ -453,7 +453,7 @@ public class MaterialNode implements Serializable {
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getNodeId() == null) ? 0 : getNodeId().hashCode());
-        result = prime * result + ((getNodeName() == null) ? 0 : getNodeName().hashCode());
+        result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
         result = prime * result + ((getFatherNodeId() == null) ? 0 : getFatherNodeId().hashCode());
         result = prime * result + ((getParantName() == null) ? 0 : getParantName().hashCode());
         result = prime * result + ((getNodeNumber() == null) ? 0 : getNodeNumber().hashCode());
@@ -478,7 +478,7 @@ public class MaterialNode implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", nodeId=").append(nodeId);
-        sb.append(", nodeName=").append(nodeName);
+        sb.append(", name=").append(name);
         sb.append(", fatherNodeId=").append(fatherNodeId);
         sb.append(", parantName=").append(parantName);
         sb.append(", nodeNumber=").append(nodeNumber);

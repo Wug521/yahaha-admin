@@ -9,6 +9,11 @@ public class MaterialNodeFileQueryVo extends PageInfo<Object> {
      * 素材节点表id
      */
     private Long mid;
+    
+    /**
+     * 文件类型
+     */
+    private Short fileType;
 
 	public Long getMid() {
 		return mid;
@@ -16,6 +21,14 @@ public class MaterialNodeFileQueryVo extends PageInfo<Object> {
 
 	public void setMid(Long mid) {
 		this.mid = mid;
+	}
+
+	public Short getFileType() {
+		return fileType;
+	}
+
+	public void setFileType(Short fileType) {
+		this.fileType = fileType;
 	}
     
     

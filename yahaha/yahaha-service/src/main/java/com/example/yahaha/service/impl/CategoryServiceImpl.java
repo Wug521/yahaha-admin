@@ -56,6 +56,7 @@ public class CategoryServiceImpl implements ICategoryService {
 		info.setUpdateDate(info.getCreateDate());
 		info.setUpdateUser(sysUser.getId());
 		info.setOrgCode(sysUser.getOrgCode());
+		info.setStatus(EnableOrDisableCode.ENABLE);
 		categoryDao.insertSelective(info);//添加节点
 		return new ResultEx().makeSuccessResult();
 	}

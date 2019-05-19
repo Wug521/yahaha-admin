@@ -115,6 +115,9 @@ public class MaterialNodeServiceFileImpl implements IMaterialNodeFileService {
 				Set<Long> nodeIds = getMaterialNodeAndSonsById(query.getMid());
 				criteria.andIn("mid", nodeIds);
 			}
+			if(StringUtil.noEmpty(query.getFileType())){//文件类型
+				criteria.andEqualTo("fileType", query.getFileType());
+			}
 			criteria.andEqualTo("status", EnableOrDisableCode.ENABLE).andEqualTo("orgCode", sysUser.getOrgCode());
 			PageHelper.startPage(query.getPageNum(),query.getPageSize(),"CREATE_DATE DESC");//创建时间倒序
 			List<MaterialNodeFile> list = materialNodeFileDao.selectByExample(example);//查询
@@ -164,7 +167,10 @@ public class MaterialNodeServiceFileImpl implements IMaterialNodeFileService {
 	
 	private String checkParams(MaterialNodeFileVo param) {
 		if(StringUtil.isEmpty(param)){return "数据为空";}
-		if(StringUtil.isEmpty(param.getNodeName())){return "节点名称为空";}
+		if(StringUtil.isEmpty(param.getMid())){return "节点ID为空";}
+		if(StringUtil.isEmpty(param.getName())){return "节点名称为空";}
+		if(StringUtil.isEmpty(param.getFileName())){return "文件名称为空";}
+		if(StringUtil.isEmpty(param.getFileUrl())){return "文件路径为空";}
 		return CommonDictionary.SUCCESS;
 	}
 }
