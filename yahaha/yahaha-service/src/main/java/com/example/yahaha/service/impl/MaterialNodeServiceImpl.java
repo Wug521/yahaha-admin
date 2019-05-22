@@ -16,6 +16,7 @@ import com.example.system.dic.CommonDictionary;
 import com.example.system.dic.CommonDictionary.EnableOrDisableCode;
 import com.example.system.entity.SysUser;
 import com.example.system.utils.BeanUtils;
+import com.example.system.utils.CommonUtil;
 import com.example.system.utils.TreeMenuUtils;
 import com.example.system.vo.MenuVo;
 import com.example.yahaha.dao.IMaterialNodeDao;
@@ -74,6 +75,12 @@ public class MaterialNodeServiceImpl implements IMaterialNodeService {
 			logger.error("MaterialNodeServiceImpl.add error. " + checkResult);
         	return new ResultEx().makeFailedResult(ErrorCode.BAD_PARAMETER, checkResult);
         }
+		if(StringUtil.noEmpty(vo.getFatherNodeId())){
+			if(StringUtil.eq(vo.getId().toString(), vo.getFatherNodeId())){
+				logger.error("MaterialNodeServiceImpl.add error. parentName is self");
+	        	return new ResultEx().makeFailedResult(ErrorCode.BAD_PARAMETER, "父子节点一致");
+			}
+		}
 		MaterialNode info = new MaterialNode();
 		BeanUtils.copyPropertiesIgnoreNullValue(vo, info);//copy
 		info.setUpdateDate(info.getCreateDate());
@@ -83,23 +90,20 @@ public class MaterialNodeServiceImpl implements IMaterialNodeService {
 	}
 
 	@Override
-	public ResultEx edit(Long id, SysUser sysUser) {
-		if(StringUtil.isEmpty(id)){
+	public ResultEx editStatus(String ids, SysUser sysUser) {
+		if(StringUtil.isEmpty(ids)){
 			logger.error("MaterialNodeServiceImpl.edit error. id is empty");
 			return new ObjectResultEx<MaterialNodeVo>().makeInvalidParameterResult();
 		}
+		List<Long> idsToList = CommonUtil.idsToList(ids);
+		Example example = new Example(MaterialNode.class);
+		example.createCriteria().andIn("id", idsToList)
+								.andEqualTo("orgCode", sysUser.getOrgCode());
 		MaterialNode info = new MaterialNode();
-		info.setId(id);
-		info.setStatus(EnableOrDisableCode.ENABLE);
-		info.setOrgCode(sysUser.getOrgCode());
-		info = materialNodeDao.selectOne(info);//验证该记录isHas
-		if(info != null){
-			//设置状态为删除
-			info.setStatus(EnableOrDisableCode.DISABLE);
-			materialNodeDao.updateByPrimaryKeySelective(info);
-		}else{
-			return new ResultEx().makeFailedResult(ErrorCode.BAD_PARAMETER, "传入非法参数");
-		}
+		info.setStatus(EnableOrDisableCode.DELETED);
+		info.setUpdateDate(new Date());
+		info.setUpdateUser(sysUser.getId());
+		materialNodeDao.updateByExampleSelective(info, example);
 		return new ResultEx().makeSuccessResult();
 	}
 
@@ -192,7 +196,7 @@ public class MaterialNodeServiceImpl implements IMaterialNodeService {
 	private String checkParams(MaterialNodeVo param) {
 		if(StringUtil.isEmpty(param)){return "数据为空";}
 		if(StringUtil.isEmpty(param.getName())){return "节点名称为空";}
-		if(StringUtil.isEmpty(param.getNodeTpye())){return "节点类型为空";}
+//		if(StringUtil.isEmpty(param.getNodeTpye())){return "节点类型为空";}
 		return CommonDictionary.SUCCESS;
 	}
 

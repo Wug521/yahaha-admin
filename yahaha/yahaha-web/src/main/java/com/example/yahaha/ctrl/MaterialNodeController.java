@@ -43,8 +43,8 @@ public class MaterialNodeController extends BaseController{
 	 * @return
 	 */
 	@GetMapping("/edit")
-	public ResultEx editStatus(Long id){
-		return materialNodeService.edit(id, getSysUser());
+	public ResultEx editStatus(String ids){
+		return materialNodeService.editStatus(ids, getSysUser());
 	}
 	
 	/**

@@ -34,7 +34,7 @@ public interface IMaterialNodeService {
 	 * @param sysUser
 	 * @return
 	 */
-	public ResultEx edit(Long id, SysUser sysUser);
+	public ResultEx editStatus(String ids, SysUser sysUser);
 	
 	/**
 	 * 分页查询素材节点List

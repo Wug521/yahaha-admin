@@ -28,9 +28,11 @@ import com.example.yahaha.entity.vo.MaterialNodeVo;
 import com.example.yahaha.service.IMaterialNodeFileService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.zjapl.common.Constants;
 import com.zjapl.common.result.ObjectResultEx;
 import com.zjapl.common.result.ResultEx;
 import com.zjapl.common.result.XResult.ErrorCode;
+import com.zjapl.common.util.JSONUtil;
 import com.zjapl.common.util.StringUtil;
 
 import tk.mybatis.mapper.entity.Example;
@@ -59,14 +61,20 @@ public class MaterialNodeServiceFileImpl implements IMaterialNodeFileService {
 			logger.error("MaterialNodeServiceFileImpl.add error. " + checkResult);
         	return new ResultEx().makeFailedResult(ErrorCode.BAD_PARAMETER, checkResult);
         }
-		MaterialNodeFile info = new MaterialNodeFile();
-		BeanUtils.copyPropertiesIgnoreNullValue(vo, info);//copy
-		info.setCreateDate(new Date());
-		info.setCreateUser(sysUser.getId());
-		info.setUpdateDate(info.getCreateDate());
-		info.setUpdateUser(sysUser.getId());
-		info.setOrgCode(sysUser.getOrgCode());
-		materialNodeFileDao.insertSelective(info);//添加节点
+		List<MaterialNodeFile> list = JSONUtil.json2List(vo.getFileJson(), MaterialNodeFile.class);
+		if(list != null && list.size() > Constants.ZERO.intValue()){
+			for (MaterialNodeFile tmp : list) {
+				tmp.setMid(vo.getMid());
+				tmp.setName(vo.getName());
+				tmp.setFileType(vo.getFileType());
+				tmp.setCreateDate(new Date());
+				tmp.setCreateUser(sysUser.getId());
+				tmp.setUpdateDate(tmp.getCreateDate());
+				tmp.setUpdateUser(sysUser.getId());
+				tmp.setOrgCode(sysUser.getOrgCode());
+			}
+		}
+		materialNodeFileDao.insertList(list);
 		return new ResultEx().makeSuccessResult();
 	}
 	
@@ -80,7 +88,7 @@ public class MaterialNodeServiceFileImpl implements IMaterialNodeFileService {
         }
 		MaterialNodeFile info = new MaterialNodeFile();
 		BeanUtils.copyPropertiesIgnoreNullValue(vo, info);//copy
-		info.setUpdateDate(info.getCreateDate());
+		info.setUpdateDate(new Date());
 		info.setUpdateUser(sysUser.getId());
 		materialNodeFileDao.updateByPrimaryKeySelective(info);//修改节点
 		return new ResultEx().makeSuccessResult();
@@ -169,7 +177,7 @@ public class MaterialNodeServiceFileImpl implements IMaterialNodeFileService {
 		if(StringUtil.isEmpty(param)){return "数据为空";}
 		if(StringUtil.isEmpty(param.getMid())){return "节点ID为空";}
 		if(StringUtil.isEmpty(param.getName())){return "节点名称为空";}
-		if(StringUtil.isEmpty(param.getFileName())){return "文件名称为空";}
+		if(StringUtil.isEmpty(param.getFileJson())){return "文件为空";}
 		if(StringUtil.isEmpty(param.getFileUrl())){return "文件路径为空";}
 		return CommonDictionary.SUCCESS;
 	}
