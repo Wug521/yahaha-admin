@@ -139,7 +139,7 @@ public class CategoryServiceImpl implements ICategoryService {
 			return new ObjectResultEx<List<CategoryVo>>().makeInvalidParameterResult();
 		}
 		try {
-			Example example = new Example(MaterialNode.class);
+			Example example = new Example(Category.class);
 			Criteria criteria = example.createCriteria();
 			//查询条件
 			if(StringUtil.noEmpty(query.getName())){//节点名称
