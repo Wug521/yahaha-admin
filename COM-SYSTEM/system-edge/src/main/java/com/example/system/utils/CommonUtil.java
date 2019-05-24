@@ -51,8 +51,7 @@ public class CommonUtil {
 		if(!StringUtil.isEmpty(strs)){
 			String[] strList = strs.split(",");
 			for(String str : strList){
-					strsList.add(str);
-				
+				strsList.add(str);
 			}
 		}
 		return strsList;

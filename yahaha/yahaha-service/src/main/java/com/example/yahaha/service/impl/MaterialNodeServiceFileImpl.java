@@ -53,7 +53,7 @@ public class MaterialNodeServiceFileImpl implements IMaterialNodeFileService {
 	
 	@Autowired
 	IMaterialNodeDao materialNodeDao;
-
+	
 	@Override
 	public ResultEx add(MaterialNodeFileVo vo, SysUser sysUser) {
 		String checkResult = this.checkParams(vo);
@@ -71,6 +71,7 @@ public class MaterialNodeServiceFileImpl implements IMaterialNodeFileService {
 				tmp.setCreateUser(sysUser.getId());
 				tmp.setUpdateDate(tmp.getCreateDate());
 				tmp.setUpdateUser(sysUser.getId());
+				tmp.setStatus(EnableOrDisableCode.ENABLE);
 				tmp.setOrgCode(sysUser.getOrgCode());
 			}
 		}
@@ -78,7 +79,6 @@ public class MaterialNodeServiceFileImpl implements IMaterialNodeFileService {
 		return new ResultEx().makeSuccessResult();
 	}
 	
-
 	@Override
 	public ResultEx update(MaterialNodeFileVo vo, SysUser sysUser) {
 		String checkResult = this.checkParams(vo);
@@ -102,8 +102,12 @@ public class MaterialNodeServiceFileImpl implements IMaterialNodeFileService {
 		}
 		List<Long> list = CommonUtil.idsToList(ids);
 		Example example = new Example(MaterialNodeFile.class);
+		MaterialNodeFile record = new MaterialNodeFile();
+		record.setStatus(EnableOrDisableCode.DELETED);
+		record.setUpdateDate(new Date());
+		record.setUpdateUser(sysUser.getId());
 		example.createCriteria().andIn("id", list).andEqualTo("orgCode", sysUser.getOrgCode());
-		materialNodeFileDao.deleteByExample(example);
+		materialNodeFileDao.updateByExampleSelective(record, example);
 		return new ResultEx().makeSuccessResult();
 	}
 
@@ -178,7 +182,7 @@ public class MaterialNodeServiceFileImpl implements IMaterialNodeFileService {
 		if(StringUtil.isEmpty(param.getMid())){return "节点ID为空";}
 		if(StringUtil.isEmpty(param.getName())){return "节点名称为空";}
 		if(StringUtil.isEmpty(param.getFileJson())){return "文件为空";}
-		if(StringUtil.isEmpty(param.getFileUrl())){return "文件路径为空";}
+		if(StringUtil.isEmpty(param.getFileType())){return "文件路径为空";}
 		return CommonDictionary.SUCCESS;
 	}
 }
