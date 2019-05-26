@@ -1,7 +1,7 @@
 /**
  * Copyright(C) 2006-2016 安普利科技
  * All rights reserved
- * 2019-05-06 17:19:22 Created
+ * 2019-05-18 17:19:56 Created
  * 
  */
 package com.example.yahaha.entity;
@@ -14,12 +14,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 public class News implements Serializable {
-	
     /**
      * 主键ID
      */
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
+    @Id	
     private Long id;
 
     /**
@@ -51,6 +50,11 @@ public class News implements Serializable {
      * 分类名称集合
      */
     private String idsCategoryName;
+
+    /**
+     * 图片路径集合
+     */
+    private String filesPath;
 
     /**
      * 状态(数据)
@@ -261,6 +265,31 @@ public class News implements Serializable {
 
     /**
      * <pre>
+     * 获取：图片路径集合
+     * 表字段：news.files_path
+     * </pre>
+     *
+     * @return news.files_path：图片路径集合
+     */
+    public String getFilesPath() {
+        return filesPath;
+    }
+
+    /**
+     * <pre>
+     * 设置：图片路径集合
+     * 表字段：news.files_path
+     * </pre>
+     *
+     * @param filesPath
+     *            news.files_path：图片路径集合
+     */
+    public void setFilesPath(String filesPath) {
+        this.filesPath = filesPath == null ? null : filesPath.trim();
+    }
+
+    /**
+     * <pre>
      * 获取：状态(数据)
      * 表字段：news.status
      * </pre>
@@ -432,6 +461,7 @@ public class News implements Serializable {
             && (this.getIdsTagName() == null ? other.getIdsTagName() == null : this.getIdsTagName().equals(other.getIdsTagName()))
             && (this.getIdsCategory() == null ? other.getIdsCategory() == null : this.getIdsCategory().equals(other.getIdsCategory()))
             && (this.getIdsCategoryName() == null ? other.getIdsCategoryName() == null : this.getIdsCategoryName().equals(other.getIdsCategoryName()))
+            && (this.getFilesPath() == null ? other.getFilesPath() == null : this.getFilesPath().equals(other.getFilesPath()))
             && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
             && (this.getOrgCode() == null ? other.getOrgCode() == null : this.getOrgCode().equals(other.getOrgCode()))
             && (this.getCreateUser() == null ? other.getCreateUser() == null : this.getCreateUser().equals(other.getCreateUser()))
@@ -454,6 +484,7 @@ public class News implements Serializable {
         result = prime * result + ((getIdsTagName() == null) ? 0 : getIdsTagName().hashCode());
         result = prime * result + ((getIdsCategory() == null) ? 0 : getIdsCategory().hashCode());
         result = prime * result + ((getIdsCategoryName() == null) ? 0 : getIdsCategoryName().hashCode());
+        result = prime * result + ((getFilesPath() == null) ? 0 : getFilesPath().hashCode());
         result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         result = prime * result + ((getOrgCode() == null) ? 0 : getOrgCode().hashCode());
         result = prime * result + ((getCreateUser() == null) ? 0 : getCreateUser().hashCode());
@@ -479,6 +510,7 @@ public class News implements Serializable {
         sb.append(", idsTagName=").append(idsTagName);
         sb.append(", idsCategory=").append(idsCategory);
         sb.append(", idsCategoryName=").append(idsCategoryName);
+        sb.append(", filesPath=").append(filesPath);
         sb.append(", status=").append(status);
         sb.append(", orgCode=").append(orgCode);
         sb.append(", createUser=").append(createUser);
