@@ -52,7 +52,7 @@ public class CategoryController extends BaseController{
 	 * 分页查询标签/分类List
 	 * @return
 	 */
-	@PostMapping("/list")
+	@PostMapping("/page")
 	public ResultEx list(@RequestBody CategoryQueryVo query){
 		return categoryNodeService.queryCategoryList(query, getSysUser());
 	}
@@ -61,7 +61,7 @@ public class CategoryController extends BaseController{
 	 * 查询标签/分类下拉List
 	 * @return
 	 */
-	@GetMapping("/list")
+	@PostMapping("/list")
 	public ResultEx list(@RequestBody CategoryVo query){
 		return categoryNodeService.getCategoryList(query, getSysUser());
 	}
