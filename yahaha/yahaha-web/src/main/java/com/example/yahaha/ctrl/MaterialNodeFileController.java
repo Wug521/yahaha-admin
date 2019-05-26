@@ -52,7 +52,7 @@ public class MaterialNodeFileController extends BaseController{
 	 * @return
 	 */
 	@PostMapping("/list")
-	public ResultEx list(MaterialNodeFileQueryVo query){
+	public ResultEx list(@RequestBody MaterialNodeFileQueryVo query){
 		return materialNodeFileService.queryMaterialNodeFileList(query, getSysUser());
 	}
 	

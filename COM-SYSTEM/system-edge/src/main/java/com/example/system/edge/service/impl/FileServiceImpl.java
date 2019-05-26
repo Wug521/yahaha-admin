@@ -43,7 +43,6 @@ import com.github.pagehelper.PageInfo;
 import com.zjapl.common.result.ObjectResultEx;
 import com.zjapl.common.result.ResultEx;
 import com.zjapl.common.result.XResult.ErrorCode;
-import com.zjapl.common.util.FTPUtil;
 import com.zjapl.common.util.FileUtil;
 import com.zjapl.common.util.StringUtil;
 

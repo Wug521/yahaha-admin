@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import com.example.system.dic.CommonDictionary;
 import com.example.system.dic.CommonDictionary.EnableOrDisableCode;
-import com.example.system.entity.SysResource;
 import com.example.system.entity.SysUser;
 import com.example.system.utils.BeanUtils;
 import com.example.system.utils.CommonUtil;
@@ -162,7 +161,7 @@ public class MaterialNodeServiceFileImpl implements IMaterialNodeFileService {
 		ids.remove(null);
 		ids.addAll(Arrays.asList(mid));
 		int idSize = ids.size();
-		example = new Example(SysResource.class);
+		example = new Example(MaterialNode.class);
 		example.createCriteria().andIn("fatherNodeId", ids);
 		List<MaterialNode> list = materialNodeDao.selectByExample(example);
 		if (list != null && list.size() > 0){
@@ -181,7 +180,9 @@ public class MaterialNodeServiceFileImpl implements IMaterialNodeFileService {
 		if(StringUtil.isEmpty(param)){return "数据为空";}
 		if(StringUtil.isEmpty(param.getMid())){return "节点ID为空";}
 		if(StringUtil.isEmpty(param.getName())){return "节点名称为空";}
-		if(StringUtil.isEmpty(param.getFileJson())){return "文件为空";}
+		if(StringUtil.isEmpty(param.getId())){
+			if(StringUtil.isEmpty(param.getFileJson())){return "文件为空";}
+		}
 		if(StringUtil.isEmpty(param.getFileType())){return "文件路径为空";}
 		return CommonDictionary.SUCCESS;
 	}

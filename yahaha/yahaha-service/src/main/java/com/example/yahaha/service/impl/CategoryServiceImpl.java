@@ -71,7 +71,7 @@ public class CategoryServiceImpl implements ICategoryService {
 		BeanUtils.copyPropertiesIgnoreNullValue(vo, info);//copy
 		info.setUpdateDate(info.getCreateDate());
 		info.setUpdateUser(sysUser.getId());
-		categoryDao.insertSelective(info);//添加节点
+		categoryDao.updateByPrimaryKeySelective(info);//添加节点
 		return new ResultEx().makeSuccessResult();
 	}
 
@@ -111,7 +111,7 @@ public class CategoryServiceImpl implements ICategoryService {
 				criteria.andLike("name", "%" + query.getName() + "%");
 			}
 			if(StringUtil.noEmpty(query.getType())){//节点类型
-				criteria.andEqualTo("tpye", query.getType());
+				criteria.andEqualTo("type", query.getType());
 			}
 			criteria.andEqualTo("status", EnableOrDisableCode.ENABLE).andEqualTo("orgCode", sysUser.getOrgCode());
 			PageHelper.startPage(query.getPageNum(),query.getPageSize(),"CREATE_DATE DESC");//创建时间倒序
@@ -145,7 +145,7 @@ public class CategoryServiceImpl implements ICategoryService {
 				criteria.andLike("name", "%" + query.getName() + "%");
 			}
 			if(StringUtil.noEmpty(query.getType())){//节点类型
-				criteria.andEqualTo("tpye", query.getType());
+				criteria.andEqualTo("type", query.getType());
 			}
 			criteria.andEqualTo("status", EnableOrDisableCode.ENABLE).andEqualTo("orgCode", sysUser.getOrgCode());
 			example.orderBy("createDate").desc();//创建时间倒序

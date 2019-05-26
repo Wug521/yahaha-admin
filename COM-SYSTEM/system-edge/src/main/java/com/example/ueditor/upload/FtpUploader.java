@@ -1,6 +1,5 @@
 package com.example.ueditor.upload;
 
-import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -37,24 +36,18 @@ public class FtpUploader{
 	    	MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
 	        MultipartFile multipartFile = multipartRequest.getFile(conf.get("fieldName").toString());
 	       
-//	        String savePath = (String)conf.get("savePath");
 	        String originFileName = multipartFile.getOriginalFilename();
 	        String suffix = FileType.getSuffixByFilename(originFileName);
-	
-//	        originFileName = originFileName.substring(0, originFileName.length() - suffix.length());
-//	        savePath = savePath + suffix;
 	      
 	        long maxSize = ((Long)conf.get("maxSize")).longValue();
 	      
 	        if (!validType(suffix, (String[])conf.get("allowFiles"))) {
 	    	    return new BaseState(false, AppInfo.NOT_ALLOW_FILE_TYPE);
 	        }
-//	        savePath = preWebAccessName + File.separator + preAppName + PathFormat.parse(savePath, originFileName);
-//	        savePath = FileUtil.convertToLinuxDirectory(savePath);
 	        String fileName = generateFileName(originFileName);
 	        State storageState = storageManager.saveOSSFileByInputStream(multipartFile,fileName, maxSize);
 	        if (storageState.isSuccess()) {
-	    	    storageState.putInfo("url", ossConfig.getBucketName()+ "." + ossConfig.getEndpoint() + File.separator + fileName);
+	    	    storageState.putInfo("url", "http://" + ossConfig.getBucketName()+ "." + ossConfig.getEndpoint() + "/" + fileName);
 	            storageState.putInfo("type", suffix);
 	            storageState.putInfo("original", originFileName + suffix);
 	        }

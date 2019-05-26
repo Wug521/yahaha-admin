@@ -53,7 +53,7 @@ public class CategoryController extends BaseController{
 	 * @return
 	 */
 	@PostMapping("/list")
-	public ResultEx list(CategoryQueryVo query){
+	public ResultEx list(@RequestBody CategoryQueryVo query){
 		return categoryNodeService.queryCategoryList(query, getSysUser());
 	}
 	
