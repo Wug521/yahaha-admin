@@ -1,17 +1,22 @@
 package com.example.system.edge.app.ctrl;
 
+import com.example.system.dao.ISysUserDao;
+import com.example.system.edge.service.IUserService;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authc.UsernamePasswordToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import com.example.system.entity.SysUser;
 import com.zjapl.common.result.ObjectResultEx;
 import com.zjapl.common.result.ResultEx;
 import com.zjapl.common.util.AESParamUtil;
+
+import java.io.IOException;
 
 /**
  * 登陆授权
@@ -23,34 +28,33 @@ import com.zjapl.common.util.AESParamUtil;
 public class AppAuthController extends AppBaseController{
 	Logger logger = LoggerFactory.getLogger(AppAuthController.class);
 
+	@Autowired
+	WxUtils wxUtils;
+	@Autowired
+	IUserService sysUserService;
+	@Autowired
+	ISysUserDao userDao;
+
 	@ResponseBody
 	@RequestMapping(value = "/login")
-	public Object login(@RequestParam String param) {
-		ObjectResultEx<SysUser> resultEx = new ObjectResultEx<SysUser>();
-		try {
-			SysUser sysUserParam = AESParamUtil.parseObject(SysUser.class, param);
-			resultEx = appBaseService.userLogin(sysUserParam.getUsername(), sysUserParam.getPassword());
-		} catch (Exception e) {
-			logger.error("login process error.", e);
-			return resultEx.makeInternalErrorResult();
+	public Object login(@RequestBody WxAppModel model) throws IOException {
+		String openId = wxUtils.getOpenId(model.getCode());
+		SysUser sysUser = new SysUser();
+		sysUser.setUsername(openId);
+		sysUser = userDao.selectOne(sysUser);
+		if (sysUser == null) {
+			sysUser = new SysUser();
+			sysUser.setUsername(openId);
+			sysUser.setPassword("21218cca77804d2ba1922c33e0151105");
+			sysUser.setSex(model.getGender().shortValue());
+			sysUser.setRealName(model.getNickName());
+			sysUser.setAvatarUrl(model.getAvatarUrl());
+			sysUser.setRemark(model.getCountry() + "-" + model.getProvince() + "-" + model.getCity());
+			userDao.insert(sysUser);
 		}
-		return resultEx;
+		AuthenticationToken token = new UsernamePasswordToken(openId,"888888");
+		SecurityUtils.getSubject().login(token);
+		return new ResultEx().makeSuccessResult();
 	}
-	@ResponseBody
-	@RequestMapping(value = "/logout")
-	public Object logout(@RequestParam String param) {
-		ResultEx resultEx = new ResultEx();
-		try {
-			SysUser sysUserParam = AESParamUtil.parseObject(SysUser.class, param);
-			boolean isSuccess = appBaseService.logoutToken(sysUserParam.getToken());
-			if (isSuccess){
-				return resultEx.makeSuccessResult();
-			} else {
-				return resultEx.makeInternalErrorResult();
-			}
-		} catch (Exception e) {
-			logger.error("login process error.", e);
-			return resultEx.makeInternalErrorResult();
-		}
-	}
+
 }

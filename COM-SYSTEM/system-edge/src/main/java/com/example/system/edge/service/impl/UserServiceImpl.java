@@ -401,7 +401,6 @@ public class UserServiceImpl implements IUserService {
         try {
             SysUser sysUser = new SysUser();
             sysUser.setUsername(userName);
-            sysUser.setStatus(EnableOrDisableCode.ENABLE);
             sysUser = userDao.selectOne(sysUser);
             return new ObjectResultEx<SysUser>().makeSuccessResult(sysUser);
         } catch (Exception e) {

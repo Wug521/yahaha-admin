@@ -67,11 +67,7 @@ public class ShiroUserRealm extends AuthorizingRealm {
 		UsernamePasswordToken token = (UsernamePasswordToken) authenToken;
 		String username = token.getUsername();
 		SysUser sysUser = (SysUser) sysUserService.queryByUserName(username, null).getData();
-		if(sysUser != null){
-			 if (sysUser.getStatus() != EnableOrDisableCode.ENABLE) {  
-				throw new DisabledAccountException("账户不可用");  
-	          } 
-		} else {
+		if(sysUser == null){
 			throw new IncorrectCredentialsException();
 		}
 		return new SimpleAuthenticationInfo(new ShiroPrincipal(sysUser), sysUser.getPassword(), getName());
