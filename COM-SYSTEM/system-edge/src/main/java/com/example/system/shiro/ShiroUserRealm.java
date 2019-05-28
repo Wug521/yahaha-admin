@@ -65,8 +65,8 @@ public class ShiroUserRealm extends AuthorizingRealm {
 	protected AuthenticationInfo doGetAuthenticationInfo(
 			AuthenticationToken authenToken) throws AuthenticationException {
 		UsernamePasswordToken token = (UsernamePasswordToken) authenToken;
-		String phone = token.getUsername();
-		SysUser sysUser = (SysUser) sysUserService.queryByPhone(phone, null).getData();
+		String username = token.getUsername();
+		SysUser sysUser = (SysUser) sysUserService.queryByUserName(username, null).getData();
 		if(sysUser != null){
 			 if (sysUser.getStatus() != EnableOrDisableCode.ENABLE) {  
 				throw new DisabledAccountException("账户不可用");  
