@@ -14,7 +14,7 @@ public class MaterialNodeQueryVo extends PageInfo<Object> {
 	/**
      * 节点名称
      */
-    private String nodeName;
+    private String name;
     
     /**
      * 节点类型，1图片，2视频
@@ -45,12 +45,12 @@ public class MaterialNodeQueryVo extends PageInfo<Object> {
 		this.id = id;
 	}
 
-	public String getNodeName() {
-		return nodeName;
+	public String getName() {
+		return name;
 	}
 
-	public void setNodeName(String nodeName) {
-		this.nodeName = nodeName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public Short getNodeTpye() {

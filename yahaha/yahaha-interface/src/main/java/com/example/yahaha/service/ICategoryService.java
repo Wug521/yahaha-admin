@@ -1,5 +1,7 @@
 package com.example.yahaha.service;
 
+import java.util.List;
+
 import com.example.system.entity.SysUser;
 import com.example.yahaha.entity.vo.CategoryQueryVo;
 import com.example.yahaha.entity.vo.CategoryVo;
@@ -40,5 +42,13 @@ public interface ICategoryService {
 	 * @return
 	 */
 	public ObjectResultEx<PageInfo<CategoryVo>> queryCategoryList(CategoryQueryVo queryVo,SysUser sysUser);
+	
+	/**
+	 * 查询标签/分类下拉List
+	 * @param queryVo
+	 * @param sysUser
+	 * @return
+	 */
+	public ObjectResultEx<List<CategoryVo>> getCategoryList(CategoryVo queryVo,SysUser sysUser);
 
 }

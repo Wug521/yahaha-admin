@@ -137,7 +137,7 @@ public class ResourceServiceimpl implements IResourceService {
 		List<SysResource> rosourceList = resourceDao.selectByExample(ex);
 		List<MenuVo> menuVo = new ArrayList<MenuVo>();
 		if(rosourceList != null && rosourceList.size() > Constants.ZERO.intValue()){
-			menuVo = sortResource(rosourceList, true);
+			menuVo = sortResource(rosourceList, false);
 		}
 		return new ObjectResultEx<List<MenuVo>>().makeSuccessResult(menuVo);
 	}
@@ -150,7 +150,7 @@ public class ResourceServiceimpl implements IResourceService {
 		List<SysResource> rosourceList = resourceDao.selectByExample(ex);
 		List<MenuVo> menuVo = new ArrayList<MenuVo>();
 		if(rosourceList != null && rosourceList.size() > Constants.ZERO.intValue()){
-			menuVo = sortResource(rosourceList, true);
+			menuVo = sortResource(rosourceList, false);
 		}
 		return new ObjectResultEx<List<MenuVo>>().makeSuccessResult(menuVo);
 	}
@@ -206,7 +206,7 @@ public class ResourceServiceimpl implements IResourceService {
 		List<MenuVo> treeNodes = TreeMenuUtils.getSortTreeMenuNodes(treeMenuVos);
 		if (flag) {
 			MenuVo vo = new MenuVo();
-			vo.setText("");
+			vo.setText("全部");
 			vo.setId(0L);
 			vo.setChildren(treeNodes);
 			List<MenuVo> voList = new ArrayList<>();

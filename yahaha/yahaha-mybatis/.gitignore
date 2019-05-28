@@ -1,6 +1,5 @@
 *.class
-**/target
-**/.settings
-**/.classpath
-**/.project
-/ys-interface/
+/target/
+.classpath
+/.settings/
+.project

@@ -5,13 +5,14 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
 
 import com.aliyun.oss.ClientConfiguration;
 import com.aliyun.oss.OSSClient;
+import com.aliyun.oss.model.DeleteObjectsRequest;
 import com.aliyun.oss.model.OSSObject;
 import com.aliyun.oss.model.PutObjectResult;
 
@@ -20,7 +21,6 @@ import com.aliyun.oss.model.PutObjectResult;
  * @author Mr.Wug
  *
  */
-@Service
 public class OSSUtils {
 	
 	private static Logger logger = LoggerFactory.getLogger(OSSUtils.class);
@@ -113,6 +113,22 @@ public class OSSUtils {
 		} finally {
 			closeOSSClient(ossClient);
 		} 
+	}
+	
+	/**
+	 * OSS文件删除
+	 * @param bucketName       		存储空间
+	 * @param keys       		             删除对象集合
+	 * @param endpoint         	             访问域名
+	 * @param accessKeyId			账号KEY
+	 * @param accessKeySecret		账号密钥
+	 * @param conf					客户端配置
+	 */
+	public static void removeFile(String bucketName, List<String> keys, String endpoint, String accessKeyId,
+			String accessKeySecret, ClientConfiguration conf){
+		OSSClient ossClient  = getInstance(endpoint, accessKeyId, accessKeySecret, conf);
+		ossClient.deleteObjects(new DeleteObjectsRequest(bucketName).withKeys(keys));
+		closeOSSClient(ossClient);
 	}
 	
 	/**

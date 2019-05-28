@@ -72,11 +72,11 @@ public class LoginAuthenticationFilter extends FormAuthenticationFilter {
 			throw new IllegalStateException(msg);
 		}
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
-		String phone = (String) token.getPrincipal();
+		String username = (String) token.getPrincipal();
 		String failureUrl = httpRequest.getParameter(FAILURE_URL);
 		failureUrl = "/login";
 		ShiroUtils.getOrCreateSession();
-		SysUser sysUser = (SysUser) sysUserService.queryByPhone(phone, null).getData();
+		SysUser sysUser = (SysUser) sysUserService.queryByUserName(username, null).getData();
 		if(sysUser == null){
 			return onLoginFailure(true,token, new UnknownAccountException("用户不存在"), request, response);
 		}else{
@@ -85,22 +85,6 @@ public class LoginAuthenticationFilter extends FormAuthenticationFilter {
 			if(EnableOrDisableCode.DELETED == sysUser.getStatus())
 				return onLoginFailure(true,token, new DisabledAccountException("用户不可用"), request, response);
 		}
-//		if (isCaptchaRequired()) {
-//			String captcha = request.getParameter(CAPTCHA_PARAM);
-//			if (captcha != null) {
-//				String capText = (String) httpRequest.getSession()
-//						.getAttribute(Constants.KAPTCHA_SESSION_KEY);
-//				ShiroUtils.getSession().removeAttribute(
-//						Constants.KAPTCHA_SESSION_KEY);
-//				if (!captcha.equals(capText)) {
-//					return onLoginFailure(token,
-//							new CaptchaException("验证码不匹配"), request, response);
-//				}
-//			} else {
-//				return onLoginFailure(token, new CaptchaException("验证码不能为空"),
-//						request, response);
-//			}
-//		}
 		try {
 			Subject subject = getSubject(request, response);
 			subject.login(token);
@@ -226,7 +210,7 @@ public class LoginAuthenticationFilter extends FormAuthenticationFilter {
 		ShiroUtils.getSession().setAttribute(LOGIN_ERROR_COUNT, count);
 		ShiroUtils.getSession().setAttribute(LOGIN_ERROR_TIME, System.currentTimeMillis());
 		try {
-			response.setContentType("text/html;charset=uft-8");
+			response.setContentType("text/html;charset=utf-8");
 			response.setCharacterEncoding("UTF-8");
 			PrintWriter out = response.getWriter();
 			String message = getFailureMessage(ae);
