@@ -76,8 +76,8 @@ public class UserServiceImpl implements IUserService {
     private boolean isRegister(SysUserVo userVo) {
         Example ex = new Example(SysUser.class);
         Criteria cri = ex.createCriteria();
-        cri.andEqualTo("phone", userVo.getUsername())
-                .andNotEqualTo("status", EnableOrDisableCode.DELETED);
+        cri.andEqualTo("username", userVo.getUsername())
+                .andEqualTo("status", EnableOrDisableCode.ENABLE);
         if (userVo.getId() != null) {
             cri.andNotEqualTo("id", userVo.getId());
         }
@@ -390,6 +390,25 @@ public class UserServiceImpl implements IUserService {
             return new ObjectResultEx<SysUser>().makeInvalidParameterResult();
         }
 	}
+	
+
+	@Override
+	public ResultEx queryByUserName(String userName, String orgCode) {
+        if (StringUtil.isEmpty(userName)) {
+            logger.error("UserService.queryByPhone error. phone or orgCode is empty");
+            return new ObjectResultEx<SysUser>().makeInvalidParameterResult();
+        }
+        try {
+            SysUser sysUser = new SysUser();
+            sysUser.setUsername(userName);
+            sysUser.setStatus(EnableOrDisableCode.ENABLE);
+            sysUser = userDao.selectOne(sysUser);
+            return new ObjectResultEx<SysUser>().makeSuccessResult(sysUser);
+        } catch (Exception e) {
+            logger.error("UserService.queryByPhone error.", e);
+            return new ObjectResultEx<SysUser>().makeInvalidParameterResult();
+        }
+	}
 
 	@Override
 	public ResultEx changePassword(String password, String confirmPwd,String phone) {
@@ -431,5 +450,4 @@ public class UserServiceImpl implements IUserService {
         }
 		return new ObjectResultEx<List<SysUser>>().makeSuccessResult(userList);
 	}
-
 }

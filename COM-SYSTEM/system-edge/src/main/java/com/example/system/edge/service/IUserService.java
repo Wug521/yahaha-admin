@@ -53,6 +53,14 @@ public interface IUserService {
     public ResultEx queryByPhone(String phone, String orgCode);
     
     /**
+     * 用户登录(手机号)
+     *
+     * @param username
+     * @return
+     */
+    public ResultEx queryByUserName(String userName, String orgCode);
+    
+    /**
      * 修改用户状态
      *
      * @param ids
