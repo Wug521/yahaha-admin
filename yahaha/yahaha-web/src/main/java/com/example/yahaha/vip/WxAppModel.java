@@ -1,4 +1,4 @@
-package com.example.system.edge.app.ctrl;
+package com.example.yahaha.vip;
 
 /**
  * COM-SYSTEM

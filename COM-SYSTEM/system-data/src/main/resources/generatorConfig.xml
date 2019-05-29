@@ -53,7 +53,7 @@
 		<table schema="" tableName="sys_role_resource" delimitAllColumns="true"/>
 		<table schema="" tableName="sys_user" delimitAllColumns="true"/>
 		<table schema="" tableName="sys_user_role" delimitAllColumns="true"/> -->
-		<table schema="" tableName="sys_file" delimitAllColumns="true"/>
+		<table schema="" tableName="sys_user" delimitAllColumns="true"/>
 		</context>
 </generatorConfiguration>
 <!-- mybatis-generator:generate -->
