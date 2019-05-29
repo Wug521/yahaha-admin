@@ -58,7 +58,16 @@ public class AppAuthController {
 		}
 		AuthenticationToken token = new UsernamePasswordToken(openId,"888888");
 		SecurityUtils.getSubject().login(token);
+		checkIntegral(sysUser);
+		VipLevel vipLevel = levelService.checkLevel(sysUser.getIntegral());
+		AppUserVo userVo = new AppUserVo();
+		sysUser.setPassword(null);
+		userVo.level = vipLevel;
+		userVo.user = sysUser;
+		return new ObjectResultEx<>().makeSuccessResult(userVo);
+	}
 
+	private void checkIntegral(SysUser sysUser) {
 		// 计算积分
 		if (sysUser.getLoginDate() == null) {
 			sysUser.setSignCount(1);
@@ -67,26 +76,18 @@ public class AppAuthController {
 			if(betweenDay == 1){
 				sysUser.setSignCount(sysUser.getSignCount() + 1);
 			}else if (betweenDay == 0){
-				// do nothing
-				return new ResultEx().makeSuccessResult();
+				return;
 			}else{
 				sysUser.setSignCount(1);
 			}
 		}
 		sysUser.setLoginDate(new Date());
-
-		if(sysUser.getSignCount() > 7){
-			sysUser.setIntegral(sysUser.getIntegral() == null? 14: sysUser.getIntegral()+14);
-		}else{
-			sysUser.setIntegral(sysUser.getIntegral() == null? 2: sysUser.getIntegral()+2);
+		if (sysUser.getSignCount() > 7) {
+			sysUser.setIntegral(sysUser.getIntegral() == null ? 14 : sysUser.getIntegral() + 14);
+		} else {
+			sysUser.setIntegral(sysUser.getIntegral() == null ? 2 : sysUser.getIntegral() + 2);
 		}
 		userDao.updateByPrimaryKeySelective(sysUser);
-		VipLevel vipLevel = levelService.checkLevel(sysUser.getIntegral());
-		AppUserVo userVo = new AppUserVo();
-		sysUser.setPassword(null);
-		userVo.level = vipLevel;
-		userVo.user = sysUser;
-		return new ObjectResultEx<>().makeSuccessResult(userVo);
 	}
 
 	private Date clearDate(Date date) {
