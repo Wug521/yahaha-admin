@@ -51,7 +51,7 @@ public class AppAuthController {
 			sysUser.setUsername(openId);
 			sysUser.setPassword("21218cca77804d2ba1922c33e0151105");
 			sysUser.setSex(model.getGender().shortValue());
-			sysUser.setRealName(model.getNickName());
+			sysUser.setRealName(wxUtils.filterEmoji(model.getNickName(),"口"));
 			sysUser.setAvatarUrl(model.getAvatarUrl());
 			sysUser.setRemark(model.getCountry() + "-" + model.getProvince() + "-" + model.getCity());
 			userDao.insert(sysUser);

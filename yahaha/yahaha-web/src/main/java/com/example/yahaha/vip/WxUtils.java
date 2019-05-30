@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -31,5 +32,13 @@ public class WxUtils {
             return jsonObject.getString("openid");
         }
 
+    }
+
+    public String filterEmoji(String source,String slipStr) {
+        if(StringUtils.isNotBlank(source)){
+            return source.replaceAll("[\\ud800\\udc00-\\udbff\\udfff\\ud800-\\udfff]", slipStr);
+        }else{
+            return source;
+        }
     }
 }
