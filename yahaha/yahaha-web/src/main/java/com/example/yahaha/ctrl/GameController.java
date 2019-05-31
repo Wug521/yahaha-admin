@@ -20,7 +20,6 @@ public class GameController extends BaseController{
 	@Autowired
 	IGameService gameService;
 	
-	
 	/**
 	 * 游戏新增
 	 * @return
@@ -53,7 +52,7 @@ public class GameController extends BaseController{
 	 * @return
 	 */
 	@PostMapping("/list")
-	public ResultEx list(GameQueryVo query){
+	public ResultEx list(@RequestBody GameQueryVo query){
 		return gameService.queryGameList(query, getSysUser());
 	}
 	

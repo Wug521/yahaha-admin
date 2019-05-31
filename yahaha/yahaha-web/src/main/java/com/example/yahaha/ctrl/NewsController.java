@@ -54,7 +54,7 @@ public class NewsController extends BaseController{
 	 * @return
 	 */
 	@PostMapping("/list")
-	public ResultEx list(NewsQueryVo query){
+	public ResultEx list(@RequestBody NewsQueryVo query){
 		return newsService.queryNewsList(query, getSysUser());
 	}
 	
