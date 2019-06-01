@@ -7,6 +7,7 @@ import com.zjapl.common.result.ResultEx;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -54,8 +55,10 @@ public class LevelService {
      */
     public VipLevel checkLevel(int integra){
         List<VipLevel> levels = levelDao.selectAll();
+        assert levels != null;
+        levels.sort(Comparator.comparingInt(VipLevel::getIntegralPoint));
         VipLevel level = null;
-        if(levels != null && levels.size() > 0){
+        if(levels.size() > 0){
             for (VipLevel vipLevel : levels) {
                 if(vipLevel.getIntegralPoint() > integra){
                     break;
