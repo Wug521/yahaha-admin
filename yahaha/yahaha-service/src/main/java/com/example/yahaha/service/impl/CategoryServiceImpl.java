@@ -113,6 +113,9 @@ public class CategoryServiceImpl implements ICategoryService {
 			if(StringUtil.noEmpty(query.getType())){//节点类型
 				criteria.andEqualTo("type", query.getType());
 			}
+			if(StringUtil.noEmpty(query.getScope())){//域
+				criteria.andEqualTo("scope", query.getScope());
+			}
 			criteria.andEqualTo("status", EnableOrDisableCode.ENABLE).andEqualTo("orgCode", sysUser.getOrgCode());
 			PageHelper.startPage(query.getPageNum(),query.getPageSize(),"CREATE_DATE DESC");//创建时间倒序
 			List<Category> list = categoryDao.selectByExample(example);//查询
@@ -146,6 +149,9 @@ public class CategoryServiceImpl implements ICategoryService {
 			}
 			if(StringUtil.noEmpty(query.getType())){//节点类型
 				criteria.andEqualTo("type", query.getType());
+			}
+			if(StringUtil.noEmpty(query.getScope())){//域
+				criteria.andEqualTo("scope", query.getScope());
 			}
 			criteria.andEqualTo("status", EnableOrDisableCode.ENABLE).andEqualTo("orgCode", sysUser.getOrgCode());
 			example.orderBy("createDate").desc();//创建时间倒序

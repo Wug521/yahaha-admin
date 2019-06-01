@@ -15,11 +15,16 @@ public class CategoryQueryVo extends PageInfo<Object> {
      * 名称
      */
     private String name;
-
+    
     /**
      * 类型(1:类别 2:标签)
      */
     private String type;
+    
+    /**
+     * 名称
+     */
+    private Short scope;
 
 	public Long getId() {
 		return id;
@@ -44,4 +49,13 @@ public class CategoryQueryVo extends PageInfo<Object> {
 	public void setType(String type) {
 		this.type = type;
 	}
+
+	public Short getScope() {
+		return scope;
+	}
+
+	public void setScope(Short scope) {
+		this.scope = scope;
+	}
+	
 }
