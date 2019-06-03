@@ -41,4 +41,11 @@ public interface INewsService {
 	 */
 	public ObjectResultEx<PageInfo<NewsVo>> queryNewsList(NewsQueryVo queryVo,SysUser sysUser);
 
+	/**
+	 * 小程序分页查询新闻List
+	 * @param queryVo
+	 * @return
+	 */
+	public ObjectResultEx<PageInfo<NewsVo>> queryNewsListFromApplet(NewsQueryVo query);
+
 }

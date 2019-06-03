@@ -54,6 +54,7 @@ public class NewsServiceImpl implements INewsService {
 		info.setIdsCategory(addString(info.getIdsCategory()));
 		info.setCreateDate(new Date());
 		info.setCreateUser(sysUser.getId());
+		info.setCreateUsername(sysUser.getUsername());
 		info.setUpdateDate(info.getCreateDate());
 		info.setUpdateUser(sysUser.getId());
 		info.setOrgCode(sysUser.getOrgCode());
@@ -155,6 +156,60 @@ public class NewsServiceImpl implements INewsService {
 			return new ObjectResultEx<PageInfo<NewsVo>>().makeInternalErrorResult();
 		}
 	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@Override
+	public ObjectResultEx<PageInfo<NewsVo>> queryNewsListFromApplet(NewsQueryVo query) {
+		if(StringUtil.isEmpty(query)){
+			logger.error("NewsServiceImpl.queryNewsList error. query is empty");
+			return new ObjectResultEx<PageInfo<NewsVo>>().makeInvalidParameterResult();
+		}
+		try {
+			Example example = new Example(News.class);
+			Criteria criteria = example.createCriteria();
+			//查询条件
+			if(StringUtil.noEmpty(query.getId())){//新闻ID
+				criteria.andEqualTo("id", query.getId());
+			}
+			if(StringUtil.noEmpty(query.getTitle())){//新闻标题
+				criteria.andLike("title", "%" + query.getTitle() + "%");
+			}
+			if(StringUtil.noEmpty(query.getIdsTag())){//标签id集合,以逗号隔开
+				String[] idsTag = query.getIdsTag().split(",");
+		        for (int i = 0; i < idsTag.length; i++) {
+		        	criteria.andLike("idsTag", "%" + addString(idsTag[i]) + "%");
+		        }
+			}
+			if(StringUtil.noEmpty(query.getIdsCategory())){//分类id集合,以逗号隔开
+				String[] idsCategory = query.getIdsCategory().split(",");
+		        for (int i = 0; i < idsCategory.length; i++) {
+		        	criteria.andLike("idsCategory", "%" + addString(idsCategory[i]) + "%");
+		        }
+			}	
+			if(StringUtil.noEmpty(query.getStatus())){//新闻状态
+				criteria.andEqualTo("status", query.getStatus());
+			}else{
+				criteria.andEqualTo("status", EnableOrDisableCode.ENABLE);
+			}
+			PageHelper.startPage(query.getPageNum(),query.getPageSize(),"CREATE_DATE DESC");//创建时间倒序
+			List<News> list = newsDao.selectByExample(example);//查询
+			List<NewsVo> result = new ArrayList<NewsVo>();
+			PageInfo pageInfo = new PageInfo(list);
+			for (News opsAccept : list) {//查询结果解析,bean => vo
+				NewsVo NewsVo = new NewsVo();
+				//取出分类和标签集合前后字符串逗号deleteString
+				opsAccept.setIdsTag(deleteString(opsAccept.getIdsTag()));
+				opsAccept.setIdsCategory(deleteString(opsAccept.getIdsCategory()));
+				BeanUtils.copyPropertiesIgnoreNullValue(opsAccept, NewsVo);//copy
+				result.add(NewsVo);
+			}
+			pageInfo.setList(result);
+			return new ObjectResultEx<PageInfo<NewsVo>>().makeSuccessResult(pageInfo);
+		} catch (Exception e) {
+			logger.error("NewsServiceImpl.queryNewsList error.",e);
+			return new ObjectResultEx<PageInfo<NewsVo>>().makeInternalErrorResult();
+		}
+	}	
 	
 	private String checkParams(NewsVo param) {
 		if(StringUtil.isEmpty(param)){return "数据为空";}

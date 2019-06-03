@@ -54,6 +54,7 @@ public class GameServiceImpl implements IGameService {
 		info.setIdsCategory(addString(info.getIdsCategory()));
 		info.setCreateDate(new Date());
 		info.setCreateUser(sysUser.getId());
+		info.setCreateUsername(sysUser.getUsername());
 		info.setUpdateDate(info.getCreateDate());
 		info.setUpdateUser(sysUser.getId());
 		info.setOrgCode(sysUser.getOrgCode());
@@ -116,6 +117,9 @@ public class GameServiceImpl implements IGameService {
 			if(StringUtil.noEmpty(query.getId())){//游戏ID
 				criteria.andEqualTo("id", query.getId());
 			}
+			if(StringUtil.noEmpty(query.getTop())){//是否置顶
+				criteria.andEqualTo("top", query.getTop());
+			}
 			if(StringUtil.noEmpty(query.getTitle())){//游戏标题
 				criteria.andLike("title", "%" + query.getTitle() + "%");
 			}
@@ -156,6 +160,63 @@ public class GameServiceImpl implements IGameService {
 			return new ObjectResultEx<PageInfo<GameVo>>().makeInternalErrorResult();
 		}
 	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@Override
+	public ObjectResultEx<PageInfo<GameVo>> queryGameListFromApplet(GameQueryVo query) {
+		if(StringUtil.isEmpty(query)){
+			logger.error("GameServiceImpl.queryGameList error. query is empty");
+			return new ObjectResultEx<PageInfo<GameVo>>().makeInvalidParameterResult();
+		}
+		try {
+			Example example = new Example(Game.class);
+			Criteria criteria = example.createCriteria();
+			//查询条件
+			if(StringUtil.noEmpty(query.getId())){//游戏ID
+				criteria.andEqualTo("id", query.getId());
+			}
+			if(StringUtil.noEmpty(query.getTop())){//是否置顶
+				criteria.andEqualTo("top", query.getTop());
+			}
+			if(StringUtil.noEmpty(query.getTitle())){//游戏标题
+				criteria.andLike("title", "%" + query.getTitle() + "%");
+			}
+			if(StringUtil.noEmpty(query.getIdsTag())){//标签id集合,以逗号隔开
+				String[] idsTag = query.getIdsTag().split(",");
+		        for (int i = 0; i < idsTag.length; i++) {
+		        	criteria.andLike("idsTag", "%" + addString(idsTag[i]) + "%");
+		        }
+			}
+			if(StringUtil.noEmpty(query.getIdsCategory())){//分类id集合,以逗号隔开
+				String[] idsCategory = query.getIdsCategory().split(",");
+		        for (int i = 0; i < idsCategory.length; i++) {
+		        	criteria.andLike("idsCategory", "%" + addString(idsCategory[i]) + "%");
+		        }
+			}	
+			if(StringUtil.noEmpty(query.getStatus())){//游戏状态
+				criteria.andEqualTo("status", query.getStatus());
+			}else{
+				criteria.andEqualTo("status", EnableOrDisableCode.ENABLE);
+			}
+			PageHelper.startPage(query.getPageNum(),query.getPageSize(),"CREATE_DATE DESC");//创建时间倒序
+			List<Game> list = gameDao.selectByExample(example);//查询
+			List<GameVo> result = new ArrayList<GameVo>();
+			PageInfo pageInfo = new PageInfo(list);
+			for (Game opsAccept : list) {//查询结果解析,bean => vo
+				GameVo GameVo = new GameVo();
+				//取出分类和标签集合前后字符串逗号deleteString
+				opsAccept.setIdsTag(deleteString(opsAccept.getIdsTag()));
+				opsAccept.setIdsCategory(deleteString(opsAccept.getIdsCategory()));
+				BeanUtils.copyPropertiesIgnoreNullValue(opsAccept, GameVo);//copy
+				result.add(GameVo);
+			}
+			pageInfo.setList(result);
+			return new ObjectResultEx<PageInfo<GameVo>>().makeSuccessResult(pageInfo);
+		} catch (Exception e) {
+			logger.error("GameServiceImpl.queryGameList error.",e);
+			return new ObjectResultEx<PageInfo<GameVo>>().makeInternalErrorResult();
+		}
+	}	
 	
 	private String checkParams(GameVo param) {
 		if(StringUtil.isEmpty(param)){return "数据为空";}

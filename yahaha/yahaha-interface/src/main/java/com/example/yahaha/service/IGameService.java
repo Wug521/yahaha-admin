@@ -41,4 +41,11 @@ public interface IGameService {
 	 */
 	public ObjectResultEx<PageInfo<GameVo>> queryGameList(GameQueryVo queryVo,SysUser sysUser);
 
+	/**
+	 * 小程序分页查询游戏List
+	 * @param queryVo
+	 * @return
+	 */	
+	public ObjectResultEx<PageInfo<GameVo>> queryGameListFromApplet(GameQueryVo query);
+
 }

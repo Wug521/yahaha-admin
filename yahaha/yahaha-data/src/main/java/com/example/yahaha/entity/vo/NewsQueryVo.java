@@ -82,4 +82,7 @@ public class NewsQueryVo extends PageInfo<Object> {
 	public void setStatus(Short status) {
 		this.status = status;
 	}
+    
+    
+	
 }

@@ -1,7 +1,7 @@
 /**
  * Copyright(C) 2006-2016 安普利科技
  * All rights reserved
- * 2019-05-18 17:19:56 Created
+ * 2019-06-02 16:54:37 Created
  * 
  */
 package com.example.yahaha.entity;
@@ -67,9 +67,14 @@ public class News implements Serializable {
     private String orgCode;
 
     /**
-     * 创建人
+     * 创建人ID
      */
     private Long createUser;
+
+    /**
+     * 创建人姓名
+     */
+    private String createUsername;
 
     /**
      * 创建时间
@@ -340,11 +345,11 @@ public class News implements Serializable {
 
     /**
      * <pre>
-     * 获取：创建人
+     * 获取：创建人ID
      * 表字段：news.create_user
      * </pre>
      *
-     * @return news.create_user：创建人
+     * @return news.create_user：创建人ID
      */
     public Long getCreateUser() {
         return createUser;
@@ -352,15 +357,40 @@ public class News implements Serializable {
 
     /**
      * <pre>
-     * 设置：创建人
+     * 设置：创建人ID
      * 表字段：news.create_user
      * </pre>
      *
      * @param createUser
-     *            news.create_user：创建人
+     *            news.create_user：创建人ID
      */
     public void setCreateUser(Long createUser) {
         this.createUser = createUser;
+    }
+
+    /**
+     * <pre>
+     * 获取：创建人姓名
+     * 表字段：news.create_username
+     * </pre>
+     *
+     * @return news.create_username：创建人姓名
+     */
+    public String getCreateUsername() {
+        return createUsername;
+    }
+
+    /**
+     * <pre>
+     * 设置：创建人姓名
+     * 表字段：news.create_username
+     * </pre>
+     *
+     * @param createUsername
+     *            news.create_username：创建人姓名
+     */
+    public void setCreateUsername(String createUsername) {
+        this.createUsername = createUsername == null ? null : createUsername.trim();
     }
 
     /**
@@ -465,6 +495,7 @@ public class News implements Serializable {
             && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
             && (this.getOrgCode() == null ? other.getOrgCode() == null : this.getOrgCode().equals(other.getOrgCode()))
             && (this.getCreateUser() == null ? other.getCreateUser() == null : this.getCreateUser().equals(other.getCreateUser()))
+            && (this.getCreateUsername() == null ? other.getCreateUsername() == null : this.getCreateUsername().equals(other.getCreateUsername()))
             && (this.getCreateDate() == null ? other.getCreateDate() == null : this.getCreateDate().equals(other.getCreateDate()))
             && (this.getUpdateUser() == null ? other.getUpdateUser() == null : this.getUpdateUser().equals(other.getUpdateUser()))
             && (this.getUpdateDate() == null ? other.getUpdateDate() == null : this.getUpdateDate().equals(other.getUpdateDate()));
@@ -488,6 +519,7 @@ public class News implements Serializable {
         result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         result = prime * result + ((getOrgCode() == null) ? 0 : getOrgCode().hashCode());
         result = prime * result + ((getCreateUser() == null) ? 0 : getCreateUser().hashCode());
+        result = prime * result + ((getCreateUsername() == null) ? 0 : getCreateUsername().hashCode());
         result = prime * result + ((getCreateDate() == null) ? 0 : getCreateDate().hashCode());
         result = prime * result + ((getUpdateUser() == null) ? 0 : getUpdateUser().hashCode());
         result = prime * result + ((getUpdateDate() == null) ? 0 : getUpdateDate().hashCode());
@@ -514,6 +546,7 @@ public class News implements Serializable {
         sb.append(", status=").append(status);
         sb.append(", orgCode=").append(orgCode);
         sb.append(", createUser=").append(createUser);
+        sb.append(", createUsername=").append(createUsername);
         sb.append(", createDate=").append(createDate);
         sb.append(", updateUser=").append(updateUser);
         sb.append(", updateDate=").append(updateDate);

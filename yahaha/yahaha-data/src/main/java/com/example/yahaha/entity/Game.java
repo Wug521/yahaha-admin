@@ -1,7 +1,7 @@
 /**
  * Copyright(C) 2006-2016 安普利科技
  * All rights reserved
- * 2019-05-06 17:19:22 Created
+ * 2019-06-02 18:10:32 Created
  * 
  */
 package com.example.yahaha.entity;
@@ -15,12 +15,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 public class Game implements Serializable {
-	
     /**
      * 主键ID
      */
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
+    @Id	
     private Long id;
 
     /**
@@ -49,9 +48,29 @@ public class Game implements Serializable {
     private String idsCategoryName;
 
     /**
+     * 封面文件路径
+     */
+    private String filesPath;
+
+    /**
+     * 图片路径集合(逗号分隔)
+     */
+    private String imgFilesPath;
+
+    /**
+     * 视频路径集合(逗号分隔)
+     */
+    private String videoFilesPath;
+
+    /**
      * 状态(数据)
      */
     private Short status;
+
+    /**
+     * 是否置顶
+     */
+    private Short top;
 
     /**
      * 机构编码
@@ -59,9 +78,14 @@ public class Game implements Serializable {
     private String orgCode;
 
     /**
-     * 创建人
+     * 创建人ID
      */
     private Long createUser;
+
+    /**
+     * 创建人姓名
+     */
+    private String createUsername;
 
     /**
      * 创建时间
@@ -322,6 +346,81 @@ public class Game implements Serializable {
 
     /**
      * <pre>
+     * 获取：封面文件路径
+     * 表字段：game.files_path
+     * </pre>
+     *
+     * @return game.files_path：封面文件路径
+     */
+    public String getFilesPath() {
+        return filesPath;
+    }
+
+    /**
+     * <pre>
+     * 设置：封面文件路径
+     * 表字段：game.files_path
+     * </pre>
+     *
+     * @param filesPath
+     *            game.files_path：封面文件路径
+     */
+    public void setFilesPath(String filesPath) {
+        this.filesPath = filesPath == null ? null : filesPath.trim();
+    }
+
+    /**
+     * <pre>
+     * 获取：图片路径集合(逗号分隔)
+     * 表字段：game.img_files_path
+     * </pre>
+     *
+     * @return game.img_files_path：图片路径集合(逗号分隔)
+     */
+    public String getImgFilesPath() {
+        return imgFilesPath;
+    }
+
+    /**
+     * <pre>
+     * 设置：图片路径集合(逗号分隔)
+     * 表字段：game.img_files_path
+     * </pre>
+     *
+     * @param imgFilesPath
+     *            game.img_files_path：图片路径集合(逗号分隔)
+     */
+    public void setImgFilesPath(String imgFilesPath) {
+        this.imgFilesPath = imgFilesPath == null ? null : imgFilesPath.trim();
+    }
+
+    /**
+     * <pre>
+     * 获取：视频路径集合(逗号分隔)
+     * 表字段：game.video_files_path
+     * </pre>
+     *
+     * @return game.video_files_path：视频路径集合(逗号分隔)
+     */
+    public String getVideoFilesPath() {
+        return videoFilesPath;
+    }
+
+    /**
+     * <pre>
+     * 设置：视频路径集合(逗号分隔)
+     * 表字段：game.video_files_path
+     * </pre>
+     *
+     * @param videoFilesPath
+     *            game.video_files_path：视频路径集合(逗号分隔)
+     */
+    public void setVideoFilesPath(String videoFilesPath) {
+        this.videoFilesPath = videoFilesPath == null ? null : videoFilesPath.trim();
+    }
+
+    /**
+     * <pre>
      * 获取：状态(数据)
      * 表字段：game.status
      * </pre>
@@ -343,6 +442,31 @@ public class Game implements Serializable {
      */
     public void setStatus(Short status) {
         this.status = status;
+    }
+
+    /**
+     * <pre>
+     * 获取：是否置顶
+     * 表字段：game.top
+     * </pre>
+     *
+     * @return game.top：是否置顶
+     */
+    public Short getTop() {
+        return top;
+    }
+
+    /**
+     * <pre>
+     * 设置：是否置顶
+     * 表字段：game.top
+     * </pre>
+     *
+     * @param top
+     *            game.top：是否置顶
+     */
+    public void setTop(Short top) {
+        this.top = top;
     }
 
     /**
@@ -372,11 +496,11 @@ public class Game implements Serializable {
 
     /**
      * <pre>
-     * 获取：创建人
+     * 获取：创建人ID
      * 表字段：game.create_user
      * </pre>
      *
-     * @return game.create_user：创建人
+     * @return game.create_user：创建人ID
      */
     public Long getCreateUser() {
         return createUser;
@@ -384,15 +508,40 @@ public class Game implements Serializable {
 
     /**
      * <pre>
-     * 设置：创建人
+     * 设置：创建人ID
      * 表字段：game.create_user
      * </pre>
      *
      * @param createUser
-     *            game.create_user：创建人
+     *            game.create_user：创建人ID
      */
     public void setCreateUser(Long createUser) {
         this.createUser = createUser;
+    }
+
+    /**
+     * <pre>
+     * 获取：创建人姓名
+     * 表字段：game.create_username
+     * </pre>
+     *
+     * @return game.create_username：创建人姓名
+     */
+    public String getCreateUsername() {
+        return createUsername;
+    }
+
+    /**
+     * <pre>
+     * 设置：创建人姓名
+     * 表字段：game.create_username
+     * </pre>
+     *
+     * @param createUsername
+     *            game.create_username：创建人姓名
+     */
+    public void setCreateUsername(String createUsername) {
+        this.createUsername = createUsername == null ? null : createUsername.trim();
     }
 
     /**
@@ -942,9 +1091,14 @@ public class Game implements Serializable {
             && (this.getIdsTagName() == null ? other.getIdsTagName() == null : this.getIdsTagName().equals(other.getIdsTagName()))
             && (this.getIdsCategory() == null ? other.getIdsCategory() == null : this.getIdsCategory().equals(other.getIdsCategory()))
             && (this.getIdsCategoryName() == null ? other.getIdsCategoryName() == null : this.getIdsCategoryName().equals(other.getIdsCategoryName()))
+            && (this.getFilesPath() == null ? other.getFilesPath() == null : this.getFilesPath().equals(other.getFilesPath()))
+            && (this.getImgFilesPath() == null ? other.getImgFilesPath() == null : this.getImgFilesPath().equals(other.getImgFilesPath()))
+            && (this.getVideoFilesPath() == null ? other.getVideoFilesPath() == null : this.getVideoFilesPath().equals(other.getVideoFilesPath()))
             && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
+            && (this.getTop() == null ? other.getTop() == null : this.getTop().equals(other.getTop()))
             && (this.getOrgCode() == null ? other.getOrgCode() == null : this.getOrgCode().equals(other.getOrgCode()))
             && (this.getCreateUser() == null ? other.getCreateUser() == null : this.getCreateUser().equals(other.getCreateUser()))
+            && (this.getCreateUsername() == null ? other.getCreateUsername() == null : this.getCreateUsername().equals(other.getCreateUsername()))
             && (this.getCreateDate() == null ? other.getCreateDate() == null : this.getCreateDate().equals(other.getCreateDate()))
             && (this.getUpdateUser() == null ? other.getUpdateUser() == null : this.getUpdateUser().equals(other.getUpdateUser()))
             && (this.getUpdateDate() == null ? other.getUpdateDate() == null : this.getUpdateDate().equals(other.getUpdateDate()))
@@ -981,9 +1135,14 @@ public class Game implements Serializable {
         result = prime * result + ((getIdsTagName() == null) ? 0 : getIdsTagName().hashCode());
         result = prime * result + ((getIdsCategory() == null) ? 0 : getIdsCategory().hashCode());
         result = prime * result + ((getIdsCategoryName() == null) ? 0 : getIdsCategoryName().hashCode());
+        result = prime * result + ((getFilesPath() == null) ? 0 : getFilesPath().hashCode());
+        result = prime * result + ((getImgFilesPath() == null) ? 0 : getImgFilesPath().hashCode());
+        result = prime * result + ((getVideoFilesPath() == null) ? 0 : getVideoFilesPath().hashCode());
         result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
+        result = prime * result + ((getTop() == null) ? 0 : getTop().hashCode());
         result = prime * result + ((getOrgCode() == null) ? 0 : getOrgCode().hashCode());
         result = prime * result + ((getCreateUser() == null) ? 0 : getCreateUser().hashCode());
+        result = prime * result + ((getCreateUsername() == null) ? 0 : getCreateUsername().hashCode());
         result = prime * result + ((getCreateDate() == null) ? 0 : getCreateDate().hashCode());
         result = prime * result + ((getUpdateUser() == null) ? 0 : getUpdateUser().hashCode());
         result = prime * result + ((getUpdateDate() == null) ? 0 : getUpdateDate().hashCode());
@@ -1023,9 +1182,14 @@ public class Game implements Serializable {
         sb.append(", idsTagName=").append(idsTagName);
         sb.append(", idsCategory=").append(idsCategory);
         sb.append(", idsCategoryName=").append(idsCategoryName);
+        sb.append(", filesPath=").append(filesPath);
+        sb.append(", imgFilesPath=").append(imgFilesPath);
+        sb.append(", videoFilesPath=").append(videoFilesPath);
         sb.append(", status=").append(status);
+        sb.append(", top=").append(top);
         sb.append(", orgCode=").append(orgCode);
         sb.append(", createUser=").append(createUser);
+        sb.append(", createUsername=").append(createUsername);
         sb.append(", createDate=").append(createDate);
         sb.append(", updateUser=").append(updateUser);
         sb.append(", updateDate=").append(updateDate);
