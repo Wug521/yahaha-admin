@@ -41,6 +41,7 @@ public class AppAuthController {
 	@ResponseBody
 	@RequestMapping(value = "/login")
 	public Object login(@RequestBody WxAppModel model) throws IOException {
+		AppUserVo userVo = new AppUserVo();
 		String openId = wxUtils.getOpenId(model.getCode());
 		SysUser sysUser = new SysUser();
 		sysUser.setUsername(openId);
@@ -57,16 +58,15 @@ public class AppAuthController {
 		}
 		AuthenticationToken token = new UsernamePasswordToken(openId,"888888");
 		SecurityUtils.getSubject().login(token);
-		checkIntegral(sysUser);
+		userVo.firstLogin = checkIntegral(sysUser);
 		VipLevel vipLevel = levelService.checkLevel(sysUser.getIntegral());
-		AppUserVo userVo = new AppUserVo();
 		sysUser.setPassword(null);
 		userVo.level = vipLevel;
 		userVo.user = sysUser;
 		return new ObjectResultEx<>().makeSuccessResult(userVo);
 	}
 
-	private void checkIntegral(SysUser sysUser) {
+	private int checkIntegral(SysUser sysUser) {
 		// 计算积分
 		if (sysUser.getLoginDate() == null) {
 			sysUser.setSignCount(1);
@@ -75,7 +75,7 @@ public class AppAuthController {
 			if(betweenDay == 1){
 				sysUser.setSignCount(sysUser.getSignCount() + 1);
 			}else if (betweenDay == 0){
-				return;
+				return 0;
 			}else{
 				sysUser.setSignCount(1);
 			}
@@ -87,6 +87,7 @@ public class AppAuthController {
 			sysUser.setIntegral(sysUser.getIntegral() == null ? 2 : sysUser.getIntegral() + 2);
 		}
 		userDao.updateByPrimaryKeySelective(sysUser);
+		return 1;
 	}
 
 	private Date clearDate(Date date) {

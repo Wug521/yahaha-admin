@@ -12,4 +12,5 @@ public class AppUserVo {
 
     public SysUser user;
     public VipLevel level;
+    public int firstLogin; // 0 不是第一次登陆  1 是第一次登陆
 }
