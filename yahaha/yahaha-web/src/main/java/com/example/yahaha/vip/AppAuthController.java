@@ -1,13 +1,9 @@
 package com.example.yahaha.vip;
 
-import com.example.system.dao.ISysUserDao;
-import com.example.system.edge.service.IUserService;
-import com.example.system.entity.SysUser;
-import com.example.system.vo.SysUserVo;
-import com.example.yahaha.entity.VipLevel;
-import com.example.yahaha.entity.vo.AppUserVo;
-import com.zjapl.common.result.ObjectResultEx;
-import com.zjapl.common.result.ResultEx;
+import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -17,9 +13,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.io.IOException;
-import java.util.Calendar;
-import java.util.Date;
+import com.example.system.dao.ISysUserDao;
+import com.example.system.edge.service.IUserService;
+import com.example.system.entity.SysUser;
+import com.example.yahaha.entity.VipLevel;
+import com.example.yahaha.entity.vo.AppUserVo;
+import com.zjapl.common.result.ObjectResultEx;
 
 /**
  * 登陆授权
