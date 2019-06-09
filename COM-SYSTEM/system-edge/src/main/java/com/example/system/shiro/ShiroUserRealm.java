@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.example.system.vo.MenuVo;
+import com.zjapl.common.result.ObjectResultEx;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -46,7 +48,7 @@ public class ShiroUserRealm extends AuthorizingRealm {
 	
 	@Autowired
 	IResourceService sysResourceService;
-	
+
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principal) {
 		SimpleAuthorizationInfo authorinfo = new SimpleAuthorizationInfo();
@@ -92,6 +94,10 @@ public class ShiroUserRealm extends AuthorizingRealm {
 			} catch (NoSuchMethodException e) {
 				logger.error("addRoles IllegalAccessException.", e);
 			}
+		}
+		ObjectResultEx<List<MenuVo>> menuTree = sysResourceService.queryTreeByUser(shiroPrincipal.getSysUser().getId(), shiroPrincipal.getSysUser().getOrgCode());
+		if (menuTree != null) {
+			shiroPrincipal.setMenuList(menuTree.getData());
 		}
 		if(!list.isEmpty()){
 			shiroPrincipal.setRoleList(list);
