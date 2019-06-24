@@ -44,8 +44,8 @@ public class CategoryController extends BaseController{
 	 * @return
 	 */
 	@GetMapping("/edit")
-	public ResultEx editStatus(Long id){
-		return categoryNodeService.edit(id, getSysUser());
+	public ResultEx editStatus(String ids){
+		return categoryNodeService.edit(ids, getSysUser());
 	}
 	
 	/**

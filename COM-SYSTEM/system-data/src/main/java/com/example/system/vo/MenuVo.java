@@ -51,7 +51,7 @@ public class MenuVo<T> implements Comparable<Object>, Serializable {
 	 * 是否选中
 	 */
 	private Boolean checked;
-
+	
 	@SuppressWarnings("rawtypes")
 	private List<MenuVo> children = new ArrayList<MenuVo>();
 

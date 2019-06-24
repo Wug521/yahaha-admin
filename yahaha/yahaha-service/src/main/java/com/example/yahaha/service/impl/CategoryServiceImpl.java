@@ -13,10 +13,12 @@ import com.example.system.dic.CommonDictionary;
 import com.example.system.dic.CommonDictionary.EnableOrDisableCode;
 import com.example.system.entity.SysUser;
 import com.example.system.utils.BeanUtils;
+import com.example.system.utils.CommonUtil;
 import com.example.yahaha.dao.ICategoryDao;
 import com.example.yahaha.entity.Category;
 import com.example.yahaha.entity.vo.CategoryQueryVo;
 import com.example.yahaha.entity.vo.CategoryVo;
+import com.example.yahaha.entity.vo.MaterialNodeVo;
 import com.example.yahaha.service.ICategoryService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -76,23 +78,20 @@ public class CategoryServiceImpl implements ICategoryService {
 	}
 
 	@Override
-	public ResultEx edit(Long id, SysUser sysUser) {
-		if(StringUtil.isEmpty(id)){
-			logger.error("CategoryServiceImpl.edit error. id is empty");
-			return new ObjectResultEx<CategoryVo>().makeInvalidParameterResult();
+	public ResultEx edit(String ids, SysUser sysUser) {
+		if(StringUtil.isEmpty(ids)){
+			logger.error("MaterialNodeServiceImpl.edit error. id is empty");
+			return new ObjectResultEx<MaterialNodeVo>().makeInvalidParameterResult();
 		}
+		List<Long> idsToList = CommonUtil.idsToList(ids);
+		Example example = new Example(Category.class);
+		example.createCriteria().andIn("id", idsToList)
+								.andEqualTo("orgCode", sysUser.getOrgCode());
 		Category info = new Category();
-		info.setId(id);
-		info.setStatus(EnableOrDisableCode.ENABLE);
-		info.setOrgCode(sysUser.getOrgCode());
-		info = categoryDao.selectOne(info);//验证该记录isHas
-		if(info != null){
-			//设置状态为删除
-			info.setStatus(EnableOrDisableCode.DISABLE);
-			categoryDao.updateByPrimaryKeySelective(info);
-		}else{
-			return new ResultEx().makeFailedResult(ErrorCode.BAD_PARAMETER, "传入非法参数");
-		}
+		info.setStatus(EnableOrDisableCode.DELETED);
+		info.setUpdateDate(new Date());
+		info.setUpdateUser(sysUser.getId());
+		categoryDao.updateByExampleSelective(info, example);
 		return new ResultEx().makeSuccessResult();
 	}
 
@@ -120,7 +119,7 @@ public class CategoryServiceImpl implements ICategoryService {
 			if(StringUtil.noEmpty(sysUser)){
 				criteria.andEqualTo("orgCode", sysUser.getOrgCode());
 			}
-			PageHelper.startPage(query.getPageNum(),query.getPageSize(),"CREATE_DATE DESC");//创建时间倒序
+			PageHelper.startPage(query.getPageNum(),query.getPageSize(),"SORT ASC");//排序号升序
 			List<Category> list = categoryDao.selectByExample(example);//查询
 			List<CategoryVo> result = new ArrayList<CategoryVo>();
 			PageInfo pageInfo = new PageInfo(list);

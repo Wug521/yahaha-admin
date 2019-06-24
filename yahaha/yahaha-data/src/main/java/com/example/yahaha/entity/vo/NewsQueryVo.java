@@ -34,6 +34,11 @@ public class NewsQueryVo extends PageInfo<Object> {
      * 状态(数据)
      */
     private Short status;
+    
+    /**
+     * 是否置顶(数据)
+     */
+    private Short top;     
 
 	public Long getId() {
 		return id;
@@ -82,7 +87,14 @@ public class NewsQueryVo extends PageInfo<Object> {
 	public void setStatus(Short status) {
 		this.status = status;
 	}
-    
+
+	public Short getTop() {
+		return top;
+	}
+
+	public void setTop(Short top) {
+		this.top = top;
+	}
     
 	
 }

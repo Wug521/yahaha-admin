@@ -64,5 +64,5 @@ public class AppletController{
 	public ResultEx list(@RequestBody CategoryVo query){
 		return categoryNodeService.getCategoryList(query, null);
 	}
-		
+	
 }

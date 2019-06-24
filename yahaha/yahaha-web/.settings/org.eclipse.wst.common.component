@@ -27,6 +27,6 @@
         </dependent-module>
         <property name="java-output-path" value="/yahaha-web/target/classes"/>
         <property name="component.exclusion.patterns" value="**/*-debug*"/>
-        <property name="context-root" value="yahaha-web"/>
+        <property name="context-root" value="yhh-web"/>
     </wb-module>
 </project-modules>

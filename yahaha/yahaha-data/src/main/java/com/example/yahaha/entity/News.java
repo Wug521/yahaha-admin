@@ -1,7 +1,7 @@
 /**
  * Copyright(C) 2006-2016 安普利科技
  * All rights reserved
- * 2019-06-02 16:54:37 Created
+ * 2019-06-19 17:48:06 Created
  * 
  */
 package com.example.yahaha.entity;
@@ -18,7 +18,7 @@ public class News implements Serializable {
      * 主键ID
      */
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id	
+    @Id
     private Long id;
 
     /**
@@ -60,6 +60,8 @@ public class News implements Serializable {
      * 状态(数据)
      */
     private Short status;
+
+    private Short top;
 
     /**
      * 机构编码
@@ -320,6 +322,31 @@ public class News implements Serializable {
 
     /**
      * <pre>
+     * 获取：
+     * 表字段：news.top
+     * </pre>
+     *
+     * @return news.top：
+     */
+    public Short getTop() {
+        return top;
+    }
+
+    /**
+     * <pre>
+     * 设置：
+     * 表字段：news.top
+     * </pre>
+     *
+     * @param top
+     *            news.top：
+     */
+    public void setTop(Short top) {
+        this.top = top;
+    }
+
+    /**
+     * <pre>
      * 获取：机构编码
      * 表字段：news.org_code
      * </pre>
@@ -493,6 +520,7 @@ public class News implements Serializable {
             && (this.getIdsCategoryName() == null ? other.getIdsCategoryName() == null : this.getIdsCategoryName().equals(other.getIdsCategoryName()))
             && (this.getFilesPath() == null ? other.getFilesPath() == null : this.getFilesPath().equals(other.getFilesPath()))
             && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
+            && (this.getTop() == null ? other.getTop() == null : this.getTop().equals(other.getTop()))
             && (this.getOrgCode() == null ? other.getOrgCode() == null : this.getOrgCode().equals(other.getOrgCode()))
             && (this.getCreateUser() == null ? other.getCreateUser() == null : this.getCreateUser().equals(other.getCreateUser()))
             && (this.getCreateUsername() == null ? other.getCreateUsername() == null : this.getCreateUsername().equals(other.getCreateUsername()))
@@ -517,6 +545,7 @@ public class News implements Serializable {
         result = prime * result + ((getIdsCategoryName() == null) ? 0 : getIdsCategoryName().hashCode());
         result = prime * result + ((getFilesPath() == null) ? 0 : getFilesPath().hashCode());
         result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
+        result = prime * result + ((getTop() == null) ? 0 : getTop().hashCode());
         result = prime * result + ((getOrgCode() == null) ? 0 : getOrgCode().hashCode());
         result = prime * result + ((getCreateUser() == null) ? 0 : getCreateUser().hashCode());
         result = prime * result + ((getCreateUsername() == null) ? 0 : getCreateUsername().hashCode());
@@ -544,6 +573,7 @@ public class News implements Serializable {
         sb.append(", idsCategoryName=").append(idsCategoryName);
         sb.append(", filesPath=").append(filesPath);
         sb.append(", status=").append(status);
+        sb.append(", top=").append(top);
         sb.append(", orgCode=").append(orgCode);
         sb.append(", createUser=").append(createUser);
         sb.append(", createUsername=").append(createUsername);

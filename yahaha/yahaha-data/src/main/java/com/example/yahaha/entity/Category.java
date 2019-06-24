@@ -1,7 +1,7 @@
 /**
  * Copyright(C) 2006-2016 安普利科技
  * All rights reserved
- * 2019-05-15 17:27:32 Created
+ * 2019-06-19 14:18:05 Created
  * 
  */
 package com.example.yahaha.entity;
@@ -35,6 +35,11 @@ public class Category implements Serializable {
      * 1-新闻 2-游戏
      */
     private Short scope;
+
+    /**
+     * 排序
+     */
+    private Short sort;
 
     /**
      * 状态(数据)
@@ -166,6 +171,31 @@ public class Category implements Serializable {
      */
     public void setScope(Short scope) {
         this.scope = scope;
+    }
+
+    /**
+     * <pre>
+     * 获取：排序
+     * 表字段：category.sort
+     * </pre>
+     *
+     * @return category.sort：排序
+     */
+    public Short getSort() {
+        return sort;
+    }
+
+    /**
+     * <pre>
+     * 设置：排序
+     * 表字段：category.sort
+     * </pre>
+     *
+     * @param sort
+     *            category.sort：排序
+     */
+    public void setSort(Short sort) {
+        this.sort = sort;
     }
 
     /**
@@ -338,6 +368,7 @@ public class Category implements Serializable {
             && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
             && (this.getType() == null ? other.getType() == null : this.getType().equals(other.getType()))
             && (this.getScope() == null ? other.getScope() == null : this.getScope().equals(other.getScope()))
+            && (this.getSort() == null ? other.getSort() == null : this.getSort().equals(other.getSort()))
             && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
             && (this.getOrgCode() == null ? other.getOrgCode() == null : this.getOrgCode().equals(other.getOrgCode()))
             && (this.getCreateUser() == null ? other.getCreateUser() == null : this.getCreateUser().equals(other.getCreateUser()))
@@ -357,6 +388,7 @@ public class Category implements Serializable {
         result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
         result = prime * result + ((getType() == null) ? 0 : getType().hashCode());
         result = prime * result + ((getScope() == null) ? 0 : getScope().hashCode());
+        result = prime * result + ((getSort() == null) ? 0 : getSort().hashCode());
         result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         result = prime * result + ((getOrgCode() == null) ? 0 : getOrgCode().hashCode());
         result = prime * result + ((getCreateUser() == null) ? 0 : getCreateUser().hashCode());
@@ -379,6 +411,7 @@ public class Category implements Serializable {
         sb.append(", name=").append(name);
         sb.append(", type=").append(type);
         sb.append(", scope=").append(scope);
+        sb.append(", sort=").append(sort);
         sb.append(", status=").append(status);
         sb.append(", orgCode=").append(orgCode);
         sb.append(", createUser=").append(createUser);

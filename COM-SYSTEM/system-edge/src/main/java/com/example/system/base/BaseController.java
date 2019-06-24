@@ -17,7 +17,7 @@ public abstract class BaseController{
 	 * @return
 	 */
 	public SysUser getSysUser() {
-		return ShiroUtils.getShiroPrincipal().getSysUser();
+		return ShiroUtils.getShiroPrincipal() == null ? null :ShiroUtils.getShiroPrincipal().getSysUser();
 	}
 	
 	/**

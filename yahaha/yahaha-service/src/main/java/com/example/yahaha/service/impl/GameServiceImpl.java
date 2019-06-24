@@ -120,9 +120,6 @@ public class GameServiceImpl implements IGameService {
 			if(StringUtil.noEmpty(query.getTop())){//是否置顶
 				criteria.andEqualTo("top", query.getTop());
 			}
-			if(StringUtil.noEmpty(query.getTitle())){//游戏标题
-				criteria.andLike("title", "%" + query.getTitle() + "%");
-			}
 			if(StringUtil.noEmpty(query.getIdsTag())){//标签id集合,以逗号隔开
 				String[] idsTag = query.getIdsTag().split(",");
 		        for (int i = 0; i < idsTag.length; i++) {
@@ -134,13 +131,15 @@ public class GameServiceImpl implements IGameService {
 		        for (int i = 0; i < idsCategory.length; i++) {
 		        	criteria.andLike("idsCategory", "%" + addString(idsCategory[i]) + "%");
 		        }
-			}	
+			}
 			if(StringUtil.noEmpty(query.getStatus())){//游戏状态
 				criteria.andEqualTo("status", query.getStatus());
 			}else{
 				criteria.andEqualTo("status", EnableOrDisableCode.ENABLE);
 			}
-			criteria.andEqualTo("orgCode", sysUser.getOrgCode());
+			if(StringUtil.noEmpty(query.getTitle())){//游戏标题
+				criteria.andCondition(" (title like '%" + query.getTitle() + "%'"+" or title_zh like '%" + query.getTitle() + "%')");
+			}			
 			PageHelper.startPage(query.getPageNum(),query.getPageSize(),"CREATE_DATE DESC");//创建时间倒序
 			List<Game> list = gameDao.selectByExample(example);//查询
 			List<GameVo> result = new ArrayList<GameVo>();
@@ -178,9 +177,6 @@ public class GameServiceImpl implements IGameService {
 			if(StringUtil.noEmpty(query.getTop())){//是否置顶
 				criteria.andEqualTo("top", query.getTop());
 			}
-			if(StringUtil.noEmpty(query.getTitle())){//游戏标题
-				criteria.andLike("title", "%" + query.getTitle() + "%");
-			}
 			if(StringUtil.noEmpty(query.getIdsTag())){//标签id集合,以逗号隔开
 				String[] idsTag = query.getIdsTag().split(",");
 		        for (int i = 0; i < idsTag.length; i++) {
@@ -197,6 +193,9 @@ public class GameServiceImpl implements IGameService {
 				criteria.andEqualTo("status", query.getStatus());
 			}else{
 				criteria.andEqualTo("status", EnableOrDisableCode.ENABLE);
+			}
+			if(StringUtil.noEmpty(query.getTitle())){//游戏标题
+				criteria.andCondition(" (title like '%" + query.getTitle() + "%'"+" or title_zh like '%" + query.getTitle() + "%')");
 			}
 			PageHelper.startPage(query.getPageNum(),query.getPageSize(),"CREATE_DATE DESC");//创建时间倒序
 			List<Game> list = gameDao.selectByExample(example);//查询

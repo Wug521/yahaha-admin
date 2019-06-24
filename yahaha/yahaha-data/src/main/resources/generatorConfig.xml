@@ -56,9 +56,12 @@
 	   <table schema="" tableName="member" delimitAllColumns="true"/>
 	   <table schema="" tableName="news" delimitAllColumns="true"/>
 	   <table schema="" tableName="category" delimitAllColumns="true"/>
-	   <table schema="" tableName="news_file" delimitAllColumns="true"/> -->
 	   <table schema="" tableName="vip_level" delimitAllColumns="true"/>
-
+	   <table schema="" tableName="category" delimitAllColumns="true"/>
+	   <table schema="" tableName="news_file" delimitAllColumns="true"/>
+	   <table schema="" tableName="collect" delimitAllColumns="true"/>
+	   <table schema="" tableName="comment" delimitAllColumns="true"/> -->
+	   <table schema="" tableName="likes" delimitAllColumns="true"/>
 	</context>
 </generatorConfiguration>
 <!-- mybatis-generator:generate -->

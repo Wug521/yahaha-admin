@@ -116,6 +116,9 @@ public class NewsServiceImpl implements INewsService {
 			if(StringUtil.noEmpty(query.getId())){//新闻ID
 				criteria.andEqualTo("id", query.getId());
 			}
+			if(StringUtil.noEmpty(query.getTop())){//是否置顶
+				criteria.andEqualTo("top", query.getTop());
+			}			
 			if(StringUtil.noEmpty(query.getTitle())){//新闻标题
 				criteria.andLike("title", "%" + query.getTitle() + "%");
 			}
@@ -171,6 +174,9 @@ public class NewsServiceImpl implements INewsService {
 			if(StringUtil.noEmpty(query.getId())){//新闻ID
 				criteria.andEqualTo("id", query.getId());
 			}
+			if(StringUtil.noEmpty(query.getTop())){//是否置顶
+				criteria.andEqualTo("top", query.getTop());
+			}			
 			if(StringUtil.noEmpty(query.getTitle())){//新闻标题
 				criteria.andLike("title", "%" + query.getTitle() + "%");
 			}
