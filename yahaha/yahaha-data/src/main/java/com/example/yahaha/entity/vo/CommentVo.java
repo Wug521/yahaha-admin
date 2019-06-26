@@ -12,6 +12,8 @@ public class CommentVo extends Comment {
 	private boolean praise;
 	
 	private boolean trample;
+	
+	private String avatarUrl;
 
 	public Integer getPraiseNum() {
 		return praiseNum;
@@ -29,21 +31,29 @@ public class CommentVo extends Comment {
 		this.trampleNum = trampleNum;
 	}
 
-	public Boolean getPraise() {
+	public boolean getPraise() {
 		return praise;
 	}
 
-	public void setPraise(Boolean praise) {
+	public void setPraise(boolean praise) {
 		this.praise = praise;
 	}
 
-	public Boolean getTrample() {
+	public boolean getTrample() {
 		return trample;
 	}
 
-	public void setTrample(Boolean trample) {
+	public void setTrample(boolean trample) {
 		this.trample = trample;
 	}
-	
+
+	public String getAvatarUrl() {
+		return avatarUrl;
+	}
+
+	public void setAvatarUrl(String avatarUrl) {
+		this.avatarUrl = avatarUrl;
+	}
+
 	
 }

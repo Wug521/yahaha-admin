@@ -1,6 +1,5 @@
 package com.example.yahaha.service.impl;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -86,24 +85,19 @@ public class CommentServiceImpl implements ICommentService {
 			return new ObjectResultEx<PageInfo<CommentVo>>().makeInvalidParameterResult();
 		}
 		try {
-			List<CommentVo> result = new ArrayList<CommentVo>();
-			Comment info = new Comment();
-			info.setTopicId(param.getTopicId());
-			info.setSource(param.getSource());
-			PageHelper.startPage(param.getPageNum(), param.getPageSize(),"CREATE_DATE DESC");
-			List<Comment> list = commentDao.select(info);
-			PageInfo pageInfo = new PageInfo(list);
-			for (Comment comment : list) {
+			PageHelper.startPage(param.getPageNum(), param.getPageSize());
+			List<CommentVo> _list = commentDao.queryList(param.getTopicId(), param.getSource());
+			PageInfo pageInfo = new PageInfo(_list);
+			for (CommentVo comment : _list) {
 				CommentVo vo = likesDao.likesNumByType(comment.getId());
+				comment.setPraiseNum(vo.getPraiseNum());
+				comment.setTrampleNum(vo.getTrampleNum());
 				if(StringUtil.noEmpty(sysUser)){
 					CommentVo likesByType = likesDao.likesByType(sysUser.getId(), comment.getId());
 					vo.setPraise(likesByType.getPraise());
 					vo.setTrample(likesByType.getTrample());
 				}
-				BeanUtils.copyPropertiesIgnoreNullValue(comment, vo);
-				result.add(vo);
 			}
-			pageInfo.setList(result);
 			return new ObjectResultEx<PageInfo<CommentVo>>().makeSuccessResult(pageInfo);
 		} catch (Exception e) {
 			logger.error("CollectServiceImpl.queryCollectList error.",e);

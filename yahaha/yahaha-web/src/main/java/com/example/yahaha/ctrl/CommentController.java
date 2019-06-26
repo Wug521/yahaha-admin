@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.system.base.BaseController;
-import com.example.yahaha.entity.vo.CommentQueryVo;
 import com.example.yahaha.entity.vo.CommentVo;
 import com.example.yahaha.service.ICommentService;
 import com.zjapl.common.result.ResultEx;
