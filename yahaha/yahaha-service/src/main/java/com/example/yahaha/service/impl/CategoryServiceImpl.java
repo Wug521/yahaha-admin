@@ -159,7 +159,7 @@ public class CategoryServiceImpl implements ICategoryService {
 			if(StringUtil.noEmpty(sysUser)){
 				criteria.andEqualTo("orgCode", sysUser.getOrgCode());
 			}
-			example.orderBy("sort").desc();//排序倒序
+			example.orderBy("sort").asc();//排序升序
 			List<Category> list = categoryDao.selectByExample(example);//查询
 			List<CategoryVo> result = new ArrayList<CategoryVo>();
 			for (Category opsAccept : list) {//查询结果解析,bean => vo
