@@ -94,8 +94,8 @@ public class CommentServiceImpl implements ICommentService {
 				comment.setTrampleNum(vo.getTrampleNum());
 				if(StringUtil.noEmpty(sysUser)){
 					CommentVo likesByType = likesDao.likesByType(sysUser.getId(), comment.getId());
-					vo.setPraise(likesByType.getPraise());
-					vo.setTrample(likesByType.getTrample());
+					comment.setPraise(likesByType.getPraise());
+					comment.setTrample(likesByType.getTrample());
 				}
 			}
 			return new ObjectResultEx<PageInfo<CommentVo>>().makeSuccessResult(pageInfo);
