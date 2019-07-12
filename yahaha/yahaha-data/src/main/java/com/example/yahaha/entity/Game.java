@@ -1,23 +1,24 @@
 /**
  * Copyright(C) 2006-2016 安普利科技
  * All rights reserved
- * 2019-07-01 15:05:55 Created
+ * 2019-07-11 19:00:16 Created
  * 
  */
 package com.example.yahaha.entity;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 public class Game implements Serializable {
     /**
      * 主键ID
      */
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
 
@@ -25,6 +26,31 @@ public class Game implements Serializable {
      * 游戏介绍
      */
     private String content;
+
+    /**
+     * 容量
+     */
+    private String capacity;
+
+    /**
+     * 玩家人数
+     */
+    private String player;
+
+    /**
+     * 实体卡带
+     */
+    private String cassette;
+
+    /**
+     * 试玩
+     */
+    private String demo;
+
+    /**
+     * 备注(评论,评分等)
+     */
+    private String remark;
 
     /**
      * 标签id集合
@@ -246,6 +272,131 @@ public class Game implements Serializable {
      */
     public void setContent(String content) {
         this.content = content == null ? null : content.trim();
+    }
+
+    /**
+     * <pre>
+     * 获取：容量
+     * 表字段：game.capacity
+     * </pre>
+     *
+     * @return game.capacity：容量
+     */
+    public String getCapacity() {
+        return capacity;
+    }
+
+    /**
+     * <pre>
+     * 设置：容量
+     * 表字段：game.capacity
+     * </pre>
+     *
+     * @param capacity
+     *            game.capacity：容量
+     */
+    public void setCapacity(String capacity) {
+        this.capacity = capacity == null ? null : capacity.trim();
+    }
+
+    /**
+     * <pre>
+     * 获取：玩家人数
+     * 表字段：game.player
+     * </pre>
+     *
+     * @return game.player：玩家人数
+     */
+    public String getPlayer() {
+        return player;
+    }
+
+    /**
+     * <pre>
+     * 设置：玩家人数
+     * 表字段：game.player
+     * </pre>
+     *
+     * @param player
+     *            game.player：玩家人数
+     */
+    public void setPlayer(String player) {
+        this.player = player == null ? null : player.trim();
+    }
+
+    /**
+     * <pre>
+     * 获取：实体卡带
+     * 表字段：game.cassette
+     * </pre>
+     *
+     * @return game.cassette：实体卡带
+     */
+    public String getCassette() {
+        return cassette;
+    }
+
+    /**
+     * <pre>
+     * 设置：实体卡带
+     * 表字段：game.cassette
+     * </pre>
+     *
+     * @param cassette
+     *            game.cassette：实体卡带
+     */
+    public void setCassette(String cassette) {
+        this.cassette = cassette == null ? null : cassette.trim();
+    }
+
+    /**
+     * <pre>
+     * 获取：试玩
+     * 表字段：game.demo
+     * </pre>
+     *
+     * @return game.demo：试玩
+     */
+    public String getDemo() {
+        return demo;
+    }
+
+    /**
+     * <pre>
+     * 设置：试玩
+     * 表字段：game.demo
+     * </pre>
+     *
+     * @param demo
+     *            game.demo：试玩
+     */
+    public void setDemo(String demo) {
+        this.demo = demo == null ? null : demo.trim();
+    }
+
+    /**
+     * <pre>
+     * 获取：备注(评论,评分等)
+     * 表字段：game.remark
+     * </pre>
+     *
+     * @return game.remark：备注(评论,评分等)
+     */
+    public String getRemark() {
+        return remark;
+    }
+
+    /**
+     * <pre>
+     * 设置：备注(评论,评分等)
+     * 表字段：game.remark
+     * </pre>
+     *
+     * @param remark
+     *            game.remark：备注(评论,评分等)
+     */
+    public void setRemark(String remark) {
+        this.remark = remark == null ? null : remark.trim();
     }
 
     /**
@@ -1116,6 +1267,11 @@ public class Game implements Serializable {
         Game other = (Game) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getContent() == null ? other.getContent() == null : this.getContent().equals(other.getContent()))
+            && (this.getCapacity() == null ? other.getCapacity() == null : this.getCapacity().equals(other.getCapacity()))
+            && (this.getPlayer() == null ? other.getPlayer() == null : this.getPlayer().equals(other.getPlayer()))
+            && (this.getCassette() == null ? other.getCassette() == null : this.getCassette().equals(other.getCassette()))
+            && (this.getDemo() == null ? other.getDemo() == null : this.getDemo().equals(other.getDemo()))
+            && (this.getRemark() == null ? other.getRemark() == null : this.getRemark().equals(other.getRemark()))
             && (this.getIdsTag() == null ? other.getIdsTag() == null : this.getIdsTag().equals(other.getIdsTag()))
             && (this.getIdsTagName() == null ? other.getIdsTagName() == null : this.getIdsTagName().equals(other.getIdsTagName()))
             && (this.getIdsCategory() == null ? other.getIdsCategory() == null : this.getIdsCategory().equals(other.getIdsCategory()))
@@ -1161,6 +1317,11 @@ public class Game implements Serializable {
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getContent() == null) ? 0 : getContent().hashCode());
+        result = prime * result + ((getCapacity() == null) ? 0 : getCapacity().hashCode());
+        result = prime * result + ((getPlayer() == null) ? 0 : getPlayer().hashCode());
+        result = prime * result + ((getCassette() == null) ? 0 : getCassette().hashCode());
+        result = prime * result + ((getDemo() == null) ? 0 : getDemo().hashCode());
+        result = prime * result + ((getRemark() == null) ? 0 : getRemark().hashCode());
         result = prime * result + ((getIdsTag() == null) ? 0 : getIdsTag().hashCode());
         result = prime * result + ((getIdsTagName() == null) ? 0 : getIdsTagName().hashCode());
         result = prime * result + ((getIdsCategory() == null) ? 0 : getIdsCategory().hashCode());
@@ -1209,6 +1370,11 @@ public class Game implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", content=").append(content);
+        sb.append(", capacity=").append(capacity);
+        sb.append(", player=").append(player);
+        sb.append(", cassette=").append(cassette);
+        sb.append(", demo=").append(demo);
+        sb.append(", remark=").append(remark);
         sb.append(", idsTag=").append(idsTag);
         sb.append(", idsTagName=").append(idsTagName);
         sb.append(", idsCategory=").append(idsCategory);

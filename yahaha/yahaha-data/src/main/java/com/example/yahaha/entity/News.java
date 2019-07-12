@@ -1,7 +1,7 @@
 /**
  * Copyright(C) 2006-2016 安普利科技
  * All rights reserved
- * 2019-06-19 17:48:06 Created
+ * 2019-07-11 19:00:16 Created
  * 
  */
 package com.example.yahaha.entity;
@@ -27,9 +27,14 @@ public class News implements Serializable {
     private String title;
 
     /**
-     * 新闻内容
+     * 内容路径集合
      */
-    private String content;
+    private String contentUrl;
+
+    /**
+     * 显示类型:1是自身content，2是外部链接
+     */
+    private Short showType;
 
     /**
      * 标签id集合
@@ -93,6 +98,11 @@ public class News implements Serializable {
      */
     private Date updateDate;
 
+    /**
+     * 新闻内容
+     */
+    private String content;
+
     private static final long serialVersionUID = 1L;
 
     /**
@@ -147,27 +157,52 @@ public class News implements Serializable {
 
     /**
      * <pre>
-     * 获取：新闻内容
-     * 表字段：news.content
+     * 获取：内容路径集合
+     * 表字段：news.content_url
      * </pre>
      *
-     * @return news.content：新闻内容
+     * @return news.content_url：内容路径集合
      */
-    public String getContent() {
-        return content;
+    public String getContentUrl() {
+        return contentUrl;
     }
 
     /**
      * <pre>
-     * 设置：新闻内容
-     * 表字段：news.content
+     * 设置：内容路径集合
+     * 表字段：news.content_url
      * </pre>
      *
-     * @param content
-     *            news.content：新闻内容
+     * @param contentUrl
+     *            news.content_url：内容路径集合
      */
-    public void setContent(String content) {
-        this.content = content == null ? null : content.trim();
+    public void setContentUrl(String contentUrl) {
+        this.contentUrl = contentUrl == null ? null : contentUrl.trim();
+    }
+
+    /**
+     * <pre>
+     * 获取：显示类型:1是自身content，2是外部链接
+     * 表字段：news.show_type
+     * </pre>
+     *
+     * @return news.show_type：显示类型:1是自身content，2是外部链接
+     */
+    public Short getShowType() {
+        return showType;
+    }
+
+    /**
+     * <pre>
+     * 设置：显示类型:1是自身content，2是外部链接
+     * 表字段：news.show_type
+     * </pre>
+     *
+     * @param showType
+     *            news.show_type：显示类型:1是自身content，2是外部链接
+     */
+    public void setShowType(Short showType) {
+        this.showType = showType;
     }
 
     /**
@@ -496,6 +531,31 @@ public class News implements Serializable {
     }
 
     /**
+     * <pre>
+     * 获取：新闻内容
+     * 表字段：news.content
+     * </pre>
+     *
+     * @return news.content：新闻内容
+     */
+    public String getContent() {
+        return content;
+    }
+
+    /**
+     * <pre>
+     * 设置：新闻内容
+     * 表字段：news.content
+     * </pre>
+     *
+     * @param content
+     *            news.content：新闻内容
+     */
+    public void setContent(String content) {
+        this.content = content == null ? null : content.trim();
+    }
+
+    /**
      *
      * @param that
      */
@@ -513,7 +573,8 @@ public class News implements Serializable {
         News other = (News) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getTitle() == null ? other.getTitle() == null : this.getTitle().equals(other.getTitle()))
-            && (this.getContent() == null ? other.getContent() == null : this.getContent().equals(other.getContent()))
+            && (this.getContentUrl() == null ? other.getContentUrl() == null : this.getContentUrl().equals(other.getContentUrl()))
+            && (this.getShowType() == null ? other.getShowType() == null : this.getShowType().equals(other.getShowType()))
             && (this.getIdsTag() == null ? other.getIdsTag() == null : this.getIdsTag().equals(other.getIdsTag()))
             && (this.getIdsTagName() == null ? other.getIdsTagName() == null : this.getIdsTagName().equals(other.getIdsTagName()))
             && (this.getIdsCategory() == null ? other.getIdsCategory() == null : this.getIdsCategory().equals(other.getIdsCategory()))
@@ -526,7 +587,8 @@ public class News implements Serializable {
             && (this.getCreateUsername() == null ? other.getCreateUsername() == null : this.getCreateUsername().equals(other.getCreateUsername()))
             && (this.getCreateDate() == null ? other.getCreateDate() == null : this.getCreateDate().equals(other.getCreateDate()))
             && (this.getUpdateUser() == null ? other.getUpdateUser() == null : this.getUpdateUser().equals(other.getUpdateUser()))
-            && (this.getUpdateDate() == null ? other.getUpdateDate() == null : this.getUpdateDate().equals(other.getUpdateDate()));
+            && (this.getUpdateDate() == null ? other.getUpdateDate() == null : this.getUpdateDate().equals(other.getUpdateDate()))
+            && (this.getContent() == null ? other.getContent() == null : this.getContent().equals(other.getContent()));
     }
 
     /**
@@ -538,7 +600,8 @@ public class News implements Serializable {
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getTitle() == null) ? 0 : getTitle().hashCode());
-        result = prime * result + ((getContent() == null) ? 0 : getContent().hashCode());
+        result = prime * result + ((getContentUrl() == null) ? 0 : getContentUrl().hashCode());
+        result = prime * result + ((getShowType() == null) ? 0 : getShowType().hashCode());
         result = prime * result + ((getIdsTag() == null) ? 0 : getIdsTag().hashCode());
         result = prime * result + ((getIdsTagName() == null) ? 0 : getIdsTagName().hashCode());
         result = prime * result + ((getIdsCategory() == null) ? 0 : getIdsCategory().hashCode());
@@ -552,6 +615,7 @@ public class News implements Serializable {
         result = prime * result + ((getCreateDate() == null) ? 0 : getCreateDate().hashCode());
         result = prime * result + ((getUpdateUser() == null) ? 0 : getUpdateUser().hashCode());
         result = prime * result + ((getUpdateDate() == null) ? 0 : getUpdateDate().hashCode());
+        result = prime * result + ((getContent() == null) ? 0 : getContent().hashCode());
         return result;
     }
 
@@ -566,7 +630,8 @@ public class News implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", title=").append(title);
-        sb.append(", content=").append(content);
+        sb.append(", contentUrl=").append(contentUrl);
+        sb.append(", showType=").append(showType);
         sb.append(", idsTag=").append(idsTag);
         sb.append(", idsTagName=").append(idsTagName);
         sb.append(", idsCategory=").append(idsCategory);
@@ -580,6 +645,7 @@ public class News implements Serializable {
         sb.append(", createDate=").append(createDate);
         sb.append(", updateUser=").append(updateUser);
         sb.append(", updateDate=").append(updateDate);
+        sb.append(", content=").append(content);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
