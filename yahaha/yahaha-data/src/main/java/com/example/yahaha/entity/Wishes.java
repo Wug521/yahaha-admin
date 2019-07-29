@@ -1,7 +1,7 @@
 /**
  * Copyright(C) 2006-2016 安普利科技
  * All rights reserved
- * 2019-07-29 09:36:41 Created
+ * 2019-07-29 15:44:14 Created
  * 
  */
 package com.example.yahaha.entity;
@@ -11,52 +11,29 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Wish implements Serializable {
-    private Long userId;
+public class Wishes implements Serializable {
     @Id
     private Integer id;
 
+    private Long userId;
     @NotNull
     private Long gameId;
 
     private String gameTitle;
 
-    private Date flagTime;
+    private Date createTime;
+
+    private Date changeTime;
 
     private static final long serialVersionUID = 1L;
 
     /**
      * <pre>
      * 获取：
-     * 表字段：wish.user_id
+     * 表字段：wishes.id
      * </pre>
      *
-     * @return wish.user_id：
-     */
-    public Long getUserId() {
-        return userId;
-    }
-
-    /**
-     * <pre>
-     * 设置：
-     * 表字段：wish.user_id
-     * </pre>
-     *
-     * @param userId
-     *            wish.user_id：
-     */
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    /**
-     * <pre>
-     * 获取：
-     * 表字段：wish.id
-     * </pre>
-     *
-     * @return wish.id：
+     * @return wishes.id：
      */
     public Integer getId() {
         return id;
@@ -65,11 +42,11 @@ public class Wish implements Serializable {
     /**
      * <pre>
      * 设置：
-     * 表字段：wish.id
+     * 表字段：wishes.id
      * </pre>
      *
      * @param id
-     *            wish.id：
+     *            wishes.id：
      */
     public void setId(Integer id) {
         this.id = id;
@@ -78,10 +55,35 @@ public class Wish implements Serializable {
     /**
      * <pre>
      * 获取：
-     * 表字段：wish.game_id
+     * 表字段：wishes.user_id
      * </pre>
      *
-     * @return wish.game_id：
+     * @return wishes.user_id：
+     */
+    public Long getUserId() {
+        return userId;
+    }
+
+    /**
+     * <pre>
+     * 设置：
+     * 表字段：wishes.user_id
+     * </pre>
+     *
+     * @param userId
+     *            wishes.user_id：
+     */
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    /**
+     * <pre>
+     * 获取：
+     * 表字段：wishes.game_id
+     * </pre>
+     *
+     * @return wishes.game_id：
      */
     public Long getGameId() {
         return gameId;
@@ -90,11 +92,11 @@ public class Wish implements Serializable {
     /**
      * <pre>
      * 设置：
-     * 表字段：wish.game_id
+     * 表字段：wishes.game_id
      * </pre>
      *
      * @param gameId
-     *            wish.game_id：
+     *            wishes.game_id：
      */
     public void setGameId(Long gameId) {
         this.gameId = gameId;
@@ -103,10 +105,10 @@ public class Wish implements Serializable {
     /**
      * <pre>
      * 获取：
-     * 表字段：wish.game_title
+     * 表字段：wishes.game_title
      * </pre>
      *
-     * @return wish.game_title：
+     * @return wishes.game_title：
      */
     public String getGameTitle() {
         return gameTitle;
@@ -115,11 +117,11 @@ public class Wish implements Serializable {
     /**
      * <pre>
      * 设置：
-     * 表字段：wish.game_title
+     * 表字段：wishes.game_title
      * </pre>
      *
      * @param gameTitle
-     *            wish.game_title：
+     *            wishes.game_title：
      */
     public void setGameTitle(String gameTitle) {
         this.gameTitle = gameTitle == null ? null : gameTitle.trim();
@@ -128,26 +130,51 @@ public class Wish implements Serializable {
     /**
      * <pre>
      * 获取：
-     * 表字段：wish.flag_time
+     * 表字段：wishes.create_time
      * </pre>
      *
-     * @return wish.flag_time：
+     * @return wishes.create_time：
      */
-    public Date getFlagTime() {
-        return flagTime;
+    public Date getCreateTime() {
+        return createTime;
     }
 
     /**
      * <pre>
      * 设置：
-     * 表字段：wish.flag_time
+     * 表字段：wishes.create_time
      * </pre>
      *
-     * @param flagTime
-     *            wish.flag_time：
+     * @param createTime
+     *            wishes.create_time：
      */
-    public void setFlagTime(Date flagTime) {
-        this.flagTime = flagTime;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    /**
+     * <pre>
+     * 获取：
+     * 表字段：wishes.change_time
+     * </pre>
+     *
+     * @return wishes.change_time：
+     */
+    public Date getChangeTime() {
+        return changeTime;
+    }
+
+    /**
+     * <pre>
+     * 设置：
+     * 表字段：wishes.change_time
+     * </pre>
+     *
+     * @param changeTime
+     *            wishes.change_time：
+     */
+    public void setChangeTime(Date changeTime) {
+        this.changeTime = changeTime;
     }
 
     /**
@@ -165,12 +192,13 @@ public class Wish implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        Wish other = (Wish) that;
-        return (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
-            && (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
+        Wishes other = (Wishes) that;
+        return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
+            && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
             && (this.getGameId() == null ? other.getGameId() == null : this.getGameId().equals(other.getGameId()))
             && (this.getGameTitle() == null ? other.getGameTitle() == null : this.getGameTitle().equals(other.getGameTitle()))
-            && (this.getFlagTime() == null ? other.getFlagTime() == null : this.getFlagTime().equals(other.getFlagTime()));
+            && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
+            && (this.getChangeTime() == null ? other.getChangeTime() == null : this.getChangeTime().equals(other.getChangeTime()));
     }
 
     /**
@@ -180,11 +208,12 @@ public class Wish implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((getUserId() == null) ? 0 : getUserId().hashCode());
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
+        result = prime * result + ((getUserId() == null) ? 0 : getUserId().hashCode());
         result = prime * result + ((getGameId() == null) ? 0 : getGameId().hashCode());
         result = prime * result + ((getGameTitle() == null) ? 0 : getGameTitle().hashCode());
-        result = prime * result + ((getFlagTime() == null) ? 0 : getFlagTime().hashCode());
+        result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
+        result = prime * result + ((getChangeTime() == null) ? 0 : getChangeTime().hashCode());
         return result;
     }
 
@@ -197,11 +226,12 @@ public class Wish implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", userId=").append(userId);
         sb.append(", id=").append(id);
+        sb.append(", userId=").append(userId);
         sb.append(", gameId=").append(gameId);
         sb.append(", gameTitle=").append(gameTitle);
-        sb.append(", flagTime=").append(flagTime);
+        sb.append(", createTime=").append(createTime);
+        sb.append(", changeTime=").append(changeTime);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

@@ -1,7 +1,6 @@
 package com.example.yahaha.dao;
 
-import com.example.yahaha.entity.Game;
-import com.example.yahaha.entity.Wish;
+import com.example.yahaha.entity.Wishes;
 import com.example.yahaha.entity.vo.GameVo;
 import com.zjapl.common.mybaits.dao.Dao;
 import org.apache.ibatis.annotations.Select;
@@ -15,7 +14,7 @@ import java.util.List;
  * @author create by yangb in 2019/7/29
  */
 @Repository
-public interface IWishDao extends Dao<Wish> {
+public interface IWishesDao extends Dao<Wishes> {
 
     @Select("SELECT\n" +
             "	g.id,\n" +
@@ -53,9 +52,9 @@ public interface IWishDao extends Dao<Wish> {
             "	g.image_url imageUrl,\n" +
             "	g.data_source dataSource,\n" +
             "	w.id wishId,\n" +
-            "	w.flag_time flagTime\n" +
+            "	w.create_time createTime\n" +
             "FROM\n" +
-            "	`wish` w\n" +
+            "	`wishes` w\n" +
             "LEFT JOIN game g ON w.game_id = g.id\n" +
             "WHERE\n" +
             "w.user_id = #{0}")
@@ -97,11 +96,11 @@ public interface IWishDao extends Dao<Wish> {
             "	g.image_url imageUrl,\n" +
             "	g.data_source dataSource,\n" +
             "	w.id wishId,\n" +
-            "	w.flag_time flagTime\n" +
+            "	w.create_time createTime\n" +
             "FROM\n" +
-            "	`wish` w\n" +
+            "	`wishes` w\n" +
             "LEFT JOIN game g ON w.game_id = g.id\n" +
             "WHERE\n" +
-            "w.user_id = #{0} AND w.flag_time < spider_time")
+            "w.user_id = #{0} AND w.change_time < spider_time")
     List<GameVo> queryDiscountGame(Long userId);
 }
