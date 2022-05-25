@@ -14,7 +14,7 @@
   <!-- 声明jar包版本号 -->
   <properties>
 	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	<spring.version>4.3.8.RELEASE</spring.version>
+	<spring.version>5.2.22.RELEASE</spring.version>
   </properties>
 	
 	<build>
